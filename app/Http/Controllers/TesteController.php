@@ -14,25 +14,25 @@ class TesteController extends Controller
             
         );
 
-        /*foreach($aluno as $a){
+        foreach($aluno as $a){
             $student = new Student;
-            $student->name = $a['nome'];
+            $student->name = trim($a['nome']);
             $student->date_birth = $a['data_nascimento'];
-            $student->mother = $a['nome_mae'];
+            $student->mother = trim($a['nome_mae']);
 
             $student->save();
 
             $bond_student = new Bond_student;
             $bond_student->student_id = $student->id;
-            $bond_student->box_id = 10;
+            $bond_student->box_id = 40;
             $bond_student->order = $a['ordem'];
             $bond_student->status = 'ARQUIVADO';
-            $bond_student->exit_year = '2001';
+            $bond_student->exit_year = '2005';
 
             $bond_student->save();
 
             echo 'salvo'.$a['ordem'].'<br />'; 
 
-        }*/
+        }
     }
 }
