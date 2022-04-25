@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bond_employee;
+use App\Models\Bond_student;
 use Illuminate\Http\Request;
 use App\Models\Box;
 
@@ -126,11 +128,21 @@ class BoxController extends Controller
     }
 
     public function search(Request $request){
-        $box = new Box;
 
-        $search = $box->search($request->name);
+        $title = "Resultado da pesquisa";
 
-        dd($search);
+        $bond_employee = new Bond_employee;
+
+        $search_employee = $bond_employee->search($request->name);
+
+        $bond_student = new Bond_student;
+
+        $search_student = $bond_student->search($request->name);
+
+        $search = $search_employee->merge($search_student);
+
+        return view('inactive.result_search', ['search'=>$search, 'title'=>$title, 'name'=>$request->name]);
+
     }
 
 }

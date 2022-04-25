@@ -11,7 +11,7 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/inativo', [IndexController::class, 'inactive'])->name('inactive');
 
-Route::get('/teste', [TesteController::class, 'inserir'])->name('teste');
+Route::get('/teste', [TesteController::class, 'testes'])->name('teste');
 
 Route::prefix('caixa')->group(function (){
     Route::get('/gerenciar-caixas', [BoxController::class, 'manageBoxes'])->name('manageBoxes');
@@ -34,6 +34,7 @@ Route::prefix('aluno')->group(function (){
     Route::get('/resgatar/{id}', [StudentController::class, 'rescue'])->name('rescueStudent');
     Route::get('/trasferir/{id}', [StudentController::class, 'setTransfer'])->name('setTransferStudent');
     Route::post('/transferir', [StudentController::class, 'transfer'])->name('transferStudent');
+    Route::get('/arquivar/{id}', [StudentController::class, 'record'])->name('recordStudent');
 });
 
 Route::prefix('servidor')->group(function(){

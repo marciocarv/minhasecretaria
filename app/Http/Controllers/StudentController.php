@@ -30,6 +30,11 @@ class StudentController extends Controller
 
         $student = new Student;
 
+        if($student->check_student($request->name, $request->date_birth, $request->mother)){
+            return redirect()->route('search', ['name'=>$request->name])
+            ->with('stored', 'O aluno já é cadastrado, favor, realize a transferência do aluno ou arquive o mesmo, caso tenha sido resgatado!');
+        }
+
         $box = Box::findOrFail($request->box_id);
 
         $student->name = $request->name;
@@ -191,6 +196,10 @@ class StudentController extends Controller
 
         return redirect()->route('viewBox', ['id'=>$box->id])
             ->with('success', 'Aluno transferido da caixa '.$formerBond_student->box->description.' para a caixa '.$box->description.'!');
+
+    }
+
+    public function record($id){
 
     }
 }

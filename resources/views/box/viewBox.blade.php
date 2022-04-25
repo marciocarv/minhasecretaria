@@ -126,12 +126,21 @@
                     type="button">
                     <span class="icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
                   </a>
+                  @if(substr_compare($bond->status, "RESGATADO", 0, 8) == 0)
+                  <a title="Arquivar"
+                    href="{{route($box->type == 'Servidor' ? 'rescueEmployee' : 'rescueStudent', ['id'=>$bond->id])}}" 
+                    class="button small text-white bg-teal-900" 
+                    type="button">
+                    <span class="icon"><i class="fa-solid fa-circle-down"></i></span>
+                  </a>
+                  @else
                   <a title="Resgatar" 
                     href="{{route($box->type == 'Servidor' ? 'rescueEmployee' : 'rescueStudent', ['id'=>$bond->id])}}" 
                     class="{{$bond->status == 'ARQUIVADO' ? 'button small text-white bg-black' : 'button small bg-gray-400 pointer-events-none'}}" 
                     type="button">
                     <span class="icon"><i class="fa-solid fa-reply"></i></span>
                   </a>
+                  @endif
                 </div>
               </td>
             </tr>

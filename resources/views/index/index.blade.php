@@ -4,26 +4,158 @@
 <section class="is-title-bar">
   <div class="flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0">
     <ul>
-      <li>Admin</li>
-      <li>Dashboard</li>
+      <li>Início</li>
+      <li>Minha Secretaria</li>
     </ul>
-    <a href="https://justboil.me/" onclick="alert('Coming soon'); return false" target="_blank" class="button blue">
-      <span class="icon"><i class="mdi mdi-credit-card-outline"></i></span>
-      <span>Premium Demo</span>
-    </a>
-  </div>
-</section>
-
-<section class="is-hero-bar">
-  <div class="flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0">
-    <h1 class="title">
-      Dashboard
-    </h1>
-    <button class="button light">Button</button>
   </div>
 </section>
 
 <section class="section main-section">
+
+<div class="flex flex-wrap">
+  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
+    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
+      <a href="#" class="">
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <span class="font-bold uppercase text-sm text-white">
+            Arquivo Inativo
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
+              <i class="fa-solid fa-box-archive"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-white mt-4 uppercase">
+          <span class="text-blue-500 mr-2">
+          </span>
+          <span class="whitespace-no-wrap">
+            
+          </span>
+        </p>
+      </div>
+    </a>
+    </div>
+  </div>
+
+  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
+    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
+      <a href="#" class="">
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <span class="font-bold uppercase text-sm text-white">
+            Servidores
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
+              <i class="fa-solid fa-users"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-white mt-4 uppercase">
+          <span class="text-blue-500 mr-2">
+          </span>
+          <span class="whitespace-no-wrap">
+            
+          </span>
+        </p>
+      </div>
+    </a>
+    </div>
+  </div>
+
+  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
+    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
+      <a href="#" class="">
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <span class="font-bold uppercase text-sm text-white">
+            Livro de ponto
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
+              <i class="fa-solid fa-address-book"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-white mt-4 uppercase">
+          <span class="text-blue-500 mr-2">
+          </span>
+          <span class="whitespace-no-wrap">
+            
+          </span>
+        </p>
+      </div>
+    </a>
+    </div>
+  </div>
+
+  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
+    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
+      <a href="#" class="">
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <span class="font-bold uppercase text-sm text-white">
+            Ofícios
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-white mt-4 uppercase">
+          <span class="text-blue-500 mr-2">
+          </span>
+          <span class="whitespace-no-wrap">
+            
+          </span>
+        </p>
+      </div>
+    </a>
+    </div>
+  </div>
+
+  
+    <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
+      <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
+        <a href="#" class="">
+        <div class="flex-auto p-4">
+          <div class="flex flex-wrap">
+            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+              <span class="font-bold uppercase text-sm text-white">
+              Alunos
+              </span>
+            </div>
+            <div class="relative w-auto pl-4 flex-initial">
+              <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-sm text-white mt-4 uppercase">
+            <span class="text-blue-500 mr-2">
+            </span>
+            <span class="whitespace-no-wrap">
+              
+            </span>
+          </p>
+        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
   <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-3">
     <div class="card">
       <div class="card-content">

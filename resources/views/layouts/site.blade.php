@@ -130,7 +130,7 @@
 <aside class="aside is-placed-left is-expanded">
   <div class="aside-tools">
     <div>
-      Sec <b class="font-black">Escolar</b>
+      Minha <b class="font-black">Secretaria</b>
     </div>
   </div>
   <div class="menu is-menu-main">
@@ -169,8 +169,14 @@
           <span class="menu-item-label">Ofícios</span>
         </a>
       </li>
+      <li>
+        <a href="login.html">
+          <span class="icon"><i class="fa-solid fa-graduation-cap"></i></span>
+          <span class="menu-item-label">Alunos</span>
+        </a>
+      </li>
     </ul>
-    <p class="menu-label">About</p>
+    <p class="menu-label">relatórios</p>
     <ul class="menu-list">
       <li>
         <a href="https://justboil.me" onclick="alert('Coming soon'); return false" target="_blank" class="has-icon">
