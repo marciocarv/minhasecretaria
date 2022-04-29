@@ -200,6 +200,6 @@ class StudentController extends Controller
     }
 
     public function record($id){
-
+        
     }
 }

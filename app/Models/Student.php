@@ -31,9 +31,9 @@ class Student extends Model
         ->get();
 
         if($result->isEmpty()){
-            return true;
-        }else{
             return false;
+        }else{
+            return true;
         }
 
     }
