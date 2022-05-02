@@ -112,7 +112,7 @@
                 </a>
                 @if(substr_compare($result->status, "RESGATADO", 0, 8) == 0)
                 <a title="Arquivar"
-                  href="{{route($result->type == 'Servidor' ? 'rescueEmployee' : 'rescueStudent', ['id'=>$result->id])}}" 
+                  href="{{route($result->type == 'Servidor' ? 'rescueEmployee' : 'recordStudent', ['id'=>$result->id])}}" 
                   class="button small text-white bg-teal-900" 
                   type="button">
                   <span class="icon"><i class="fa-solid fa-circle-down"></i></span>

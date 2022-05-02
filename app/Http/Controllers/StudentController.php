@@ -163,13 +163,15 @@ class StudentController extends Controller
 
         $title = 'Trasferir ALuno';
 
+        $action = "transfer";
+
         $boxesDevendo = $box->boxForType('devendo');
 
         $boxesStudent = $box->boxForType('Aluno');
 
         $boxes = $boxesStudent->merge($boxesDevendo);
 
-        return view('student.transferStudent', ['student'=>$student, 'boxes'=>$boxes, 'title'=>$title, 'bond_student'=>$bond_student]);
+        return view('student.transferStudent', ['student'=>$student, 'boxes'=>$boxes, 'title'=>$title, 'bond_student'=>$bond_student, 'action'=>$action]);
     }
 
     public function transfer(Request $request){
@@ -187,19 +189,43 @@ class StudentController extends Controller
         $bond_student->exit_year = $request->exit_year;
 
         if(!$bond_student->save()){
-            return redirect()->route('viewBox', ['id'=>$formerBond_student->box_id])->with('error', 'Não foi possível transferir o aluno!');
+            return redirect()->route('viewBox', ['id'=>$formerBond_student->box_id])->with('error', 'Não foi possível transferir ou arquivar o aluno!');
         }
 
-        $formerBond_student->status = "TRANSFERIDO - CX ".$box->description." ".now()->format('d/m/Y');
+        if($request->action == 'transfer'){
+            $formerBond_student->status = "TRANSFERIDO - CX ".$box->description." ".now()->format('d/m/Y');
+        }
 
         $formerBond_student->save();
 
+        if($request->action == 'transfer'){
+            $message = 'Aluno transferido da caixa '.$formerBond_student->box->description.' para a caixa '.$box->description.'!';
+        }else{
+            $message = 'Aluno Arquivado com sucesso!';
+        }
+
         return redirect()->route('viewBox', ['id'=>$box->id])
-            ->with('success', 'Aluno transferido da caixa '.$formerBond_student->box->description.' para a caixa '.$box->description.'!');
+            ->with('success', $message);
 
     }
 
     public function record($id){
-        
+        $bond_student = Bond_student::findOrFail($id);
+
+        $student = $bond_student->student;
+
+        $box = new Box;
+
+        $title = 'Arquivar aluno resgatado';
+
+        $boxesDevendo = $box->boxForType('devendo');
+
+        $boxesStudent = $box->boxForType('Aluno');
+
+        $boxes = $boxesStudent->merge($boxesDevendo);
+
+        $action = 'record';
+
+        return view('student.transferStudent', ['student'=>$student, 'boxes'=>$boxes, 'title'=>$title, 'bond_student'=>$bond_student, 'action'=>$action]);
     }
 }

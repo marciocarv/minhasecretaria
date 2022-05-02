@@ -128,7 +128,7 @@
                   </a>
                   @if(substr_compare($bond->status, "RESGATADO", 0, 8) == 0)
                   <a title="Arquivar"
-                    href="{{route($box->type == 'Servidor' ? 'rescueEmployee' : 'rescueStudent', ['id'=>$bond->id])}}" 
+                    href="{{route($box->type == 'Servidor' ? 'rescueEmployee' : 'recordStudent', ['id'=>$bond->id])}}" 
                     class="button small text-white bg-teal-900" 
                     type="button">
                     <span class="icon"><i class="fa-solid fa-circle-down"></i></span>

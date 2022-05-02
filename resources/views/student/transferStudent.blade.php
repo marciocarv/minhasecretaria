@@ -46,6 +46,8 @@
 
       <input type="hidden" value="{{$bond_student->id}}" name="bond_student_id">
       <input type="hidden" value="{{$student->id}}" name="student_id">
+      <input type="hidden" value="{{$action}}" name="action">
+
 
       <div class="field">
         <label class="label">Nome</label>
