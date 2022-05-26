@@ -11,6 +11,8 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/inativo', [IndexController::class, 'inactive'])->name('inactive');
 
+Route::get('/servidor', [EmployeeController::class, 'employee'])->name('employee');
+
 Route::get('/teste', [TesteController::class, 'testes'])->name('teste');
 
 Route::prefix('caixa')->group(function (){
@@ -46,4 +48,5 @@ Route::prefix('servidor')->group(function(){
     Route::get('/resgatar/{id}', [EmployeeController::class, 'rescue'])->name('rescueEmployee');
     Route::get('/trasferir/{id}', [EmployeeController::class, 'setTransfer'])->name('setTransferEmployee');
     Route::post('/transferir', [EmployeeController::class, 'transfer'])->name('transferEmployee');
+    Route::get('/cadastrar', [EmployeeController::class, 'setStore'])->name('setStoreEmployee');
 });

@@ -10,6 +10,7 @@ class Employee extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_censo',
         'name',
         'father',
         'mother',
@@ -44,5 +45,9 @@ class Employee extends Model
 
     public function bond_employees(){
         $this->hasMany(Bond_employee::class);
+    }
+
+    public function employment_bonds(){
+        $this->hasMany(Employment_bond::class);
     }
 }

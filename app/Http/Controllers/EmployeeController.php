@@ -19,6 +19,13 @@ class EmployeeController extends Controller
         return view('employee.formEmployeeBox', ['box_id'=>$box->id, 'title'=>$title, 'action'=>'store', 'route'=>'storeBoxEmployee', 'order'=>$order]);
     }
 
+    public function setStore(){
+        $title = "Cadastrar Servidor";
+
+        return view('employee.formEmployee', ['title'=>$title, 'action'=>'store', 'route'=>'storeEmployee']);
+    }
+
+
     public function storeBox(Request $request){
         $request->validate([
             'order'=>'required|numeric',
@@ -159,5 +166,10 @@ class EmployeeController extends Controller
         return redirect()->route('viewBox', ['id'=>$box->id])
             ->with('success', 'Aluno transferido da caixa '.$formerBond_employee->box->description.' para a caixa '.$box->description.'!');
 
+    }
+
+    public function employee(){
+        $title = 'Gerenciamento de Servidores';
+        return view('employee.employee', ['title'=>$title]);
     }
 }

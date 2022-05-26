@@ -15,7 +15,7 @@
 <div class="flex flex-wrap">
   <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
     <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-      <a href="#" class="">
+      <a href="{{route('inactive')}}" class="">
       <div class="flex-auto p-4">
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -43,7 +43,7 @@
 
   <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
     <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-      <a href="#" class="">
+      <a href="{{route('employee')}}" class="">
       <div class="flex-auto p-4">
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
