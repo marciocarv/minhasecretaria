@@ -40,7 +40,8 @@ class Employee extends Model
 
     protected $dates = [
         'date_birth',
-        'rg_expedition'
+        'rg_expedition',
+        'admission'
     ];
 
     public function bond_employees(){

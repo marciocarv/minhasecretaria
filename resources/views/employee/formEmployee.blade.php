@@ -60,7 +60,7 @@
                 id="uppercase_mother"
                 placeholder="Número de matrícula"
                 @if($action == 'update')
-                value="{{$employee->registration}}"
+                value="{{$employment_bond->registration}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
@@ -174,17 +174,17 @@
       </div>
 
       <div class="field">
-        <label class="label">Início de Atividade</label>
+        <label class="label">Admissão no concurso</label>
         <div class="field-body">
           <div class="field">
             <div class="control icons-left">
               <input 
                 class="input" 
                 type="date" 
-                name="date_birth" 
+                name="activity_start" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employee->date_birth->format('Y-m-d')}}"
+                value="{{$employee->admission->format('Y-m-d')}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
@@ -194,18 +194,72 @@
       </div>
 
       <div class="field">
-        <label class="label">Naturalidade</label>
+        <label class="label">Início de Atividade</label>
+        <div class="field-body">
+          <div class="field">
+            <div class="control icons-left">
+              <input 
+                class="input" 
+                type="date" 
+                name="activity_start" 
+                placeholder=""
+                @if($action == 'update')
+                value="{{$employment_bond->activity_start->format('Y-m-d')}}"
+                @endif
+                >
+              <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Vínculo Empregatício</label>
+        <div class="control">
+          <div class="select">
+            <select name="bond">
+              <option value="">Escolha uma opção</option>
+              <option value="EFETIVO">EFETIVO</option>
+              <option value="CONTRATO">CONTRATO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Cargo</label>
         <div class="field-body">
           <div class="field">
             <div class="control icons-left">
               <input 
                 class="input" 
                 type="text" 
-                name="naturalness"
+                name="post"
                 id="uppercase_mother"
-                placeholder="Nome do pai"
+                placeholder="Cargo"
                 @if($action == 'update')
-                value="{{$employee->naturalness}}"
+                value="{{$employment_bond->post}}"
+                @endif
+                >
+              <span class="icon left"><i class="fa-solid fa-city"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Função</label>
+        <div class="field-body">
+          <div class="field">
+            <div class="control icons-left">
+              <input 
+                class="input" 
+                type="text" 
+                name="role"
+                id="uppercase_mother"
+                placeholder="Função"
+                @if($action == 'update')
+                value="{{$employment_bond->role}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-city"></i></span>
@@ -225,7 +279,7 @@
                 name="entry_year" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$bond_employee->entry_year}}"
+                value="{{$employment_bond->entry_year}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-right-to-bracket"></i></span>

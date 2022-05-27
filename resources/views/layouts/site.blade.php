@@ -63,7 +63,7 @@
         </a>
       </li>
       <li class="--set-active-forms-html">
-        <a href="f{{route('employee')}}">
+        <a href="{{route('employee')}}">
           <span class="icon"><i class="fa-solid fa-users"></i></span>
           <span class="menu-item-label">Servidores</span>
         </a>
