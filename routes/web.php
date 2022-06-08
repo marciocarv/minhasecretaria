@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
+use App\Models\Employee;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -49,4 +50,5 @@ Route::prefix('servidor')->group(function(){
     Route::get('/trasferir/{id}', [EmployeeController::class, 'setTransfer'])->name('setTransferEmployee');
     Route::post('/transferir', [EmployeeController::class, 'transfer'])->name('transferEmployee');
     Route::get('/cadastrar', [EmployeeController::class, 'setStore'])->name('setStoreEmployee');
+    Route::post('/cadastrar', [EmployeeController::class, 'storeEmployee'])->name('storeEmployee');
 });

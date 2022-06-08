@@ -13,7 +13,7 @@
 <section class="section main-section">
 
   <div class="flex justify-center">
-    <a href="{{route('manageBoxes')}}" class="p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+    <a href="{{route('setStoreEmployee')}}" class="p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-boxes-stacked"></i></span> Cadastrar Servidor
     </a>
   </div>

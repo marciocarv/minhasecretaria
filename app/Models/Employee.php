@@ -26,7 +26,7 @@ class Employee extends Model
         'adress',
         'cep',
         'rg',
-        'emission_org',
+        'rg_expedition',
         'cpf',
         'bank_name',
         'bank_agency',

@@ -20,9 +20,57 @@ class EmployeeController extends Controller
     }
 
     public function setStore(){
-        $title = "Cadastrar Servidor";
+        $title = "Cadastrar Servidor - Dados Pessoais";
 
-        return view('employee.formEmployee', ['title'=>$title, 'action'=>'store', 'route'=>'storeEmployee']);
+        return view('employee.formEmployee1', ['title'=>$title, 'action'=>'store', 'route'=>'storeEmployee']);
+    }
+
+    public function storeEmployee(Request $request){
+
+        if($request->form == 'form1'){
+            
+            $request->validate([
+                'name'=>'required',
+                'date_birth'=>'required',
+                'mother'=>'required'
+            ]);
+
+            $employee = new Employee;
+
+            $employee->name = $request->name;
+            $employee->date_birth = $request->date_birth;
+            $employee->mother = $request->mother;
+            $employee->father = $request->father;
+            $employee->naturalness = $request->naturalness;
+            $employee->marital_status = $request->marital_status;
+            $employee->sex = $request->sex;
+            $employee->color = $request->color;
+            $employee->phone = $request->phone;
+
+            $employee->save();
+
+            $title = 'Cadastrar Servidor - Endereço e Documentos';
+            return view('employee.formEmployee2', ['id_employee'=>$employee->id, 'title'=>$title, 'route'=>'storeEmployee', 'action'=>'store']);
+
+        }elseif($request->form == 'form2'){
+            $employee = Employee::findOrFail($request->id_employee);
+            $employee->cep = $request->cep;
+            $employee->address = $request->address;
+            $employee->cpf = $request->cpf;
+            $employee->rg = $request->rg;
+            $employee->rg_expedition = $request->rg_expedition;
+            $employee->certificate_type = $request->certificate_type;
+            $employee->certificate_term = $request->certificate_term;
+            $employee->certificate_book = $request->certificate_book;
+            $employee->certificate_sheet = $request->certificate_sheet;
+
+        }elseif($request->form == 'form3'){
+
+        }
+
+        $employee = new Employee;
+
+
     }
 
 

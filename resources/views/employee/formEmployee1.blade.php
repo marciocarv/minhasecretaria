@@ -47,27 +47,7 @@
         <input type="hidden" value="{{$employment_bond->id}}" name="employment_bond_id">
         <input type="hidden" value="{{$employee->id}}" name="employee_id">
       @endif
-
-      <div class="field">
-        <label class="label">Matrícula</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="registration"
-                id="uppercase_mother"
-                placeholder="Número de matrícula"
-                @if($action == 'update')
-                value="{{$employment_bond->registration}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <input type="hidden" value="form1" name="form">
 
       <div class="field">
         <label class="label">Nome</label>
@@ -80,6 +60,7 @@
                 name="name"
                 id="uppercase_student"
                 placeholder="Nome"
+                required
                 @if($action == 'update')
                 value="{{$employee->name}}"
                 @endif
@@ -100,6 +81,7 @@
                 type="date" 
                 name="date_birth" 
                 placeholder=""
+                required
                 @if($action == 'update')
                 value="{{$employee->date_birth->format('Y-m-d')}}"
                 @endif
@@ -121,6 +103,7 @@
                 name="mother"
                 id="uppercase_mother"
                 placeholder="Nome da mãe"
+                required
                 @if($action == 'update')
                 value="{{$employee->mother}}"
                 @endif
@@ -162,7 +145,7 @@
                 type="text" 
                 name="naturalness"
                 id="uppercase_mother"
-                placeholder="Nome do pai"
+                placeholder="Naturalidade"
                 @if($action == 'update')
                 value="{{$employee->naturalness}}"
                 @endif
@@ -174,150 +157,77 @@
       </div>
 
       <div class="field">
-        <label class="label">Admissão no concurso</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="date" 
-                name="activity_start" 
-                placeholder=""
-                @if($action == 'update')
-                value="{{$employee->admission->format('Y-m-d')}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Início de Atividade</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="date" 
-                name="activity_start" 
-                placeholder=""
-                @if($action == 'update')
-                value="{{$employment_bond->activity_start->format('Y-m-d')}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Vínculo Empregatício</label>
+        <label class="label">Estado Civil</label>
         <div class="control">
           <div class="select">
-            <select name="bond">
+            <select name="marital_status">
               <option value="">Escolha uma opção</option>
-              <option value="EFETIVO">EFETIVO</option>
-              <option value="CONTRATO">CONTRATO</option>
+              <option value="SOLTEIRO">SOLTEIRO</option>
+              <option value="CASADO">CASADO</option>
+              <option value="DIVORCIADO">DIVORCIADO</option>
             </select>
           </div>
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Cargo</label>
+        <label class="label">Sexo</label>
+        <div class="control">
+          <div class="select">
+            <select name="sex">
+              <option value="">Escolha uma opção</option>
+              <option value="MASCULINO">MASCULINO</option>
+              <option value="FEMININO">FEMININO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Cor</label>
+        <div class="control">
+          <div class="select">
+            <select name="color">
+              <option value="">Escolha uma opção</option>
+              <option value="BRANCO">BRANCO</option>
+              <option value="PRETO">PRETO</option>
+              <option value="PARDO">PARDO</option>
+              <option value="AMARELO">AMARELO</option>
+              <option value="INDIGENA">INDÍGENA</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Celular</label>
         <div class="field-body">
           <div class="field">
             <div class="control icons-left">
               <input 
                 class="input" 
                 type="text" 
-                name="post"
-                id="uppercase_mother"
-                placeholder="Cargo"
+                name="phone"
+                id="uppercase_student"
+                placeholder="Número do Celular"
                 @if($action == 'update')
-                value="{{$employment_bond->post}}"
+                value="{{$employee->cpf}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-city"></i></span>
+              <span class="icon left"><i class="fa-solid fa-mobile-screen"></i></span>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="field">
-        <label class="label">Função</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="role"
-                id="uppercase_mother"
-                placeholder="Função"
-                @if($action == 'update')
-                value="{{$employment_bond->role}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-city"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Ano de Entrada</label>
-        <div class="field-body">
-          <div class="field flex flex-wrap">
-            <div class="control icons-left">
-                <input 
-                class="input w-56" 
-                type="number" 
-                name="entry_year" 
-                placeholder=""
-                @if($action == 'update')
-                value="{{$employment_bond->entry_year}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-right-to-bracket"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Ano de Saída</label>
-        <div class="field-body">
-          <div class="field flex flex-wrap">
-            <div class="control icons-left">
-                <input 
-                class="input w-56" 
-                type="number" 
-                name="exit_year" 
-                placeholder=""
-                @if($action == 'update')
-                value="{{$bond_employee->exit_year}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-right-from-bracket"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      
       <div class="field grouped">
         <div class="control">
           <button type="submit" class="button green">
-            Salvar
+            Próximo
+            <span class="icon left"><i class="fa-solid fa-angles-right"></i></span>
           </button>
         </div>
         <div class="control">
-          <button type="reset" class="button red">
-            Limpar
-          </button>
         </div>
       </div>
 
