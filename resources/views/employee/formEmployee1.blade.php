@@ -45,7 +45,6 @@
       @csrf
       @if($action === "update")
         <input type="hidden" value="{{$employment_bond->id}}" name="employment_bond_id">
-        <input type="hidden" value="{{$employee->id}}" name="employee_id">
       @endif
       <input type="hidden" value="form1" name="form">
 
@@ -58,7 +57,7 @@
                 class="input" 
                 type="text" 
                 name="name"
-                id="uppercase_student"
+                id="uppercase_1"
                 placeholder="Nome"
                 required
                 @if($action == 'update')
@@ -101,7 +100,7 @@
                 class="input" 
                 type="text" 
                 name="mother"
-                id="uppercase_mother"
+                id="uppercase_2"
                 placeholder="Nome da mãe"
                 required
                 @if($action == 'update')
@@ -123,7 +122,7 @@
                 class="input" 
                 type="text" 
                 name="father"
-                id="uppercase_mother"
+                id="uppercase_3"
                 placeholder="Nome do pai"
                 @if($action == 'update')
                 value="{{$employee->father}}"
@@ -144,7 +143,7 @@
                 class="input" 
                 type="text" 
                 name="naturalness"
-                id="uppercase_mother"
+                id="uppercase_4"
                 placeholder="Naturalidade"
                 @if($action == 'update')
                 value="{{$employee->naturalness}}"
@@ -162,9 +161,9 @@
           <div class="select">
             <select name="marital_status">
               <option value="">Escolha uma opção</option>
-              <option value="SOLTEIRO">SOLTEIRO</option>
-              <option value="CASADO">CASADO</option>
-              <option value="DIVORCIADO">DIVORCIADO</option>
+              <option value="SOLTEIRO"@if($action == 'update' && $employee->marital_status == 'SOLTEIRO') selected @endif>SOLTEIRO</option>
+              <option value="CASADO"@if($action == 'update' && $employee->marital_status == 'CASADO') selected @endif>CASADO</option>
+              <option value="DIVORCIADO"@if($action == 'update' && $employee->marital_status == 'DIVORCIADO') selected @endif>DIVORCIADO</option>
             </select>
           </div>
         </div>
@@ -176,8 +175,8 @@
           <div class="select">
             <select name="sex">
               <option value="">Escolha uma opção</option>
-              <option value="MASCULINO">MASCULINO</option>
-              <option value="FEMININO">FEMININO</option>
+              <option value="MASCULINO"@if($action == 'update' && $employee->sex == 'MASCULINO') selected @endif>MASCULINO</option>
+              <option value="FEMININO"@if($action == 'update' && $employee->sex == 'FEMININO') selected @endif>FEMININO</option>
             </select>
           </div>
         </div>
@@ -189,11 +188,11 @@
           <div class="select">
             <select name="color">
               <option value="">Escolha uma opção</option>
-              <option value="BRANCO">BRANCO</option>
-              <option value="PRETO">PRETO</option>
-              <option value="PARDO">PARDO</option>
-              <option value="AMARELO">AMARELO</option>
-              <option value="INDIGENA">INDÍGENA</option>
+              <option value="BRANCO"@if($action == 'update' && $employee->color == 'BRANCO') selected @endif>BRANCO</option>
+              <option value="PRETO"@if($action == 'update' && $employee->color == 'PRETO') selected @endif>PRETO</option>
+              <option value="PARDO"@if($action == 'update' && $employee->color == 'PARDO') selected @endif>PARDO</option>
+              <option value="AMARELO"@if($action == 'update' && $employee->color == 'AMARELO') selected @endif>AMARELO</option>
+              <option value="INDIGENA"@if($action == 'update' && $employee->color == 'INDIGENA') selected @endif>INDÍGENA</option>
             </select>
           </div>
         </div>
@@ -208,10 +207,10 @@
                 class="input" 
                 type="text" 
                 name="phone"
-                id="uppercase_student"
+                id="phone"
                 placeholder="Número do Celular"
                 @if($action == 'update')
-                value="{{$employee->cpf}}"
+                value="{{$employee->phone}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-mobile-screen"></i></span>
@@ -239,7 +238,13 @@
 @endsection
 
 @section('script')
-<script>
+<script src="{{asset('js/vanilla-masker.min.js')}}" charset="utf-8"></script>
+<script charset="utf-8" type="text/javascript">
+
+  /*VMasker(document.querySelector("#ph")).maskPattern("99.999.999/9999-99");
+  VMasker(document.querySelector("#cep")).maskPattern("99.999-999");*/
+  VMasker(document.querySelector("#phone")).maskPattern("(99) 9999-9999");
+
   function hide(){
     let notification = document.querySelector('#notification');
 
@@ -257,22 +262,12 @@
     input.value = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
-  document.querySelector('#uppercase_student').addEventListener('keyup', (ev) => {
+  for(let i = 1; i<=4; i++){
+    document.querySelector('#uppercase_'+i).addEventListener('keyup', (ev) => {
     uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_mother').addEventListener('keyup', (ev) => {
-    uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_student').addEventListener('blur', (ev) => {
     less_space(ev);
   });
-
-  document.querySelector('#uppercase_mother').addEventListener('blur', (ev) => {
-    less_space(ev);
-  });
-
+  }
 
 </script>
 

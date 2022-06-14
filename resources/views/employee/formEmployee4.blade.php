@@ -45,143 +45,32 @@
       @csrf
       @if($action === "update")
         <input type="hidden" value="{{$employment_bond->id}}" name="employment_bond_id">
-        <input type="hidden" value="{{$employee->id}}" name="employee_id">
       @endif
+      <input type="hidden" value="form4" name="form">
+      <input type="hidden" value="{{$id_employee}}" name="id_employee">
 
       <div class="field">
-        <label class="label">Matrícula</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="registration"
-                id="uppercase_mother"
-                placeholder="Número de matrícula"
-                @if($action == 'update')
-                value="{{$employment_bond->registration}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
-            </div>
+        <label class="label">Vínculo Empregatício</label>
+        <div class="control">
+          <div class="select">
+            <select name="bond">
+              <option value="">Escolha uma opção</option>
+              <option value="EFETIVO"@if($action == 'update' && $employment_bond->bond == 'EFETIVO') selected @endif>EFETIVO</option>
+              <option value="CONTRATO"@if($action == 'update' && $employment_bond->bond == 'CONTRATO') selected @endif>CONTRATO</option>
+            </select>
           </div>
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Nome</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="name"
-                id="uppercase_student"
-                placeholder="Nome"
-                @if($action == 'update')
-                value="{{$employee->name}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-id-card"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Data de Nascimento</label>
+        <label class="label">Data de Admissão no concurso</label>
         <div class="field-body">
           <div class="field">
             <div class="control icons-left">
               <input 
                 class="input" 
                 type="date" 
-                name="date_birth" 
-                placeholder=""
-                @if($action == 'update')
-                value="{{$employee->date_birth->format('Y-m-d')}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Mãe</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="mother"
-                id="uppercase_mother"
-                placeholder="Nome da mãe"
-                @if($action == 'update')
-                value="{{$employee->mother}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-person-breastfeeding"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Pai</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="father"
-                id="uppercase_mother"
-                placeholder="Nome do pai"
-                @if($action == 'update')
-                value="{{$employee->father}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-person"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Naturalidade</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="naturalness"
-                id="uppercase_mother"
-                placeholder="Naturalidade"
-                @if($action == 'update')
-                value="{{$employee->naturalness}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-city"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Admissão no concurso</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="date" 
-                name="activity_start" 
+                name="admission" 
                 placeholder=""
                 @if($action == 'update')
                 value="{{$employee->admission->format('Y-m-d')}}"
@@ -194,7 +83,47 @@
       </div>
 
       <div class="field">
-        <label class="label">Início de Atividade</label>
+        <label class="label">Matrícula</label>
+        <div class="field-body">
+          <div class="field">
+            <div class="control icons-left">
+              <input 
+                class="input" 
+                type="text" 
+                name="registration"
+                placeholder="Número de matrícula"
+                @if($action == 'update')
+                value="{{$employment_bond->registration}}"
+                @endif
+                >
+              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">ID censo</label>
+        <div class="field-body">
+          <div class="field">
+            <div class="control icons-left">
+              <input 
+                class="input" 
+                type="text" 
+                name="id_censo"
+                placeholder="Número de matrícula"
+                @if($action == 'update')
+                value="{{$employee->id_censo}}"
+                @endif
+                >
+              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Início de atividade</label>
         <div class="field-body">
           <div class="field">
             <div class="control icons-left">
@@ -211,20 +140,7 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Vínculo Empregatício</label>
-        <div class="control">
-          <div class="select">
-            <select name="bond">
-              <option value="">Escolha uma opção</option>
-              <option value="EFETIVO">EFETIVO</option>
-              <option value="CONTRATO">CONTRATO</option>
-            </select>
-          </div>
-        </div>
-      </div>
+      </div> 
 
       <div class="field">
         <label class="label">Cargo</label>
@@ -235,7 +151,7 @@
                 class="input" 
                 type="text" 
                 name="post"
-                id="uppercase_mother"
+                id="uppercase_1"
                 placeholder="Cargo"
                 @if($action == 'update')
                 value="{{$employment_bond->post}}"
@@ -256,7 +172,7 @@
                 class="input" 
                 type="text" 
                 name="role"
-                id="uppercase_mother"
+                id="uppercase_2"
                 placeholder="Função"
                 @if($action == 'update')
                 value="{{$employment_bond->role}}"
@@ -268,15 +184,23 @@
         </div>
       </div>
 
+      <div class="field">
+        <label class="label">Carga Horária</label>
+        <div class="control">
+          <div class="select">
+            <select name="workload">
+              <option value="">Escolha uma opção</option>
+              <option value="40"@if($action == 'update' && $employment_bond->workload == '40') selected @endif>40 H</option>
+              <option value="20"@if($action == 'update' && $employment_bond->workload == '20') selected @endif>20 H</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       <div class="field grouped">
         <div class="control">
           <button type="submit" class="button green">
             Salvar
-          </button>
-        </div>
-        <div class="control">
-          <button type="reset" class="button red">
-            Limpar
           </button>
         </div>
       </div>
@@ -307,21 +231,12 @@
     input.value = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
-  document.querySelector('#uppercase_student').addEventListener('keyup', (ev) => {
+  for(let i = 1; i<=2; i++){
+    document.querySelector('#uppercase_'+i).addEventListener('keyup', (ev) => {
     uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_mother').addEventListener('keyup', (ev) => {
-    uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_student').addEventListener('blur', (ev) => {
     less_space(ev);
   });
-
-  document.querySelector('#uppercase_mother').addEventListener('blur', (ev) => {
-    less_space(ev);
-  });
+  }
 
 
 </script>

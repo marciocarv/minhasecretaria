@@ -45,11 +45,9 @@
       @csrf
       @if($action === "update")
         <input type="hidden" value="{{$employment_bond->id}}" name="employment_bond_id">
-        <input type="hidden" value="{{$employee->id}}" name="employee_id">
       @endif
       <input type="hidden" value="form2" name="form">
       <input type="hidden" value="{{$id_employee}}" name="id_employee">
-
 
       <div class="field">
         <label class="label">CEP</label>
@@ -60,13 +58,13 @@
                 class="input" 
                 type="text" 
                 name="cep"
-                id="uppercase_mother"
-                placeholder="Nome da mãe"
+                id="cep"
+                placeholder="Código Postal"
                 @if($action == 'update')
                 value="{{$employee->cep}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-person-breastfeeding"></i></span>
+              <span class="icon left"><i class="fa-solid fa-map-location-dot"></i></span>
             </div>
           </div>
         </div>
@@ -81,13 +79,13 @@
                 class="input" 
                 type="text" 
                 name="address"
-                id="uppercase_mother"
-                placeholder="Nome do pai"
+                id="uppercase_1"
+                placeholder="Endereço completo"
                 @if($action == 'update')
                 value="{{$employee->address}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-person"></i></span>
+              <span class="icon left"><i class="fa-solid fa-map-location-dot"></i></span>
             </div>
           </div>
         </div>
@@ -102,13 +100,13 @@
                 class="input" 
                 type="text" 
                 name="cpf"
-                id="uppercase_student"
+                id="cpf"
                 placeholder="Número do CPF"
                 @if($action == 'update')
                 value="{{$employee->cpf}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-id-card"></i></span>
+              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
             </div>
           </div>
         </div>
@@ -123,13 +121,12 @@
                 class="input" 
                 type="text" 
                 name="rg"
-                id="uppercase_student"
                 placeholder="Número do RG"
                 @if($action == 'update')
                 value="{{$employee->rg}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-id-card"></i></span>
+              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
             </div>
           </div>
         </div>
@@ -161,8 +158,8 @@
           <div class="select">
             <select name="certificate_type">
               <option value="">Escolha uma opção</option>
-              <option value="SOLTEIRO">NASCIMENTO</option>
-              <option value="CASADO">CASAMENTO</option>
+              <option value="NASCIMENTO"@if($action == 'update' && $employee->certificate_type == 'NASCIMENTO') selected @endif>NASCIMENTO</option>
+              <option value="CASAMENTO"@if($action == 'update' && $employee->certificate_type == 'CASAMENTO') selected @endif>CASAMENTO</option>
             </select>
           </div>
         </div>
@@ -177,13 +174,12 @@
                 class="input" 
                 type="text" 
                 name="certificate_term"
-                id="uppercase_student"
                 placeholder="Número do Termo da Certidão"
                 @if($action == 'update')
                 value="{{$employee->certificate_term}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-id-card"></i></span>
+              <span class="icon left"><i class="fa-solid fa-certificate"></i></span>
             </div>
           </div>
         </div>
@@ -198,13 +194,12 @@
                 class="input" 
                 type="text" 
                 name="certificate_book"
-                id="uppercase_student"
                 placeholder="Número do livro da Certidão"
                 @if($action == 'update')
                 value="{{$employee->certificate_book}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-id-card"></i></span>
+              <span class="icon left"><i class="fa-solid fa-book"></i></span>
             </div>
           </div>
         </div>
@@ -219,13 +214,12 @@
                 class="input" 
                 type="text" 
                 name="certificate_sheet"
-                id="uppercase_student"
                 placeholder="Número da folha da Certidão"
                 @if($action == 'update')
                 value="{{$employee->certificate_sheet}}"
                 @endif
                 >
-              <span class="icon left"><i class="fa-solid fa-id-card"></i></span>
+              <span class="icon left"><i class="fa-solid fa-receipt"></i></span>
             </div>
           </div>
         </div>
@@ -248,7 +242,12 @@
 @endsection
 
 @section('script')
-<script>
+<script src="{{asset('js/vanilla-masker.min.js')}}" charset="utf-8"></script>
+<script charset="utf-8" type="text/javascript">
+
+  VMasker(document.querySelector("#cep")).maskPattern("99.999-999");
+  VMasker(document.querySelector("#cpf")).maskPattern("999.999.999-99");
+
   function hide(){
     let notification = document.querySelector('#notification');
 
@@ -266,21 +265,12 @@
     input.value = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
-  document.querySelector('#uppercase_student').addEventListener('keyup', (ev) => {
+  for(let i = 1; i<=1; i++){
+    document.querySelector('#uppercase_'+i).addEventListener('keyup', (ev) => {
     uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_mother').addEventListener('keyup', (ev) => {
-    uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_student').addEventListener('blur', (ev) => {
     less_space(ev);
   });
-
-  document.querySelector('#uppercase_mother').addEventListener('blur', (ev) => {
-    less_space(ev);
-  });
+  }
 
 
 </script>

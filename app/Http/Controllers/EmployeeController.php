@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bond_employee;
 use App\Models\Box;
 use App\Models\Employee;
+use App\Models\Employment_bond;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -47,10 +48,15 @@ class EmployeeController extends Controller
             $employee->color = $request->color;
             $employee->phone = $request->phone;
 
-            $employee->save();
+            if($employee->save()){
+                $title = 'Cadastrar Servidor - Endereço e Documentos';
+                return view('employee.formEmployee2', ['id_employee'=>$employee->id, 'title'=>$title, 'route'=>'storeEmployee', 'action'=>'store'])
+                ->with('success', 'Dados Salvos com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível cadastrar o servidor');
+            }
 
-            $title = 'Cadastrar Servidor - Endereço e Documentos';
-            return view('employee.formEmployee2', ['id_employee'=>$employee->id, 'title'=>$title, 'route'=>'storeEmployee', 'action'=>'store']);
+            
 
         }elseif($request->form == 'form2'){
             $employee = Employee::findOrFail($request->id_employee);
@@ -64,15 +70,71 @@ class EmployeeController extends Controller
             $employee->certificate_book = $request->certificate_book;
             $employee->certificate_sheet = $request->certificate_sheet;
 
-        }elseif($request->form == 'form3'){
+            if($employee->save()){
+                $title = 'Cadastrar Servidor - Dados Bancários e Formação';
+                return view('employee.formEmployee3', ['id_employee'=>$employee->id, 'title'=>$title, 'route'=>'storeEmployee', 'action'=>'store'])
+                ->with('success', 'Dados Salvos com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível cadastrar o servidor');
+            }
 
+            
+
+        }elseif($request->form == 'form3'){
+            $employee = Employee::findOrFail($request->id_employee);
+            $employee->bank_name = $request->bank_name;
+            $employee->bank_agency = $request->bank_agency;
+            $employee->bank_number = $request->bank_number;
+            $employee->schooling = $request->schooling;
+            $employee->course_status = $request->course_status;
+            $employee->course_name = $request->course_name;
+            $employee->name_college = $request->name_college;
+            $employee->conclusion = $request->conclusion;
+
+            if($employee->save()){
+                $title = 'Cadastrar Servidor - Dados profissionais';
+                return view('employee.formEmployee4', ['id_employee'=>$employee->id, 'title'=>$title, 'route'=>'storeEmployee', 'action'=>'store'])
+                ->with('success', 'Dados Salvos com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível cadastrar o servidor');
+            }
+
+            
+
+        }elseif($request->form == 'form4'){
+            $employee = Employee::findOrFail($request->id_employee);
+            $employment_bond = new Employment_bond;
+
+            $employee->admission = $request->admission;
+            $employee->id_censo = $request->id_censo;
+            $employee->save();
+
+            $request->validate([
+                'registration'=>'numeric|required',
+                'activity_start'=>'required',
+                'post'=>'required',
+                'role'=>'required',
+                'workload'=>'required'
+            ]);
+
+            $employment_bond->employee_id = $employee->id;
+            $employment_bond->registration = $request->registration;
+            $employment_bond->activity_start = $request->activity_start;
+            $employment_bond->post = $request->post;
+            $employment_bond->role = $request->role;
+            $employment_bond->workload = $request->workload;
+            $employment_bond->bond = $request->bond;
+            $employment_bond->status = 'ATIVO';
+
+            if($employment_bond->save()){
+                return redirect()->route('employee')->with('success', 'Servidor Salvo com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível completar o cadastro!');
+            }
+           
         }
 
-        $employee = new Employee;
-
-
     }
-
 
     public function storeBox(Request $request){
         $request->validate([
@@ -218,6 +280,159 @@ class EmployeeController extends Controller
 
     public function employee(){
         $title = 'Gerenciamento de Servidores';
-        return view('employee.employee', ['title'=>$title]);
+        $employment_bond = new Employment_bond;
+
+        $employees = $employment_bond->active_employees();
+
+        return view('employee.employee', ['title'=>$title, 'employees'=>$employees]);
+    }
+
+    public function setUpdateEmployee($id){
+        $employment_bond = Employment_bond::findOrFail($id);
+        $employee = $employment_bond->employee;
+
+        $title = "Editar Servidor - Dados Pessoais";
+
+        return view('employee.formEmployee1', ['title'=>$title, 
+                    'action'=>'update', 
+                    'route'=>'updateEmployee', 
+                    'employment_bond'=>$employment_bond, 
+                    'employee'=>$employee]);
+    }
+
+    public function update(Request $request){
+        $employment_bond = Employment_bond::findOrFail($request->employment_bond_id);
+        $employee = $employment_bond->employee;
+
+        if($request->form == 'form1'){
+            
+            $request->validate([
+                'name'=>'required',
+                'date_birth'=>'required',
+                'mother'=>'required'
+            ]);
+
+            $employee->name = $request->name;
+            $employee->date_birth = $request->date_birth;
+            $employee->mother = $request->mother;
+            $employee->father = $request->father;
+            $employee->naturalness = $request->naturalness;
+            $employee->marital_status = $request->marital_status;
+            $employee->sex = $request->sex;
+            $employee->color = $request->color;
+            $employee->phone = $request->phone;
+
+            if($employee->save()){
+                $title = 'Editar Servidor - Endereço e Documentos';
+                return view('employee.formEmployee2',
+                             ['id_employee'=>$employee->id, 
+                            'title'=>$title, 
+                            'route'=>'updateEmployee', 
+                            'action'=>'update', 
+                            'employee'=>$employee,
+                            'employment_bond'=>$employment_bond])
+                ->with('success', 'Dados editados com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível Editar o servidor');
+            }
+
+        }elseif($request->form == 'form2'){
+            $employee->cep = $request->cep;
+            $employee->address = $request->address;
+            $employee->cpf = $request->cpf;
+            $employee->rg = $request->rg;
+            $employee->rg_expedition = $request->rg_expedition;
+            $employee->certificate_type = $request->certificate_type;
+            $employee->certificate_term = $request->certificate_term;
+            $employee->certificate_book = $request->certificate_book;
+            $employee->certificate_sheet = $request->certificate_sheet;
+
+            if($employee->save()){
+                $title = 'Editar Servidor - Dados Bancários e Formação';
+                return view('employee.formEmployee3', ['id_employee'=>$employee->id, 
+                                                        'title'=>$title, 
+                                                        'route'=>'updateEmployee', 
+                                                        'action'=>'update',
+                                                        'employee'=>$employee,
+                                                        'employment_bond'=>$employment_bond])
+                ->with('success', 'Dados Editados com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível editar o servidor');
+            }
+
+            
+
+        }elseif($request->form == 'form3'){
+            $employee->bank_name = $request->bank_name;
+            $employee->bank_agency = $request->bank_agency;
+            $employee->bank_number = $request->bank_number;
+            $employee->schooling = $request->schooling;
+            $employee->course_status = $request->course_status;
+            $employee->course_name = $request->course_name;
+            $employee->name_college = $request->name_college;
+            $employee->conclusion = $request->conclusion;
+
+            if($employee->save()){
+                $title = 'Editar Servidor - Dados profissionais';
+                return view('employee.formEmployee4', ['id_employee'=>$employee->id, 
+                                                        'title'=>$title, 
+                                                        'route'=>'updateEmployee', 
+                                                        'action'=>'update',
+                                                        'employee'=>$employee,
+                                                        'employment_bond'=>$employment_bond])
+                ->with('success', 'Dados editados com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível editar o servidor');
+            }
+
+        }elseif($request->form == 'form4'){
+           
+            $employee->admission = $request->admission;
+            $employee->id_censo = $request->id_censo;
+            $employee->save();
+
+            $request->validate([
+                'registration'=>'numeric|required',
+                'activity_start'=>'required',
+                'post'=>'required',
+                'role'=>'required',
+                'workload'=>'required'
+            ]);
+
+            $employment_bond->registration = $request->registration;
+            $employment_bond->activity_start = $request->activity_start;
+            $employment_bond->post = $request->post;
+            $employment_bond->role = $request->role;
+            $employment_bond->workload = $request->workload;
+            $employment_bond->bond = $request->bond;
+            $employment_bond->status = 'ATIVO';
+
+            if($employment_bond->save()){
+                return redirect()->route('employee')->with('success', 'Servidor editado com sucesso!');
+            }else{
+                return redirect()->route('employee')->with('error', 'Não foi possível editar o cadastro!');
+            }
+        }
+    }
+
+    public function deleteEmployee($id){
+        $employment_bond = Employment_bond::findOrFail($id);
+
+        $employee = $employment_bond->employee;
+
+        if($employee->delete()){
+            return redirect()->route('employee')->with('success', 'Servidor apagado com sucesso!');
+        }else{
+            return redirect()->route('employee')->with('error', 'Não foi possível apagar o registro!');
+        }
+
+    }
+
+    public function manageEmployee($id){
+        $employment_bond = Employment_bond::findOrFail($id);
+
+        $title = 'Gerenciamento de servidor';
+
+        return view('employee.manage', ['employment_bond'=>$employment_bond, 'title'=>$title]);
     }
 }

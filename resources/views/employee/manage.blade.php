@@ -55,10 +55,7 @@
 
   <div class="card has-table mt-10">
     <header class="card-header">
-      <p class="card-header-title">
-        <span class="icon"><i class="fa-solid fa-box-open"></i></span>
-        Servidores Ativos
-      </p>
+      
       <a href="#" class="card-header-icon">
         <span class="icon"><i class="mdi mdi-reload"></i></span>
       </a>
@@ -66,71 +63,41 @@
     <div class="card-content">
       <table>
         <thead>
-        <tr>
-          <th class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </th>
-          <th>Nº</th>
-          <th>Nome</th>
-          <th>Data de Nascimento</th>
-          <th>CPF</th>
-          <th>Matrícula</th>
-          <th>Cargo</th>
-          <th>Função</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-          @foreach($employees as $employee)
-          <tr class="uppercase">
-            <td class="checkbox-cell">
-              <label class="checkbox">
-                <input name="id_box" value="{{$employee->id}}" type="checkbox" >
-                <span class="check"></span>
-              </label>
-            </td>
-            <td data-label="Ordem">{{$loop->index + 1}}</td>
-            <td data-label="Nome">{{$employee->name}}</td>
-            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->date_birth))}}</td>
-            <td data-label="Nome">{{$employee->cpf}}</td>
-            <td data-label="Nome">{{$employee->registration}} </td>
-            <td data-label="Nome">{{$employee->post}} </td>
-            <td data-label="Nome">{{$employee->role}} </td>
-            <td class="actions-cell">
-              <div class="buttons right nowrap">
-                <a title="Editar" 
-                  href="{{route('setUpdateEmployee', ['id'=>$employee->id])}}"
-                  class="button small green" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
-                </a>
-                <a title="Excluir" 
-                  href="{{route('delEmployee', ['id'=>$employee->id])}}" 
-                  class="button small red" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-trash"></i></span>
-                </a>
-                <a title="Mais Opções" 
-                  href="{{route('manageEmployee', ['id'=>$employee->id])}}" 
-                  class="button small blue" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-wrench"></i></span>
-                </a>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-          @if($employees->isEmpty())
           <tr>
-            <td data-label="Sem caixas" colspan="7" class="text-center">
-              Sem registros
-            </td>
+            <th>nome</th>
+            <th>Data de Nascimento</th>
+            <th>CPF</th>
+            <th>RG</th>
           </tr>
-          @endif
-        </tbody>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->employee->name}}</th>
+            <th>{{$employment_bond->employee->date_birth->format('d/m/Y')}}</th>
+            <th>{{$employment_bond->employee->cpf}}</th>
+            <th>{{$employment_bond->employee->rg}}</th>
+          </tr>
+          <tr>
+            <th colspan="2">Filiação</th>
+            <th>Naturalidade</th>
+            <th>Estado Civil</th>
+          </tr>
+          <tr class="text-2xl">
+            <th colspan="2">{{$employment_bond->employee->father}} e {{$employment_bond->employee->mother}}</th>
+            <th>{{$employment_bond->employee->naturalness}}</th>
+            <th>{{$employment_bond->employee->marital_status}}</th>
+          </tr>
+          <tr>
+            <th>CEP</th>
+            <th>endereço</th>
+            <th>cor</th>
+            <th>telefone</th>
+          </tr>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->employee->cep}}</th>
+            <th>{{$employment_bond->employee->address}}</th>
+            <th>{{$employment_bond->employee->color}}</th>
+            <th>{{$employment_bond->employee->phone}}</th>
+          </tr>
+        </thead>
       </table>
     </div>
   </div>

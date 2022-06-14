@@ -35,7 +35,8 @@ class Employee extends Model
         'course_name',
         'course_status',
         'name_college',
-        'conclusion'
+        'conclusion',
+        'admission'
     ];
 
     protected $dates = [

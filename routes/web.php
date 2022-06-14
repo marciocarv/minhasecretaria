@@ -7,6 +7,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
 use App\Models\Employee;
+use App\Models\Employment_bond;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -51,4 +52,8 @@ Route::prefix('servidor')->group(function(){
     Route::post('/transferir', [EmployeeController::class, 'transfer'])->name('transferEmployee');
     Route::get('/cadastrar', [EmployeeController::class, 'setStore'])->name('setStoreEmployee');
     Route::post('/cadastrar', [EmployeeController::class, 'storeEmployee'])->name('storeEmployee');
+    Route::get('/editar/{id}', [EmployeeController::class, 'setUpdateEmployee'])->name('setUpdateEmployee');
+    Route::post('/editar', [EmployeeController::class, 'update'])->name('updateEmployee');
+    Route::get('/apagar/{id}', [EmployeeController::class, 'deleteEmployee'])->name('delEmployee');
+    Route::get('/gerenciar/{id}', [EmployeeController::class, 'manageEmployee'])->name('manageEmployee');
 });
