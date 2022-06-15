@@ -36,20 +36,17 @@
   @endif
 
   <div class="flex justify-center">
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-square-plus"></i></span> Cadastrar Servidor
+    <a href="{{route('functionalSheet', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-green-800 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-print"></i></span> Ficha Funcional
     </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-list"></i></span> Listas de Servidores
+    <a href="{{route('activity_start', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-print"></i></span> Início de Atividade
     </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-file-contract"></i></span> Declarações
+    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-red-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-calendar-xmark"></i></span> Encerramento de atividade
     </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-clock"></i></span> Banco de Horas
-    </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-arrows-down-to-people"></i></span> Servidores Inativos
+    <a href="{{route('setUpdateEmployee', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-700 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-pen-to-square"></i></span> Editar
     </a>
   </div>
 
@@ -76,6 +73,30 @@
             <th>{{$employment_bond->employee->rg}}</th>
           </tr>
           <tr>
+            <th>Matrícula</th>
+            <th>Vínculo</th>
+            <th>Cargo</th>
+            <th>Função</th>
+          </tr>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->registration}}</th>
+            <th>{{$employment_bond->bond}}</th>
+            <th>{{$employment_bond->post}}</th>
+            <th>{{$employment_bond->role}}</th>
+          </tr>
+          <tr>
+            <th>Data de Admissão</th>
+            <th>Data de lotação</th>
+            <th>Carga Horária</th>
+            <th>ID censo</th>
+          </tr>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->employee->admission->format('d/m/Y')}}</th>
+            <th>{{$employment_bond->activity_start->format('d/m/Y')}}</th>
+            <th>{{$employment_bond->workload}}</th>
+            <th>{{$employment_bond->employee->id_censo}}</th>
+          </tr>
+          <tr>
             <th colspan="2">Filiação</th>
             <th>Naturalidade</th>
             <th>Estado Civil</th>
@@ -96,6 +117,42 @@
             <th>{{$employment_bond->employee->address}}</th>
             <th>{{$employment_bond->employee->color}}</th>
             <th>{{$employment_bond->employee->phone}}</th>
+          </tr>
+          <tr>
+            <th>Tipo de Certidão</th>
+            <th>Termo</th>
+            <th>Livro</th>
+            <th>folha</th>
+          </tr>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->employee->certificate_type}}</th>
+            <th>{{$employment_bond->employee->certificate_term}}</th>
+            <th>{{$employment_bond->employee->certificate_book}}</th>
+            <th>{{$employment_bond->employee->certificate_sheet}}</th>
+          </tr>
+          <tr>
+            <th>Banco</th>
+            <th>Agência</th>
+            <th>Nº da Conta</th>
+            <th>Escolaridade</th>
+          </tr>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->employee->bank_name}}</th>
+            <th>{{$employment_bond->employee->bank_agency}}</th>
+            <th>{{$employment_bond->employee->bank_number}}</th>
+            <th>{{$employment_bond->employee->schooling}}</th>
+          </tr>
+          <tr>
+            <th>Curso</th>
+            <th>Situação</th>
+            <th>Instituição</th>
+            <th>Ano de Conclusão</th>
+          </tr>
+          <tr class="text-2xl">
+            <th>{{$employment_bond->employee->course_name}}</th>
+            <th>{{$employment_bond->employee->course_status}}</th>
+            <th>{{$employment_bond->employee->bank_number}}</th>
+            <th>{{$employment_bond->employee->schooling}}</th>
           </tr>
         </thead>
       </table>

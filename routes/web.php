@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoxController;
+use App\Http\Controllers\declarationController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
@@ -56,4 +57,9 @@ Route::prefix('servidor')->group(function(){
     Route::post('/editar', [EmployeeController::class, 'update'])->name('updateEmployee');
     Route::get('/apagar/{id}', [EmployeeController::class, 'deleteEmployee'])->name('delEmployee');
     Route::get('/gerenciar/{id}', [EmployeeController::class, 'manageEmployee'])->name('manageEmployee');
+    Route::get('/ficha-funcional/{id}', [declarationController::class, 'functionalSheet'])->name('functionalSheet');
+});
+
+Route::prefix('declaracao')->group(function(){
+    Route::get('/inicio_atividade/{id}', [declarationController::class, 'activity_start'])->name('activity_start');
 });
