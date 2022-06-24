@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employment_bond;
 use Illuminate\Http\Request;
+use PDF;
 
 class declarationController extends Controller
 {
@@ -14,6 +15,8 @@ class declarationController extends Controller
     public function functionalSheet($id){
         $employment_bond = Employment_bond::findOrFail($id);
 
-        return view('employee.functionalSheet', ['employment_bond'=>$employment_bond]);
+        $pdf = PDF::loadView('employee.functionalSheet', compact('employment_bond'));
+
+        return $pdf->setPaper('a4')->stream('ficha_funcional.pdf');
     }
 }
