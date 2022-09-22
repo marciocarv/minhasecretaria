@@ -115,7 +115,7 @@
                     <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
                   </a>
                   <a title="Excluir" 
-                    href="{{route($box->type == 'Servidor' ? 'deleteEmployee' : 'deleteStudent', ['id'=>$bond->id])}}" 
+                    href="{{route($box->type == 'Servidor' ? 'deleteBox' : 'deleteStudent', ['id'=>$bond->id])}}" 
                     class="button small red" 
                     type="button">
                     <span class="icon"><i class="fa-solid fa-trash"></i></span>

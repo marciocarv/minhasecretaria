@@ -40,14 +40,15 @@
   </div>
   @endif
 
+  <div class="mb-5">
+    <p><strong>Servidor:</strong> {{$employee->name}}</p>
+    <p><strong>Data de Nascimento:</strong> {{$employee->date_birth->format('d/m/Y')}}</p>
+  </div>
+
   <div>
     <form method="POST" action="{{route($route)}}" class="w-96">
       @csrf
-      @if($action === "update")
-        <input type="hidden" value="{{$employment_bond->id}}" name="employment_bond_id">
-      @endif
-      <input type="hidden" value="form4" name="form">
-      <input type="hidden" value="{{$id_employee}}" name="id_employee">
+        <input type="hidden" value="{{$employee->id}}" name="employee_id">
 
       <div class="field">
         <label class="label">Vínculo Empregatício</label>
@@ -55,29 +56,9 @@
           <div class="select">
             <select name="bond">
               <option value="">Escolha uma opção</option>
-              <option value="EFETIVO"@if($action == 'update' && $employment_bond->bond == 'EFETIVO') selected @endif>EFETIVO</option>
-              <option value="CONTRATO"@if($action == 'update' && $employment_bond->bond == 'CONTRATO') selected @endif>CONTRATO</option>
+              <option value="EFETIVO">EFETIVO</option>
+              <option value="CONTRATO">CONTRATO</option>
             </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Data de Admissão no concurso</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="date" 
-                name="admission" 
-                placeholder=""
-                @if($action == 'update')
-                value="{{$employee->admission->format('Y-m-d')}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
-            </div>
           </div>
         </div>
       </div>
@@ -92,29 +73,6 @@
                 type="text" 
                 name="registration"
                 placeholder="Número de matrícula"
-                @if($action == 'update')
-                value="{{$employment_bond->registration}}"
-                @endif
-                >
-              <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">ID censo</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input" 
-                type="text" 
-                name="id_censo"
-                placeholder="Número de matrícula"
-                @if($action == 'update')
-                value="{{$employee->id_censo}}"
-                @endif
                 >
               <span class="icon left"><i class="fa-solid fa-address-card"></i></span>
             </div>
@@ -132,9 +90,6 @@
                 type="date" 
                 name="lotation" 
                 placeholder=""
-                @if($action == 'update')
-                value="{{$employment_bond->lotation->format('Y-m-d')}}"
-                @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
@@ -152,9 +107,6 @@
                 type="date" 
                 name="activity_start" 
                 placeholder=""
-                @if($action == 'update')
-                value="{{$employment_bond->activity_start->format('Y-m-d')}}"
-                @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
             </div>
@@ -173,9 +125,6 @@
                 name="post"
                 id="uppercase_1"
                 placeholder="Cargo"
-                @if($action == 'update')
-                value="{{$employment_bond->post}}"
-                @endif
                 >
               <span class="icon left"><i class="fa-solid fa-city"></i></span>
             </div>
@@ -194,9 +143,6 @@
                 name="role"
                 id="uppercase_2"
                 placeholder="Função"
-                @if($action == 'update')
-                value="{{$employment_bond->role}}"
-                @endif
                 >
               <span class="icon left"><i class="fa-solid fa-id-badge"></i></span>
             </div>
@@ -210,8 +156,8 @@
           <div class="select">
             <select name="workload">
               <option value="">Escolha uma opção</option>
-              <option value="40"@if($action == 'update' && $employment_bond->workload == '40') selected @endif>40 H</option>
-              <option value="20"@if($action == 'update' && $employment_bond->workload == '20') selected @endif>20 H</option>
+              <option value="40">40 H</option>
+              <option value="20">20 H</option>
             </select>
           </div>
         </div>

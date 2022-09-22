@@ -41,10 +41,10 @@
       <i class="fa-solid fa-print"></i>
       </span> Ficha Funcional
     </a>
-    <a href="{{route('activity_start', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+    <a href="{{route('activity_start', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-900 text-white font-bold shadow hover:bg-teal-700" target="_blank"><span class="icon">
       <i class="fa-solid fa-print"></i></span> Início de Atividade
     </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-red-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+    <a href="{{route('closure_bond', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-red-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-calendar-xmark"></i></span> Encerramento de atividade
     </a>
     <a href="{{route('setUpdateEmployee', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-700 text-white font-bold shadow hover:bg-teal-700"><span class="icon">

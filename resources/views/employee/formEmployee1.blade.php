@@ -243,7 +243,7 @@
 
   /*VMasker(document.querySelector("#ph")).maskPattern("99.999.999/9999-99");
   VMasker(document.querySelector("#cep")).maskPattern("99.999-999");*/
-  VMasker(document.querySelector("#phone")).maskPattern("(99) 9999-9999");
+  VMasker(document.querySelector("#phone")).maskPattern("(99) 99999-9999");
 
   function hide(){
     let notification = document.querySelector('#notification');

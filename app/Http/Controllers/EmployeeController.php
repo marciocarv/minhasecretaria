@@ -173,15 +173,51 @@ class EmployeeController extends Controller
         return redirect()->route('viewBox', ['id'=>$box->id])->with('success', 'Servidor Salvo com sucesso!');
     }
 
-    public function delete($id){
+    public function deleteBox($id){
+
         $bond_employee = Bond_employee::findOrFail($id);
-
         $employee = $bond_employee->employee;
+        $box = $bond_employee->box;
 
-        if(!$employee->delete()){
+        if(!$bond_employee->delete()){
             return redirect()->route('viewBox', ['id'=>$bond_employee->box->id])->with('error', 'Não foi possível excluir o servidor!');
         }
-        return redirect()->route('viewBox', ['id'=>$bond_employee->box->id])->with('success', 'Servidor excluído com sucesso!');
+
+        if(!$this->checkBond($employee->id)){
+            if(!$employee->delete()){
+                return redirect()->route('viewBox', ['id'=>$box->id])->with('error', 'Não foi possível excluir o servidor!');
+            }
+            return redirect()->route('viewBox', ['id'=>$box->id])->with('success', 'Servidor excluído com sucesso!');
+        }
+        return redirect()->route('viewBox', ['id'=>$box->id])->with('success', 'Servidor excluído com sucesso!');
+    }
+
+    public function delete($id){
+
+        $employment_bond = Employment_bond::findOrFail($id);
+        $employee = $employment_bond->employee;
+
+        if(!$employment_bond->delete()){
+            return redirect()->route('employee')->with('error', 'Não foi possível excluir o servidor!');
+        }
+
+        if(!$this->checkBond($employee->id)){
+            if(!$employee->delete()){
+                return redirect()->route('employee')->with('error', 'Não foi possível excluir o servidor!');
+            }
+            return redirect()->route('employee')->with('success', 'Servidor excluído com sucesso!');
+        }
+        return redirect()->route('employee')->with('success', 'Servidor excluído com sucesso!');
+    }
+
+    public function checkBond($id){
+        $employee = Employee::find($id);
+
+        if($employee->bond_employees->isEmpty() && $employee->employment_bonds->isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public function setUpdateBoxEmployee($id){
@@ -434,5 +470,43 @@ class EmployeeController extends Controller
         $title = 'Gerenciamento de servidor';
 
         return view('employee.manage', ['employment_bond'=>$employment_bond, 'title'=>$title]);
+    }
+
+    public function rescue($id){
+        $bond_employee = Bond_employee::findOrFail($id);
+
+        $bond_employee->status = 'RESGATADO - '.now()->format('d/m/Y');
+
+        if(!$bond_employee->save()){
+            return redirect()->route('viewBox', ['id'=>$bond_employee->box_id])->with('error', 'Não foi possível resgatar esse servidor!');
+        }
+        
+        return view('employee.storeEmployment_bond', [
+            'employee'=>$bond_employee->employee,
+            'title'=> 'Novo Vínculo do Servidor',
+            'route'=> 'storeEmployment_bond'
+            ])->with('success', 'Servidor resgatado com sucesso!');
+    }
+
+    public function storeEmployment_bond(Request $request){
+        $employee = Employee::findOrFail($request->employee_id);
+
+        $employment_bond = new Employment_bond;
+
+        $employment_bond->employee_id = $employee->id;
+        $employment_bond->registration = $request->registration;
+        $employment_bond->activity_start = $request->activity_start;
+        $employment_bond->post = $request->post;
+        $employment_bond->role = $request->role;
+        $employment_bond->workload = $request->workload;
+        $employment_bond->bond = $request->bond;
+        $employment_bond->lotation = $request->lotation;
+        $employment_bond->status = 'ATIVO';
+
+        if(!$employment_bond->save()){
+            return redirect()->route('employee')->with('error', 'Não foi possível resgatar o servidor!');
+        }
+
+        return redirect()->route('employee')->with('success', 'Servidor Vinculado com sucesso!');
     }
 }

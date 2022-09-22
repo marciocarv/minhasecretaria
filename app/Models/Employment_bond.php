@@ -20,6 +20,7 @@ class Employment_bond extends Model
 
     protected $dates = [
         'activity_start',
+        'lotation',
         'activity_end'
     ];
 

@@ -45,10 +45,10 @@ class Employee extends Model
     ];
 
     public function bond_employees(){
-        $this->hasMany(Bond_employee::class);
+        return $this->hasMany(Bond_employee::class);
     }
 
     public function employment_bonds(){
-        $this->hasMany(Employment_bond::class);
+        return $this->hasMany(Employment_bond::class);
     }
 }

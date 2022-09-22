@@ -45,19 +45,22 @@ Route::prefix('aluno')->group(function (){
 Route::prefix('servidor')->group(function(){
     Route::get('/adicionar/{id}', [EmployeeController::class, 'setStoreBox'])->name('setStoreBoxEmployee');
     Route::post('/adicionar-caixa', [EmployeeController::class, 'storeBox'])->name('storeBoxEmployee');
-    Route::get('/excluir/{id}', [EmployeeController::class, 'delete'])->name('deleteEmployee');
+    Route::get('/excluir/{id}', [EmployeeController::class, 'deleteBox'])->name('deleteBox');
+    Route::get('/apagar/{id}', [EmployeeController::class, 'delete'])->name('deleteEmployee');
     Route::get('/editar-caixa/{id}', [EmployeeController::class, 'setUpdateBoxEmployee'])->name('setUpdateBoxEmployee');
     Route::post('/editar-caixa', [EmployeeController::class, 'updateBox'])->name('updateBoxEmployee');
     Route::get('/resgatar/{id}', [EmployeeController::class, 'rescue'])->name('rescueEmployee');
+    Route::post('/vincular', [EmployeeController::class, 'storeEmployment_bond'])->name('storeEmployment_bond');
     Route::get('/trasferir/{id}', [EmployeeController::class, 'setTransfer'])->name('setTransferEmployee');
     Route::post('/transferir', [EmployeeController::class, 'transfer'])->name('transferEmployee');
     Route::get('/cadastrar', [EmployeeController::class, 'setStore'])->name('setStoreEmployee');
     Route::post('/cadastrar', [EmployeeController::class, 'storeEmployee'])->name('storeEmployee');
     Route::get('/editar/{id}', [EmployeeController::class, 'setUpdateEmployee'])->name('setUpdateEmployee');
     Route::post('/editar', [EmployeeController::class, 'update'])->name('updateEmployee');
-    Route::get('/apagar/{id}', [EmployeeController::class, 'deleteEmployee'])->name('delEmployee');
     Route::get('/gerenciar/{id}', [EmployeeController::class, 'manageEmployee'])->name('manageEmployee');
     Route::get('/ficha-funcional/{id}', [declarationController::class, 'functionalSheet'])->name('functionalSheet');
+    Route::get('/encerramento/{id}', [declarationController::class, 'closure_bond'])->name('closure_bond');
+    Route::post('/encerramento', [declarationController::class, 'close_bond'])->name('close_bond');
 });
 
 Route::prefix('declaracao')->group(function(){
