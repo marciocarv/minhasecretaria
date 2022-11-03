@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bond_employee;
 use App\Models\Box;
+use App\Models\Employee;
 use App\Models\Employment_bond;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,6 +12,10 @@ use PDF;
 
 class declarationController extends Controller
 {
+    public function declaration_options(){
+        return view('declaration.declaration_options');
+    }
+
     public function activity_start($id){
         $employment_bond = Employment_bond::findOrFail($id);
 

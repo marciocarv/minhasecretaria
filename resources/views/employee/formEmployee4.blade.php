@@ -73,7 +73,7 @@
                 name="admission" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employee->admission->format('Y-m-d')}}"
+                value="{{$employee->admission}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
@@ -133,7 +133,7 @@
                 name="lotation" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employment_bond->lotation->format('Y-m-d')}}"
+                value="{{$employment_bond->lotation}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>

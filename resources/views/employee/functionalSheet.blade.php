@@ -154,7 +154,7 @@
             <td class="field">Admissão Concurso:</td>
             <td class="field_response">{{$employment_bond->employee->admission->format('d/m/Y')}}</td>
             <td class="field">Data de <br> Lotação:</td>
-            <td class="field_response">{{$employment_bond->lotation->format('d/m/Y')}}</td>
+            <td class="field_response">{{$employment_bond->lotation == NULL ? '--' : $employment_bond->lotation->format('d/m/Y')}}</td>
         </tr>
         <tr>
             <td class="field">Início de Atividade:</td>

@@ -10,6 +10,10 @@
   </div>
 </section>
 
+<div class="return">
+  <a href="{{route('employee')}}" class="text-gray-500 font-bold m-2 hover:text-blue-800"> <i class="fa-solid fa-arrow-left"></i> Voltar</a>
+</div>
+
 <section class="section main-section">
   @if(session('success'))
   <div id="notification" class="notification green">

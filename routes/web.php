@@ -5,6 +5,7 @@ use App\Http\Controllers\declarationController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\listController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
 use App\Models\Employee;
@@ -65,4 +66,9 @@ Route::prefix('servidor')->group(function(){
 
 Route::prefix('declaracao')->group(function(){
     Route::get('/inicio_atividade/{id}', [declarationController::class, 'activity_start'])->name('activity_start');
+});
+
+Route::prefix('listas')->group(function(){
+    Route::get('/opcoes', [listController::class, 'listOptions'])->name('listOptions');
+    Route::post('/gerar', [listController::class, 'generateList'])->name('generateList');
 });

@@ -124,6 +124,7 @@ class EmployeeController extends Controller
             $employment_bond->role = $request->role;
             $employment_bond->workload = $request->workload;
             $employment_bond->bond = $request->bond;
+            $employment_bond->lotation = $request->lotation;
             $employment_bond->status = 'ATIVO';
 
             if($employment_bond->save()){
