@@ -187,8 +187,9 @@
 <script charset="utf-8" type="text/javascript">
 
   function type_employee(opc){
-    //let url = "{{route('getEmployeeForType', ['opc'=>"+opc+"])}}";
-    console.log(opc);
+    let params = "['opc'=>"+opc+"]";
+    let url = "{{route('getEmployeeForType', ";
+    console.log(url);
   }
 
   function uppercase(ev){
