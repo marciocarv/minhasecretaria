@@ -13,7 +13,12 @@ use PDF;
 class declarationController extends Controller
 {
     public function declaration_options(){
-        return view('declaration.declaration_options');
+        $title = "Declarações";
+        return view('declaration.declaration_options', ['title'=>$title]);
+    }
+
+    public function employeeForType($opc){
+        return response()->json($opc);
     }
 
     public function activity_start($id){

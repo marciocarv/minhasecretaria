@@ -42,7 +42,7 @@
     <a href="{{route('listOptions')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-list"></i></span> Listas de Servidores
     </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+    <a href="{{route('declaration_options')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-file-contract"></i></span> Declarações
     </a>
     <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
