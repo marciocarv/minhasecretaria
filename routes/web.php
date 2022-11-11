@@ -17,7 +17,7 @@ Route::get('/inativo', [IndexController::class, 'inactive'])->name('inactive');
 
 Route::get('/servidor', [EmployeeController::class, 'employee'])->name('employee');
 
-Route::get('/teste', [TesteController::class, 'testes'])->name('teste');
+Route::get('/teste', [TesteController::class, 'teste'])->name('teste');
 
 Route::prefix('caixa')->group(function (){
     Route::get('/gerenciar-caixas', [BoxController::class, 'manageBoxes'])->name('manageBoxes');
@@ -67,10 +67,11 @@ Route::prefix('servidor')->group(function(){
 Route::prefix('declaracao')->group(function(){
     Route::get('/inicio_atividade/{id}', [declarationController::class, 'activity_start'])->name('activity_start');
     Route::get('/opcoes', [declarationController::class, 'declaration_options'])->name('declaration_options');
+    Route::post('/exibir_declaracao', [declarationController::class, 'showDeclaration'])->name('showDeclaration');
 });
 
 Route::prefix('api')->group(function(){
-    Route::get('/getEmployeeForType/{opc}', [declarationController::class, 'employeeForType'])->name('getEmployeeForType');
+    Route::get('/getEmployeeForType/{status}', [declarationController::class, 'employeeForType'])->name('getEmployeeForType');
 });
 
 Route::prefix('listas')->group(function(){

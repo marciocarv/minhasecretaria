@@ -41,131 +41,60 @@
   @endif
 
   <div>
-    <form action="" method="post">
+    <form action="{{route('showDeclaration')}}" method="post" class="w-96" target="_blank">
       @csrf
         <div class="field">
-            <label class="label">Título da Lista</label>
-            <div class="field-body">
-                <div class="field">
-                    <div class="control icons-left">
-                        <input 
-                        class="input"
-                        type="text"
-                        name="title"
-                        id="uppercase_1"
-                        placeholder="Título da Lista"
-                        required
-                        >
-                    </div>
-                </div>
+          <label class="label">Situação do Servidor</label>
+          <div class="control">
+            <div class="select">
+              <select name="status" id="status">
+                <option value="-">Escolha uma opção</option>
+                <option value="ATIVO">Ativo</option>
+                <option value="INATIVO">Inativo</option>
+              </select>
             </div>
+          </div>
         </div>
         <div class="field">
-          <label class="label">Opções</label>
-          <div class="field-body">
-              <div class="field">
-                <div class="control icons-left">
-                  <table>
-                    <tr>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="name"
-                        checked
-                        > Nome
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="cpf"
-                        > CPF
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="lotation"
-                        > Data de Lotação
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="registration"
-                        > Matrícula
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="post"
-                        > Cargo
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="role"
-                        > Função
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="phone"
-                        > Telefone
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="workload"
-                        > Carga Horária
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="date_birth"
-                        > Data de Nascimento
-
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="id_censo"
-                        > Id censo.
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="schooling"
-                        > Escolaridade
-                      </td>
-                      <td>
-                        <input 
-                        type="checkbox"
-                        name="options[]"
-                        value="signature"
-                        > Assinatura
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
+          <label class="label">Servidor</label>
+          <div class="control">
+            <div class="select" id="select_area">
+              <select name="employee" id="employee_select">
+                <option value="-" id="chose" selected>Escolha a situação do servidor</option>
+              </select>
+            </div>
           </div>
-      </div>
-
+        </div>
+        <div class="field">
+          <label class="label">Tipo de Declaração</label>
+          <div class="control">
+            <div class="select">
+              <select name="employee" id="employee_select">
+                <option value="trabalho">TRABALHO</option>
+                <option value="vinculo">VÍNCULO</option>
+                <option value="inicio">INÍCIO DE ATIVIDADE</option>
+                <option value="encerramento">ENCERRAMENTO DE ATIVIDADE</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Data</label>
+          <div class="field-body">
+            <div class="field">
+              <div class="control icons-left">
+                <input 
+                  class="input" 
+                  type="date" 
+                  name="date" 
+                  placeholder=""
+                  required
+                  >
+                <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
       <div class="field grouped">
         <div class="control">
           <button type="submit" class="button green">
@@ -186,31 +115,53 @@
 <script src="{{asset('js/vanilla-masker.min.js')}}" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript">
 
-  function type_employee(opc){
-    let params = "['opc'=>"+opc+"]";
-    let url = "{{route('getEmployeeForType', ";
-    console.log(url);
+  const status = document.querySelector('#status');
+  let employee_select = document.querySelector('#employee_select');
+  const select_area = document.querySelector('#select_area');
+
+  status.addEventListener('change', ()=>{
+      var value = status.options[status.selectedIndex].value;
+      get_employee(value);
+    });
+
+  function get_employee(status){
+    if(status == '-'){
+      return 0;
+    }
+    let url = "http://secretario/minhasecretaria/public/api/getEmployeeForType/"+status;
+    fetch(url)
+    .then((response)=>{
+      return response.json();
+    })
+    .then((data)=>{
+      employee_select.parentNode.removeChild(employee_select);
+      employee_select = document.createElement('select');
+      employee_select.setAttribute('class', 'select');
+      employee_select.setAttribute('id', 'employee_select');
+      select_area.appendChild(employee_select);
+
+      let option_title = document.createElement('option');
+      option_title.setAttribute('value', '-');
+      option_title.innerText = "Escolha uma Opção";
+      employee_select.appendChild(option_title);
+
+      data.map((employee)=>{
+        setSelect(employee);
+      })
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   }
 
-  function uppercase(ev){
-    const input = ev.target;
-	  input.value = input.value.toUpperCase();
+  function setSelect(employee){
+    console.log(employee);
+    let option = document.createElement('option');
+    option.setAttribute('value', employee.id);
+    option.innerText = employee.employee.name;
+    employee_select.appendChild(option);
   }
 
-  function less_space(ev){
-    const input = ev.target;
-	  input.value = input.value.replace(/( )+/g, ' ');
-    input.value = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-  }
-
-  for(let i = 1; i<=4; i++){
-    document.querySelector('#uppercase_'+i).addEventListener('keyup', (ev) => {
-    uppercase(ev);
-    less_space(ev);
-  });
-
-  type_employee('teste');
-  }
 
 </script>
 

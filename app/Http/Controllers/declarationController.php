@@ -17,8 +17,13 @@ class declarationController extends Controller
         return view('declaration.declaration_options', ['title'=>$title]);
     }
 
-    public function employeeForType($opc){
-        return response()->json($opc);
+    public function employeeForType($status){
+        $employment_bond = Employment_bond::with('employee')->where('status', $status)->get();
+        return response()->json($employment_bond);
+    }
+
+    public function showDeclaration(Request $request){
+        dd($request->employee);
     }
 
     public function activity_start($id){
