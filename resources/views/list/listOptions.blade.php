@@ -41,7 +41,7 @@
   @endif
 
   <div>
-    <form action="{{route('generateList')}}" method="post">
+    <form action="{{route('generateList')}}" method="post" target="_blank">
       @csrf
         <div class="field">
             <label class="label">Título da Lista</label>

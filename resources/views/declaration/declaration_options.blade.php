@@ -69,11 +69,12 @@
           <label class="label">Tipo de Declaração</label>
           <div class="control">
             <div class="select">
-              <select name="employee" id="employee_select">
-                <option value="trabalho">TRABALHO</option>
-                <option value="vinculo">VÍNCULO</option>
-                <option value="inicio">INÍCIO DE ATIVIDADE</option>
-                <option value="encerramento">ENCERRAMENTO DE ATIVIDADE</option>
+              <select name="type" id="type">
+                <option value="-">Escolha uma opção</option>
+                <option value="work" id="work">TRABALHO</option>
+                <option value="bond" id="bond">VÍNCULO</option>
+                <option value="activity_start" id="activity_start">INÍCIO DE ATIVIDADE</option>
+                <option value="end" id="end">ENCERRAMENTO DE ATIVIDADE</option>
               </select>
             </div>
           </div>
@@ -118,17 +119,34 @@
   const status = document.querySelector('#status');
   let employee_select = document.querySelector('#employee_select');
   const select_area = document.querySelector('#select_area');
+  const work = document.querySelector('#work');
+  const bond = document.querySelector('#bond');
+  const activity_start = document.querySelector('#activity_start');
+  const end = document.querySelector('#end');
 
   status.addEventListener('change', ()=>{
       var value = status.options[status.selectedIndex].value;
       get_employee(value);
+      filter_options(value);
     });
+
+  function filter_options(value){
+    if(value == 'ATIVO'){
+      end.setAttribute('class', 'hidden');
+      work.setAttribute('class', 'work');
+    }else if(value == 'INATIVO'){
+      work.setAttribute('class', 'hidden');
+      end.setAttribute('class', 'end');
+    }else{
+      return 0;
+    }
+  }
 
   function get_employee(status){
     if(status == '-'){
       return 0;
     }
-    let url = "http://secretario/minhasecretaria/public/api/getEmployeeForType/"+status;
+    let url = "http://localhost/minhasecretaria/public/api/getEmployeeForType/"+status;
     fetch(url)
     .then((response)=>{
       return response.json();
@@ -138,6 +156,7 @@
       employee_select = document.createElement('select');
       employee_select.setAttribute('class', 'select');
       employee_select.setAttribute('id', 'employee_select');
+      employee_select.setAttribute('name', 'employee_select');
       select_area.appendChild(employee_select);
 
       let option_title = document.createElement('option');
@@ -155,7 +174,6 @@
   }
 
   function setSelect(employee){
-    console.log(employee);
     let option = document.createElement('option');
     option.setAttribute('value', employee.id);
     option.innerText = employee.employee.name;

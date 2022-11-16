@@ -23,7 +23,33 @@ class declarationController extends Controller
     }
 
     public function showDeclaration(Request $request){
-        dd($request->employee);
+
+        //dd($request->employee_select);
+        if($request->type == 'work'){
+
+        }elseif($request->type == 'bond'){
+
+        }elseif($request->type == 'activity_start'){
+            return redirect()->route('activity_start', ['id'=>$request->employee_select]);
+        }elseif($request->type == 'end'){
+
+        }
+    }
+
+    public function end_activity($id){
+        $employment_bond = Employment_bond::findOrFail($id);
+
+        \Carbon\Carbon::setlocale('pt_BR'); // LC_TIME é formatação de data e hora com strftime()
+
+        $dt = Carbon::now();
+
+        $dia = $dt->isoFormat('D');
+
+        $mes = $dt->isoFormat('MMMM');
+
+        $ano = $dt->isoFormat('Y');
+
+        
     }
 
     public function activity_start($id){
@@ -88,7 +114,7 @@ class declarationController extends Controller
             return redirect()->route('employee')->with('error', 'Erro ao arquivar o servidor!');
         }
 
-        return redirect()->route('employee')->with('success', 'Servidor Arquivado com sucesso!');
+        return redirect()->route('employee')->with('success', 'Servidor Arquivado com sucesso na caixa '.Box::findOrFail($bond_employee->box_id)->description);
     }
 
 }

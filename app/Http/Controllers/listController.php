@@ -22,3 +22,4 @@ class listController extends Controller
         return $pdf->setPaper('a4')->stream('lista_servidores.pdf');
     }
 }
+
