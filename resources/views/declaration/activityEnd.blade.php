@@ -38,7 +38,7 @@
         }
 
     </style>
-    <title>Declaração de Início de Atividade</title>
+    <title>Declaração de Encerramento de Atividade</title>
 </head>
 <body>
     <div class="header">
@@ -50,13 +50,13 @@
         </p>
     </div>
     <div class="title">
-        <p>DECLARAÇÃO DE INÍCIO DE ATIVIDADE</p>
+        <p>DECLARAÇÃO DE ENCERRAMENTO DE ATIVIDADE</p>
     </div>
     <div class="body">
         <p class="text_declaration">
             Declaramos, para fins de comprovação junto a Secretaria Municipal da Educação,
-            que o(a) Servidor(a) qualificado(a) iniciou suas atividades nesta Unidade de Ensino a
-            partir de: {{$employment_bond->activity_start->format('d/m/Y')}}.
+            que o(a) Servidor(a) qualificado(a) encerrou suas atividades nesta Unidade de Ensino
+            na seguinte data: {{$employment_bond->activity_end->format('d/m/Y')}}.
         </p>
         <table cellspacing="0">
             <tr>

@@ -68,6 +68,9 @@ Route::prefix('declaracao')->group(function(){
     Route::get('/inicio_atividade/{id}', [declarationController::class, 'activity_start'])->name('activity_start');
     Route::get('/opcoes', [declarationController::class, 'declaration_options'])->name('declaration_options');
     Route::post('/exibir_declaracao', [declarationController::class, 'showDeclaration'])->name('showDeclaration');
+    Route::get('/encerramento_atividade/{id}', [declarationController::class, 'activity_end'])->name('activity_end');
+    Route::get('/trabalho/{id}', [declarationController::class, 'work_declaration'])->name('work_declaration');
+    Route::get('/vinculo/{id}', [declarationController::class, 'bond_declaration'])->name('bond_declaration');
 });
 
 Route::prefix('api')->group(function(){

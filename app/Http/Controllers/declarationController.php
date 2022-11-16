@@ -24,19 +24,18 @@ class declarationController extends Controller
 
     public function showDeclaration(Request $request){
 
-        //dd($request->employee_select);
         if($request->type == 'work'){
-
+            return redirect()->route('work_declaration', ['id'=>$request->employee_select]);
         }elseif($request->type == 'bond'){
-
+            return redirect()->route('bond_declaration', ['id'=>$request->employee_select]);
         }elseif($request->type == 'activity_start'){
             return redirect()->route('activity_start', ['id'=>$request->employee_select]);
         }elseif($request->type == 'end'){
-
+            return redirect()->route('activity_end', ['id'=>$request->employee_select]);
         }
     }
 
-    public function end_activity($id){
+    public function activity_end($id){
         $employment_bond = Employment_bond::findOrFail($id);
 
         \Carbon\Carbon::setlocale('pt_BR'); // LC_TIME é formatação de data e hora com strftime()
@@ -49,7 +48,44 @@ class declarationController extends Controller
 
         $ano = $dt->isoFormat('Y');
 
-        
+        $pdf = PDF::loadView('declaration.activityEnd', compact('employment_bond', 'dia', 'mes', 'ano'));
+
+        return $pdf->setPaper('a4')->stream('encerramento_de_atividade.pdf');
+    }
+
+    public function bond_declaration($id){
+        $employee = Employment_bond::findOrFail($id)->employee;
+        $employment_bonds = $employee->Employment_bonds;
+
+        $dt = Carbon::now();
+
+        $dia = $dt->isoFormat('D');
+
+        $mes = $dt->isoFormat('MMMM');
+
+        $ano = $dt->isoFormat('Y');
+
+        $pdf = PDF::loadView('declaration.bond_declaration', compact('employment_bonds', 'dia', 'mes', 'ano', 'employee'));
+
+        return $pdf->setPaper('a4')->stream('vinculo.pdf');
+    }
+
+    public function work_declaration($id){
+        $employment_bond = Employment_bond::findOrFail($id);
+
+        \Carbon\Carbon::setlocale('pt_BR'); // LC_TIME é formatação de data e hora com strftime()
+
+        $dt = Carbon::now();
+
+        $dia = $dt->isoFormat('D');
+
+        $mes = $dt->isoFormat('MMMM');
+
+        $ano = $dt->isoFormat('Y');
+
+        $pdf = PDF::loadView('declaration.work_declaration', compact('employment_bond', 'dia', 'mes', 'ano'));
+
+        return $pdf->setPaper('a4')->stream('trabalho.pdf');
     }
 
     public function activity_start($id){
@@ -67,7 +103,7 @@ class declarationController extends Controller
 
         $pdf = PDF::loadView('employee.activityStart', compact('employment_bond', 'dia', 'mes', 'ano'));
 
-        return $pdf->setPaper('a4')->stream('ficha_funcional.pdf');
+        return $pdf->setPaper('a4')->stream('inicio_de_atividade.pdf');
     }
 
     public function functionalSheet($id){
