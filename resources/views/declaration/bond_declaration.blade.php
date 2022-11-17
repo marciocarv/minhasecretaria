@@ -37,6 +37,11 @@
             text-align: center;
             margin-top: 100px;
         }
+        li{
+            text-align: left;
+            list-style: none;
+            margin-bottom: 20px;
+        }
 
     </style>
     <title>Declaração de Vínculo</title>
@@ -64,12 +69,12 @@
                 <li>
                 Matrícula: {{$employment_bond->registration}}, Vínculo: {{$employment_bond->bond}}, Cargo: {{$employment_bond->post}}, 
                 Função: {{$employment_bond->role}}, Carga Horária: {{$employment_bond->workload}}H - 
-                Período: de {{$employment_bond->activity_start->format('d/m/Y')}} até
+                no período de {{$employment_bond->activity_start->format('d/m/Y')}} até 
                 @if($employment_bond->activity_end == null)
-                    atualmente
-                @else{
+                    os dias atuais
+                @else
                     {{$employment_bond->activity_end->format('d/m/Y')}}
-                }
+                @endif
                 </li>
             @endforeach
             </ul>

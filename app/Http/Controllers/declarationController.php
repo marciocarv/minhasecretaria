@@ -57,6 +57,8 @@ class declarationController extends Controller
         $employee = Employment_bond::findOrFail($id)->employee;
         $employment_bonds = $employee->Employment_bonds;
 
+        \Carbon\Carbon::setlocale('pt_BR'); // LC_TIME é formatação de data e hora com strftime()
+
         $dt = Carbon::now();
 
         $dia = $dt->isoFormat('D');
