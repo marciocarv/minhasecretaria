@@ -51,6 +51,9 @@
     <a href="{{route('closure_bond', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-red-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-calendar-xmark"></i></span> Encerramento de atividade
     </a>
+    <a href="{{route('setChangeRole', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-cool-gray-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-user-group"></i></span> Alterar Função
+    </a>
     <a href="{{route('setUpdateEmployee', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-700 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-pen-to-square"></i></span> Editar
     </a>

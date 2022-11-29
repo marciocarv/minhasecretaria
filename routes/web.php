@@ -62,6 +62,8 @@ Route::prefix('servidor')->group(function(){
     Route::get('/ficha-funcional/{id}', [declarationController::class, 'functionalSheet'])->name('functionalSheet');
     Route::get('/encerramento/{id}', [declarationController::class, 'closure_bond'])->name('closure_bond');
     Route::post('/encerramento', [declarationController::class, 'close_bond'])->name('close_bond');
+    Route::get('/alterar-funcao/{id}', [EmployeeController::class, 'setchangeRole'])->name('setChangeRole');
+    Route::post('/alterar-funcao', [EmployeeController::class, 'changeRole'])->name('changeRole');
 });
 
 Route::prefix('declaracao')->group(function(){
