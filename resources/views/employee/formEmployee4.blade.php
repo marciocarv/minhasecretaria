@@ -153,7 +153,7 @@
                 name="activity_start" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employment_bond->activity_start->format('Y-m-d')}}"
+                value="{{$employment_bond->activity_start}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>

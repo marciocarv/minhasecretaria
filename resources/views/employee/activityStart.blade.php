@@ -64,7 +64,7 @@
                     Matrícula:
                 </td>
                 <td>
-                    {{$employment_bond->registration}}
+                    {{$employment_bond->registration === '0' ? ' ' : $employment_bond->registration}}
                 </td>
             </tr>
             <tr>

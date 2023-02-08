@@ -67,7 +67,7 @@
             <ul>
             @foreach($employment_bonds as $employment_bond)
                 <li>
-                Matrícula: {{$employment_bond->registration}}, Vínculo: {{$employment_bond->bond}}, Cargo: {{$employment_bond->post}}, 
+                Matrícula: {{$employment_bond->registration === '0' ? ' ' : $employment_bond->registration}}, Vínculo: {{$employment_bond->bond}}, Cargo: {{$employment_bond->post}}, 
                 Função: {{$employment_bond->role}}, Carga Horária: {{$employment_bond->workload}}H - 
                 no período de {{$employment_bond->activity_start->format('d/m/Y')}} até 
                 @if($employment_bond->activity_end == null)

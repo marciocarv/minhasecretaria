@@ -69,103 +69,111 @@
     <div class="card-content">
       <table>
         <thead>
-          <tr>
+          <tr class="text-gray-600">
             <th>nome</th>
             <th>Data de Nascimento</th>
             <th>CPF</th>
             <th>RG</th>
           </tr>
-          <tr class="text-2xl">
+          <tr>
             <th>{{$employment_bond->employee->name}}</th>
             <th>{{$employment_bond->employee->date_birth->format('d/m/Y')}}</th>
             <th>{{$employment_bond->employee->cpf}}</th>
             <th>{{$employment_bond->employee->rg}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th>Matrícula</th>
             <th>Vínculo</th>
             <th>Cargo</th>
             <th>Função</th>
           </tr>
-          <tr class="text-2xl">
-            <th>{{$employment_bond->registration}}</th>
+          <tr>
+            <th>{{$employment_bond->registration === '0' ? ' ' : $employment_bond->registration}}</th>
             <th>{{$employment_bond->bond}}</th>
             <th>{{$employment_bond->post}}</th>
             <th>{{$employment_bond->role}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th>Data de Admissão</th>
             <th>Data de lotação</th>
             <th>Carga Horária</th>
             <th>ID censo</th>
           </tr>
-          <tr class="text-2xl">
-            <th>{{$employment_bond->employee->admission->format('d/m/Y')}}</th>
+          <tr>
+            <th>{{$employment_bond->employee->admission == null ? ' ' : $employment_bond->employee->admission->format('d/m/Y')}}</th>
             <th>{{$employment_bond->activity_start->format('d/m/Y')}}</th>
             <th>{{$employment_bond->workload}}</th>
             <th>{{$employment_bond->employee->id_censo}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th colspan="2">Filiação</th>
             <th>Naturalidade</th>
             <th>Estado Civil</th>
           </tr>
-          <tr class="text-2xl">
+          <tr>
             <th colspan="2">{{$employment_bond->employee->father}} e {{$employment_bond->employee->mother}}</th>
             <th>{{$employment_bond->employee->naturalness}}</th>
             <th>{{$employment_bond->employee->marital_status}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th>CEP</th>
             <th>endereço</th>
             <th>cor</th>
             <th>telefone</th>
           </tr>
-          <tr class="text-2xl">
+          <tr>
             <th>{{$employment_bond->employee->cep}}</th>
             <th>{{$employment_bond->employee->address}}</th>
             <th>{{$employment_bond->employee->color}}</th>
             <th>{{$employment_bond->employee->phone}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th>Tipo de Certidão</th>
             <th>Termo</th>
             <th>Livro</th>
             <th>folha</th>
           </tr>
-          <tr class="text-2xl">
+          <tr>
             <th>{{$employment_bond->employee->certificate_type}}</th>
             <th>{{$employment_bond->employee->certificate_term}}</th>
             <th>{{$employment_bond->employee->certificate_book}}</th>
             <th>{{$employment_bond->employee->certificate_sheet}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th>Banco</th>
             <th>Agência</th>
             <th>Nº da Conta</th>
             <th>Escolaridade</th>
           </tr>
-          <tr class="text-2xl">
+          <tr>
             <th>{{$employment_bond->employee->bank_name}}</th>
             <th>{{$employment_bond->employee->bank_agency}}</th>
             <th>{{$employment_bond->employee->bank_number}}</th>
             <th>{{$employment_bond->employee->schooling}}</th>
           </tr>
-          <tr>
+          <tr class="text-gray-600">
             <th>Curso</th>
             <th>Situação</th>
             <th>Instituição</th>
             <th>Ano de Conclusão</th>
           </tr>
-          <tr class="text-2xl">
+          <tr>
             <th>{{$employment_bond->employee->course_name}}</th>
             <th>{{$employment_bond->employee->course_status}}</th>
             <th>{{$employment_bond->employee->bank_number}}</th>
-            <th>{{$employment_bond->employee->schooling}}</th>
+            <th>{{$employment_bond->employee->conclusion}}</th>
           </tr>
         </thead>
       </table>
     </div>
+    <div class="is-hero-bar">
+      <h1 class="title">
+        Histórico de Vínculos
+      </h1>
+    </div>
+    <table>
+      
+    </table>
   </div>
 
 </section>
