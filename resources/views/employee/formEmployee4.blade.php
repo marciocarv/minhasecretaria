@@ -133,7 +133,7 @@
                 name="lotation" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employment_bond->lotation}}"
+                value="{{$employment_bond->lotation->format('Y-m-d')}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
@@ -153,7 +153,7 @@
                 name="activity_start" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employment_bond->activity_start}}"
+                value="{{$employment_bond->activity_start->format('Y-m-d')}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>

@@ -101,7 +101,7 @@
           </tr>
           <tr>
             <th>{{$employment_bond->employee->admission == null ? ' ' : $employment_bond->employee->admission->format('d/m/Y')}}</th>
-            <th>{{$employment_bond->activity_start->format('d/m/Y')}}</th>
+            <th>{{$employment_bond->lotation->format('d/m/Y')}}</th>
             <th>{{$employment_bond->workload}}</th>
             <th>{{$employment_bond->employee->id_censo}}</th>
           </tr>
