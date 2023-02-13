@@ -325,6 +325,14 @@ class EmployeeController extends Controller
         return view('employee.employee', ['title'=>$title, 'employees'=>$employees]);
     }
 
+    public function inactive_employee(){
+        $title = 'Servidores Inativos';
+
+        $employees = Employment_bond::with('employee')->where('status', 'INATIVO')->get();
+
+        return view('employee.inactiveEmployee', ['title'=>$title, 'employees'=>$employees]);
+    }
+
     public function setUpdateEmployee($id){
         $employment_bond = Employment_bond::findOrFail($id);
         $employee = $employment_bond->employee;
@@ -535,7 +543,7 @@ class EmployeeController extends Controller
         $employment_bond->status = 'ATIVO';
 
         $former_employment_bond->status = 'INATIVO';
-        $former_employment_bond->activity_end = Carbon::now();
+        $former_employment_bond->activity_end = Carbon::create($request->lotation)->subDays(1);
 
         if($employment_bond->save() && $former_employment_bond->save()){
             return redirect()->route('employee')->with('sucecess', 'Função Alterada com sucesso');

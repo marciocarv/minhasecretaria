@@ -36,20 +36,11 @@
   @endif
 
   <div class="flex justify-center">
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-square-plus"></i></span> Cadastrar Servidor
-    </a>
-    <a href="{{route('listOptions')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-list"></i></span> Listas de Servidores
-    </a>
     <a href="{{route('declaration_options')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-file-contract"></i></span> Declarações
     </a>
-    <a href="{{route('setStoreEmployee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-clock"></i></span> Banco de Horas
-    </a>
-    <a href="{{route('inactiveEmployees')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
-      <i class="fa-solid fa-arrows-down-to-people"></i></span> Servidores Inativos
+    <a href="{{route('employee')}}" class="m-1 p-4 button bg-teal-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-arrows-down-to-people"></i></span> Servidores Ativos
     </a>
   </div>
 
@@ -93,10 +84,10 @@
               </label>
             </td>
             <td data-label="Ordem">{{$loop->index + 1}}</td>
-            <td data-label="Nome">{{$employee->name}}</td>
-            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->date_birth))}}</td>
-            <td data-label="Nome">{{$employee->cpf}}</td>
-            <td data-label="Nome">{{$employee->registration === '0' ? ' ' : $employee->registration}}</td>
+            <td data-label="Nome">{{$employee->employee->name}}</td>
+            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->employee->date_birth))}}</td>
+            <td data-label="Nome">{{$employee->employee->cpf}}</td>
+            <td data-label="Nome">{{$employee->registration === '0' ? ' ' : $employee->registration}} </td>
             <td data-label="Nome">{{$employee->post}} </td>
             <td data-label="Nome">{{$employee->role}} </td>
             <td class="actions-cell">

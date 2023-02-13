@@ -42,4 +42,6 @@ class Employment_bond extends Model
         ->orderBy('employees.name')
         ->get();
     }
+
+    
 }

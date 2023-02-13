@@ -8,6 +8,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\listController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
+use App\Http\Controllers\Employment_bondController;
 use App\Models\Employee;
 use App\Models\Employment_bond;
 
@@ -60,10 +61,11 @@ Route::prefix('servidor')->group(function(){
     Route::post('/editar', [EmployeeController::class, 'update'])->name('updateEmployee');
     Route::get('/gerenciar/{id}', [EmployeeController::class, 'manageEmployee'])->name('manageEmployee');
     Route::get('/ficha-funcional/{id}', [declarationController::class, 'functionalSheet'])->name('functionalSheet');
-    Route::get('/encerramento/{id}', [declarationController::class, 'closure_bond'])->name('closure_bond');
-    Route::post('/encerramento', [declarationController::class, 'close_bond'])->name('close_bond');
+    Route::get('/encerramento/{id}', [Employment_bondController::class, 'closure_bond'])->name('closure_bond');
+    Route::post('/encerramento', [Employment_bondController::class, 'close_bond'])->name('close_bond');
     Route::get('/alterar-funcao/{id}', [EmployeeController::class, 'setchangeRole'])->name('setChangeRole');
     Route::post('/alterar-funcao', [EmployeeController::class, 'changeRole'])->name('changeRole');
+    Route::get('/inativos', [EmployeeController::class, 'inactive_employee'])->name('inactiveEmployees');
 });
 
 Route::prefix('declaracao')->group(function(){
