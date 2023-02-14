@@ -67,6 +67,18 @@
       </div>
 
       <div class="field">
+        <label class="label">Arquivamento</label>
+        <div class="control">
+          <div class="select">
+            <select name="archiving">
+              <option value="y">Arquivo Inativo</option>
+              <option value="n">Apenas encerrar</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
         <label class="label">Caixa de destino</label>
         <div class="control">
           <div class="select">
@@ -116,4 +128,6 @@
 @endsection
 
 @section('script')
+  
+
 @endsection
