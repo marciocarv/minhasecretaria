@@ -70,7 +70,7 @@
         <label class="label">Arquivamento</label>
         <div class="control">
           <div class="select">
-            <select name="archiving">
+            <select name="archiving" id="archiving">
               <option value="y">Arquivo Inativo</option>
               <option value="n">Apenas encerrar</option>
             </select>
@@ -78,12 +78,12 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="box">
         <label class="label">Caixa de destino</label>
         <div class="control">
           <div class="select">
-            <select name="box_id">
-              <option value="">Escolha uma caixa</option>
+            <select name="box_id" id="box_id">
+              <option value="-">Escolha uma caixa</option>
               @foreach($boxes as $box)
               <option value="{{$box->id}}">Caixa {{$box->description}}</option>
               @endforeach
@@ -92,7 +92,7 @@
         </div>
       </div>
 
-      <div class="field">
+      <div class="field" id="order-field">
         <label class="label">Ordem</label>
         <div class="field-body">
           <div class="field">
@@ -100,7 +100,8 @@
               <input 
                 class="input" 
                 type="number" 
-                name="order" 
+                name="order"
+                id="order"
                 placeholder="Ordem"
                 >
               <span class="icon left"><i class="fa-solid fa-list"></i></span>
@@ -128,6 +129,43 @@
 @endsection
 
 @section('script')
-  
+<script>
+  const archiving = document.querySelector('#archiving');
+  const box = document.querySelector('#box_id');
+  const boxField = document.querySelector('#box');
+  const order = document.querySelector('#order');
+  const orderField = document.querySelector('#order-field');
 
+  archiving.addEventListener("change", ()=>{
+    if(archiving.value === "y"){
+      boxField.classList.remove('hidden');
+      orderField.classList.remove('hidden');
+    }else{
+      boxField.classList.add('hidden');
+      orderField.classList.add('hidden');
+    }
+  });
+
+  box.addEventListener("change", ()=>{
+    get_order(box.value);
+  });
+
+  function get_order(id_box){
+    if(id_box == '-'){
+      return 0;
+    }
+    let url = "http://localhost/minhasecretaria/public/api/getOrderEmployee/"+id_box;
+    fetch(url)
+    .then((response)=>{
+      return response.json();
+    })
+    .then((data)=>{
+     order.value = data;
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+</script>
+  
 @endsection

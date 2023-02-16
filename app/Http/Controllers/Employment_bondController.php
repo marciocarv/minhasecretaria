@@ -31,16 +31,18 @@ class Employment_bondController extends Controller
             return redirect()->route('employee')->with('error', 'Erro ao arquivar o servidor!');
         }
 
-        $bond_employee->box_id = $request->box_id;
-        $bond_employee->order = $request->order;
-        $bond_employee->status = "ARQUIVADO";
-        $bond_employee->entry_year = $employment_bond->lotation->format('Y');
-        $bond_employee->exit_year = $employment_bond->activity_end->format('Y');
-        $bond_employee->employee_id = $employment_bond->employee->id;
-        if(!$bond_employee->save()){
-            return redirect()->route('employee')->with('error', 'Erro ao arquivar o servidor!');
-        }
+        if($request->archiving === "y"){
+            $bond_employee->box_id = $request->box_id;
+            $bond_employee->order = $request->order;
+            $bond_employee->status = "ARQUIVADO";
+            $bond_employee->entry_year = $employment_bond->lotation->format('Y');
+            $bond_employee->exit_year = $employment_bond->activity_end->format('Y');
+            $bond_employee->employee_id = $employment_bond->employee->id;
+            if(!$bond_employee->save()){
+                return redirect()->route('employee')->with('error', 'Erro ao arquivar o servidor!');
+            }
+        }      
 
-        return redirect()->route('employee')->with('success', 'Servidor Arquivado com sucesso na caixa '.Box::findOrFail($bond_employee->box_id)->description);
+        return redirect()->route('employee')->with('success', 'Servidor Arquivado com sucesso');
     }
 }

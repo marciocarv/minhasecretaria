@@ -145,4 +145,16 @@ class BoxController extends Controller
 
     }
 
+    public function getOrderEmployee($id_box){
+        $box = Box::findOrfail($id_box);
+        $order = $box->bond_employees->count() + 1;
+        return response()->json($order);
+    }
+
+    public function getOrderStudent($id_box){
+        $box = Box::findOrfail($id_box);
+        $order = $box->bond_students->count() + 1;
+        return response()->json($order);
+    }
+
 }

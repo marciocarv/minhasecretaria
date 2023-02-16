@@ -81,8 +81,8 @@
         <label class="label">Caixa de destino</label>
         <div class="control">
           <div class="select">
-            <select name="box_id">
-              <option value="">Escolha uma caixa</option>
+            <select name="box_id" id="box_id">
+              <option value="-">Escolha uma caixa</option>
               @foreach($boxes as $box)
               <option value="{{$box->id}}">Caixa {{$box->description}}</option>
               @endforeach
@@ -99,7 +99,8 @@
               <input 
                 class="input" 
                 type="number" 
-                name="order" 
+                name="order"
+                id="order" 
                 placeholder="Ordem"
                 >
               <span class="icon left"><i class="fa-solid fa-list"></i></span>
@@ -164,6 +165,10 @@
 
 @section('script')
 <script>
+
+  const box_id = document.querySelector("#box_id");
+  const order = document.querySelector('#order');
+
   function hide(){
     let notification = document.querySelector('#notification');
 
@@ -181,21 +186,26 @@
     input.value = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
-  document.querySelector('#uppercase_student').addEventListener('keyup', (ev) => {
-    uppercase(ev);
+  box_id.addEventListener("change", ()=>{
+    get_order(box_id.value);
   });
 
-  document.querySelector('#uppercase_mother').addEventListener('keyup', (ev) => {
-    uppercase(ev);
-  });
-
-  document.querySelector('#uppercase_student').addEventListener('blur', (ev) => {
-    less_space(ev);
-  });
-
-  document.querySelector('#uppercase_mother').addEventListener('blur', (ev) => {
-    less_space(ev);
-  });
+  function get_order(id_box){
+    if(id_box == '-'){
+      return 0;
+    }
+    let url = "http://localhost/minhasecretaria/public/api/getOrderEmployee/"+id_box;
+    fetch(url)
+    .then((response)=>{
+      return response.json();
+    })
+    .then((data)=>{
+     order.value = data;
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
 
 
 </script>

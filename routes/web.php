@@ -79,6 +79,8 @@ Route::prefix('declaracao')->group(function(){
 
 Route::prefix('api')->group(function(){
     Route::get('/getEmployeeForType/{status}', [declarationController::class, 'employeeForType'])->name('getEmployeeForType');
+    Route::get('/getOrderEmployee/{id_box}', [BoxController::class, 'getOrderEmployee'])->name('getOrder');
+    Route::get('/getOrderStudent/{id_box}', [BoxController::class, 'getOrderStudent'])->name('getOrder');
 });
 
 Route::prefix('listas')->group(function(){
