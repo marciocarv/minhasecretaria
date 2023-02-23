@@ -57,7 +57,7 @@
                 placeholder=""
                 required
                 @if($employment_bond->activity_end)
-                value="{{$employee->activity_end->format('Y-m-d')}}"
+                value="{{$employment_bond->activity_end->format('Y-m-d')}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>

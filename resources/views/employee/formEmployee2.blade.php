@@ -143,7 +143,7 @@
                 name="rg_expedition" 
                 placeholder=""
                 @if($action == 'update')
-                value="{{$employee->rg_expedition}}"
+                value="{{$employee->rg_expedition->format('Y-m-d')}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>

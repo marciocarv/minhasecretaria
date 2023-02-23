@@ -129,9 +129,9 @@ class EmployeeController extends Controller
             $employment_bond->status = 'ATIVO';
 
             if($employment_bond->save()){
-                return redirect()->route('employee')->with('success', 'Servidor Salvo com sucesso!');
+                return redirect()->route('inactiveEmployees')->with('success', 'Servidor Salvo com sucesso!');
             }else{
-                return redirect()->route('employee')->with('error', 'Não foi possível completar o cadastro!');
+                return redirect()->route('inactiveEmployees')->with('error', 'Não foi possível completar o cadastro!');
             }
            
         }
@@ -328,7 +328,10 @@ class EmployeeController extends Controller
     public function inactive_employee(){
         $title = 'Servidores Inativos';
 
-        $employees = Employment_bond::with('employee')->where('status', 'INATIVO')->get();
+        //$employees = Employment_bond::with('employee')->where('status', 'INATIVO')->orderBy('')->get();
+        $employment_bond = new Employment_bond;
+
+        $employees = $employment_bond->inactive_employees();
 
         return view('employee.inactiveEmployee', ['title'=>$title, 'employees'=>$employees]);
     }
@@ -449,7 +452,6 @@ class EmployeeController extends Controller
             $employment_bond->role = $request->role;
             $employment_bond->workload = $request->workload;
             $employment_bond->bond = $request->bond;
-            $employment_bond->status = 'ATIVO';
 
             if($employment_bond->save()){
                 return redirect()->route('employee')->with('success', 'Servidor editado com sucesso!');
@@ -516,39 +518,5 @@ class EmployeeController extends Controller
         }
 
         return redirect()->route('employee')->with('success', 'Servidor Vinculado com sucesso!');
-    }
-
-    public function setChangeRole($id){
-        $employement_bond = Employment_bond::findOrFail($id);
-        return view('employee.changeRole', [
-            'employment_bond'=>$employement_bond,
-            'title'=>'Alterar Função do Servidor',
-            'route'=>'changeRole'
-        ]);
-    }
-
-    public function changeRole(Request $request){
-
-        $former_employment_bond = Employment_bond::findOrFail($request->employment_bond_id);
-
-        $employment_bond = new Employment_bond();
-        $employment_bond->employee_id = $request->employee_id;
-        $employment_bond->registration = $former_employment_bond->registration;
-        $employment_bond->activity_start = $request->activity_start;
-        $employment_bond->post = $former_employment_bond->post;
-        $employment_bond->role = $request->role;
-        $employment_bond->workload = $request->workload;
-        $employment_bond->bond = $former_employment_bond->bond;
-        $employment_bond->lotation = $request->lotation;
-        $employment_bond->status = 'ATIVO';
-
-        $former_employment_bond->status = 'INATIVO';
-        $former_employment_bond->activity_end = Carbon::create($request->lotation)->subDays(1);
-
-        if($employment_bond->save() && $former_employment_bond->save()){
-            return redirect()->route('employee')->with('sucecess', 'Função Alterada com sucesso');
-        }else{
-            return redirect()->route('employee')->with('error', 'Não foi possível alterar a função');
-        }
     }
 }

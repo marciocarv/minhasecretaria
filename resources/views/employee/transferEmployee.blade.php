@@ -194,7 +194,7 @@
     if(id_box == '-'){
       return 0;
     }
-    let url = "http://localhost/minhasecretaria/public/api/getOrderEmployee/"+id_box;
+    let url = "http://secretario/minhasecretaria/public/api/getOrderEmployee/"+id_box;
     fetch(url)
     .then((response)=>{
       return response.json();

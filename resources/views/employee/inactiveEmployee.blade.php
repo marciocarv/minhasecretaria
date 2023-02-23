@@ -84,9 +84,9 @@
               </label>
             </td>
             <td data-label="Ordem">{{$loop->index + 1}}</td>
-            <td data-label="Nome">{{$employee->employee->name}}</td>
-            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->employee->date_birth))}}</td>
-            <td data-label="Nome">{{$employee->employee->cpf}}</td>
+            <td data-label="Nome">{{$employee->name}}</td>
+            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->date_birth))}}</td>
+            <td data-label="Nome">{{$employee->cpf}}</td>
             <td data-label="Nome">{{$employee->registration === '0' ? ' ' : $employee->registration}} </td>
             <td data-label="Nome">{{$employee->post}} </td>
             <td data-label="Nome">{{$employee->role}} </td>
@@ -109,6 +109,12 @@
                   class="button small blue" 
                   type="button">
                   <span class="icon"><i class="fa-solid fa-wrench"></i></span>
+                </a>
+                <a title="Reativar" 
+                  href="{{route('setReactivate', ['id'=>$employee->id])}}" 
+                  class="button small green" 
+                  type="button">
+                  <span class="icon"><i class="fa-solid fa-rotate-left"></i></span>
                 </a>
               </div>
             </td>

@@ -189,7 +189,7 @@
     if(id_box == '-'){
       return 0;
     }
-    let url = "http://localhost/minhasecretaria/public/api/getOrderStudent/"+id_box;
+    let url = "http://secretario/minhasecretaria/public/api/getOrderStudent/"+id_box;
     fetch(url)
     .then((response)=>{
       return response.json();

@@ -43,5 +43,19 @@ class Employment_bond extends Model
         ->get();
     }
 
+    public function inactive_employees(){
+        return DB::table('employment_bonds')
+        ->join('employees', 'employees.id', 'employment_bonds.employee_id')
+        ->where('employment_bonds.status', '=', 'INATIVO')
+        ->select('employment_bonds.id', 
+                'employment_bonds.registration', 
+                'employment_bonds.post', 
+                'employment_bonds.role', 
+                'employees.name', 
+                'employees.date_birth',
+                'employees.cpf')
+        ->orderBy('employees.name')
+        ->get();
+    }
     
 }

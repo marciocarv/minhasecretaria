@@ -63,9 +63,11 @@ Route::prefix('servidor')->group(function(){
     Route::get('/ficha-funcional/{id}', [declarationController::class, 'functionalSheet'])->name('functionalSheet');
     Route::get('/encerramento/{id}', [Employment_bondController::class, 'closure_bond'])->name('closure_bond');
     Route::post('/encerramento', [Employment_bondController::class, 'close_bond'])->name('close_bond');
-    Route::get('/alterar-funcao/{id}', [EmployeeController::class, 'setchangeRole'])->name('setChangeRole');
-    Route::post('/alterar-funcao', [EmployeeController::class, 'changeRole'])->name('changeRole');
+    Route::get('/alterar-funcao/{id}', [Employment_bondController::class, 'setchangeRole'])->name('setChangeRole');
+    Route::post('/alterar-funcao', [Employment_bondController::class, 'changeRole'])->name('changeRole');
     Route::get('/inativos', [EmployeeController::class, 'inactive_employee'])->name('inactiveEmployees');
+    Route::get('/reativar/{id}', [Employment_bondController::class, 'setReactivate'])->name('setReactivate');
+    Route::post('/reativar', [Employment_bondController::class, 'reactivate'])->name('reactivateEmployee');
 });
 
 Route::prefix('declaracao')->group(function(){
