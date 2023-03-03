@@ -129,9 +129,9 @@ class EmployeeController extends Controller
             $employment_bond->status = 'ATIVO';
 
             if($employment_bond->save()){
-                return redirect()->route('inactiveEmployees')->with('success', 'Servidor Salvo com sucesso!');
+                return redirect()->route('employee')->with('success', 'Servidor Salvo com sucesso!');
             }else{
-                return redirect()->route('inactiveEmployees')->with('error', 'Não foi possível completar o cadastro!');
+                return redirect()->route('employee')->with('error', 'Não foi possível completar o cadastro!');
             }
            
         }
