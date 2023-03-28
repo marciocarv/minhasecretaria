@@ -38,6 +38,7 @@ class Employment_bond extends Model
                 'employment_bonds.role', 
                 'employees.name', 
                 'employees.date_birth',
+                'employment_bonds.lotation',
                 'employees.cpf')
         ->orderBy('employees.name')
         ->get();

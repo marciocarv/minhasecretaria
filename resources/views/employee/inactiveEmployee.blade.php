@@ -55,7 +55,7 @@
       </a>
     </header>
     <div class="card-content">
-      <table>
+      <table class="text-xs">
         <thead>
         <tr>
           <th class="checkbox-cell">

@@ -64,7 +64,7 @@
       </a>
     </header>
     <div class="card-content">
-      <table>
+      <table class="text-xs">
         <thead>
         <tr>
           <th class="checkbox-cell">
@@ -75,11 +75,12 @@
           </th>
           <th>Nº</th>
           <th>Nome</th>
-          <th>Data de Nascimento</th>
+          <th>Nascimento</th>
           <th>CPF</th>
           <th>Matrícula</th>
           <th>Cargo</th>
           <th>Função</th>
+          <th>Lotação</th>
           <th></th>
         </tr>
         </thead>
@@ -97,8 +98,25 @@
             <td data-label="Nome">{{date('d/m/Y', strtotime($employee->date_birth))}}</td>
             <td data-label="Nome">{{$employee->cpf}}</td>
             <td data-label="Nome">{{$employee->registration === '0' ? ' ' : $employee->registration}}</td>
-            <td data-label="Nome">{{$employee->post}} </td>
+            <td data-label="Nome">
+              @if($employee->post === 'AGENTE ADMINISTRATIVO EDUCACIONAL')
+              AAE
+              @elseif($employee->post === 'TECNICO ADMINISTRATIVO EDUCACIONAL')
+              TAE
+              @elseif($employee->post === 'PROFESSOR II')
+              P-II
+              @elseif($employee->post === 'PROFESSOR I')
+              P-I
+              @elseif($employee->post === 'MONITOR DE DESENVOLVIMENTO INFANTIL')
+              MDI
+              @elseif($employee->post === 'AUXILIAR DE SERVICOS GERAIS')
+              ASG
+              @elseif($employee->post === 'MENOR APRENDIZ')
+              MA
+              @endif
+            </td>
             <td data-label="Nome">{{$employee->role}} </td>
+            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->lotation))}} </td>
             <td class="actions-cell">
               <div class="buttons right nowrap">
                 <a title="Editar" 

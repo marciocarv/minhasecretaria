@@ -162,10 +162,12 @@
         <div class="flex items-center justify-between">
           <div class="widget-label">
             <h3>
-              Clients
+              Aniversariantes do mês
             </h3>
             <h1>
-              512
+              <ul>
+                <li>teste</li>
+              </ul>
             </h1>
           </div>
           <span class="text-green-500 icon widget-icon"><i class="mdi mdi-account-multiple mdi-48px"></i></span>

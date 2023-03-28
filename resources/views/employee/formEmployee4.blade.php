@@ -57,6 +57,7 @@
               <option value="">Escolha uma opção</option>
               <option value="EFETIVO"@if($action == 'update' && $employment_bond->bond == 'EFETIVO') selected @endif>EFETIVO</option>
               <option value="CONTRATO"@if($action == 'update' && $employment_bond->bond == 'CONTRATO') selected @endif>CONTRATO</option>
+              <option value="MENOR"@if($action == 'update' && $employment_bond->bond == 'MENOR') selected @endif>MENOR APRENDIZ</option>
             </select>
           </div>
         </div>
@@ -70,10 +71,10 @@
               <input 
                 class="input" 
                 type="date" 
-                name="admission" 
+                name="admission"
                 placeholder=""
-                @if($action == 'update')
-                value="{{$employee->admission}}"
+                @if($action == 'update' && $employee->admission)
+                value="{{$employee->admission->format('Y-m-d')}}"
                 @endif
                 >
               <span class="icon left"><i class="fa-solid fa-calendar-days"></i></span>
@@ -92,6 +93,7 @@
                 type="text" 
                 name="registration"
                 placeholder="Número de matrícula"
+                required
                 @if($action == 'update')
                 value="{{$employment_bond->registration}}"
                 @endif
@@ -132,6 +134,7 @@
                 type="date" 
                 name="lotation" 
                 placeholder=""
+                required
                 @if($action == 'update')
                 value="{{$employment_bond->lotation->format('Y-m-d')}}"
                 @endif
@@ -152,6 +155,7 @@
                 type="date" 
                 name="activity_start" 
                 placeholder=""
+                required
                 @if($action == 'update')
                 value="{{$employment_bond->activity_start->format('Y-m-d')}}"
                 @endif
@@ -173,6 +177,7 @@
                 name="post"
                 id="uppercase_1"
                 placeholder="Cargo"
+                required
                 @if($action == 'update')
                 value="{{$employment_bond->post}}"
                 @endif
@@ -194,6 +199,7 @@
                 name="role"
                 id="uppercase_2"
                 placeholder="Função"
+                required
                 @if($action == 'update')
                 value="{{$employment_bond->role}}"
                 @endif

@@ -452,6 +452,7 @@ class EmployeeController extends Controller
             $employment_bond->role = $request->role;
             $employment_bond->workload = $request->workload;
             $employment_bond->bond = $request->bond;
+            $employment_bond->lotation = $request->lotation;
 
             if($employment_bond->save()){
                 return redirect()->route('employee')->with('success', 'Servidor editado com sucesso!');

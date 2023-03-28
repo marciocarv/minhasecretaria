@@ -142,7 +142,7 @@
                 type="date" 
                 name="rg_expedition" 
                 placeholder=""
-                @if($action == 'update')
+                @if($action == 'update' && $employee->rg_expedition)
                 value="{{$employee->rg_expedition->format('Y-m-d')}}"
                 @endif
                 >
