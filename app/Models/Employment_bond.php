@@ -58,5 +58,14 @@ class Employment_bond extends Model
         ->orderBy('employees.name')
         ->get();
     }
+
+    public function birthdays_month($current_month){
+        return $employees = Employee::whereHas('employment_bonds', function ($query) {
+            $query->where('status', 'ativo');
+        })
+        ->whereMonth('date_birth', $current_month)
+        ->orderByRaw("DAY(date_birth)")
+        ->get();
+    }
     
 }

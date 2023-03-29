@@ -164,11 +164,13 @@
             <h3>
               Aniversariantes do mês
             </h3>
-            <h1>
+            <h4>
               <ul>
-                <li>teste</li>
+                @foreach($employment_bonds as $employee)
+                <li><strong>{{$employee->name}} - {{$employee->date_birth->format('d/m')}}</strong></li>
+                @endforeach
               </ul>
-            </h1>
+            </h4>
           </div>
           <span class="text-green-500 icon widget-icon"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
         </div>
@@ -179,10 +181,10 @@
         <div class="flex items-center justify-between">
           <div class="widget-label">
             <h3>
-              Sales
+              
             </h3>
             <h1>
-              $7,770
+              
             </h1>
           </div>
           <span class="text-blue-500 icon widget-icon"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -195,10 +197,10 @@
         <div class="flex items-center justify-between">
           <div class="widget-label">
             <h3>
-              Performance
+              
             </h3>
             <h1>
-              256%
+              
             </h1>
           </div>
           <span class="text-red-500 icon widget-icon"><i class="mdi mdi-finance mdi-48px"></i></span>
