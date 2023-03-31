@@ -20,6 +20,7 @@
   <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00b4b6"/>
   <script src="https://kit.fontawesome.com/8a5e08d92d.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{asset('css/app.css')}}" />
+    @yield('css')
 
   <meta name="description" content="Admin One - free Tailwind dashboard">
 
@@ -74,7 +75,7 @@
         </a>
       </li>
       <li class="--set-active-profile-html">
-        <a href="profile.html">
+        <a href="{{route('pointBook')}}">
           <span class="icon"><i class="fa-solid fa-address-book"></i></span>
           <span class="menu-item-label">Livro de Ponto</span>
         </a>

@@ -67,5 +67,15 @@ class Employment_bond extends Model
         ->orderByRaw("DAY(date_birth)")
         ->get();
     }
+
+    public function employeeBySector($option){
+
+        return Employee::where('role', $option, 'pro%')
+                ->with(['employmentBonds' => function ($query) {
+                    $query->where('status', 'Ativo');
+                }])
+                ->get();
+        
+    }
     
 }

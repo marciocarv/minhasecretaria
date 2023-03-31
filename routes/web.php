@@ -9,6 +9,7 @@ use App\Http\Controllers\listController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
 use App\Http\Controllers\Employment_bondController;
+use App\Http\Controllers\PointBookController;
 use App\Models\Employee;
 use App\Models\Employment_bond;
 
@@ -17,6 +18,8 @@ Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/inativo', [IndexController::class, 'inactive'])->name('inactive');
 
 Route::get('/servidor', [EmployeeController::class, 'employee'])->name('employee');
+
+Route::get('/ponto', [PointBookController::class, 'index'])->name('pointBook');
 
 Route::get('/teste', [TesteController::class, 'teste'])->name('teste');
 
