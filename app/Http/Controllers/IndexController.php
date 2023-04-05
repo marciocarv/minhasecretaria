@@ -13,11 +13,11 @@ class IndexController extends Controller
         $title = "Sistema de Gestão de Secretaria Escolar";
 
         $current_month = Carbon::now()->month;
-        $employment_bond = new Employment_bond;
+        $employee = new Employee;
 
-        $employment_bonds = $employment_bond->birthdays_month($current_month);
+        $employees = $employee->birthdays_month($current_month);
 
-        return view('index.index', ['title'=>$title, 'employment_bonds'=>$employment_bonds]);
+        return view('index.index', ['title'=>$title, 'employment_bonds'=>$employees]);
     }
 
     public function inactive(){

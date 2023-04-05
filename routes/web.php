@@ -10,8 +10,6 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
 use App\Http\Controllers\Employment_bondController;
 use App\Http\Controllers\PointBookController;
-use App\Models\Employee;
-use App\Models\Employment_bond;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -91,4 +89,8 @@ Route::prefix('api')->group(function(){
 Route::prefix('listas')->group(function(){
     Route::get('/opcoes', [listController::class, 'listOptions'])->name('listOptions');
     Route::post('/gerar', [listController::class, 'generateList'])->name('generateList');
+});
+
+Route::prefix('ponto')->group(function(){
+    Route::post('/gerar', [PointBookController::class, 'makePointBook'])->name('makePointBook');
 });
