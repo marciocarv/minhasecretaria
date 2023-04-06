@@ -11,7 +11,7 @@
             }
         }
         html{
-            margin: 25px 20px 20px 20px;
+            margin: 15px 20px 10px 20px;
             padding: 0px;
         }
 
@@ -24,12 +24,12 @@
         }
 
         .header p{
-            margin: 3px 0 0 0;
+            margin: 2px 0 0 0;
             padding: 0px;
         }
 
         .title{
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
             font-weight: bold;
             margin: 0px;
@@ -53,7 +53,7 @@
 
         .table-header{
             font-size: 11px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .table-header .name{
@@ -75,8 +75,30 @@
         }
 
         .column{
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
+        }
+
+        .obs{
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .sign{
+            margin-left: 30px;
+        }
+
+        .boss{
+            margin-left: 230px;
+        }
+
+        .data-sign{
+            padding-top: 25px;
+            font-size: 10px;
+        }
+
+        .closed{
+            background-color: rgb(138, 133, 133);
         }
 
     </style>
@@ -127,17 +149,91 @@
                 <td class="signature">Assinatura</td>
             </tr>
             @foreach($monthPeriod as $day)
-            <tr>
-                <td>{{$day->format('d/m')}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+
+            @if($employee->role === "VIGIA DIURNO" || $employee->role === "VIGIA DIURNO")
+                <tr>
+                    <td>{{$day->format('d/m')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            @else
+                @if($day->englishDayOfWeek === 'Saturday' || $day->englishDayOfWeek === 'Sunday')
+                    @if($saturdays && in_array($day->format('Y-m-d'), $saturdays))
+                        <tr>
+                            <td>{{$day->format('d/m')}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @else()
+                        <tr class="closed">
+                            <td>{{$day->format('d/m')}}</td>
+                            <td> - </td>
+                            <td> - </td>
+                            <td>{{$day->translatedFormat('l')}}</td>
+                            <td> - </td>
+                            <td> - </td>
+                            <td>{{$day->translatedFormat('l')}}</td>
+                            <td> - </td>
+                        </tr>
+                    @endif
+                @elseif($holidays && in_array($day->format('Y-m-d'), $holidays))
+                    <tr class="closed">
+                        <td>{{$day->format('d/m')}}</td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td>FERIADO / RECESSO</td>
+                        <td> - </td>
+                        <td> - </td>
+                        <td>FERIADO / RECESSO</td>
+                        <td> - </td>
+                    </tr>
+                @else
+                    <tr>
+                        <td>{{$day->format('d/m')}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endif
+            @endif
+
+
+
+
+
+
+               
             @endforeach
+            <tr>
+                <td colspan="4" class="obs">Obs:</td>
+                <td colspan="4" class="data-sign">
+                    <span>Palmas, ____ de ___________ de {{$currentMonth->format('Y')}}</span>
+                    <span class="sign">___________________________________</span> <br />
+                    <span class="boss"> Chefia imediata </span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" class="obs">
+                    
+                        Obs.: Art. 38 da Lei Complementar 008, de 16 de novembro de 1999, o servidor perderá: II - A parcela de remuneração diária, 
+                        proporcional aos atrasos não justificados.
+                    
+                </td>
+            </tr>
         </table>
     @endforeach
     
