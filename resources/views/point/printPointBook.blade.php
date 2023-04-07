@@ -134,13 +134,13 @@
             </tr>
         </table>
         <table cellspacing="0" class="table-body">
-            <tr class="column">
+            <tr class="column closed">
                 <td rowspan="2">DATA</td>
                 <td colspan="3">MATUTINO</td>
                 <td colspan="3">VESPERTINO</td>
                 <td rowspan="2">OBSERVAÇÃO</td>
             </tr>
-            <tr class="column">
+            <tr class="column closed">
                 <td class="time">Entrada</td>
                 <td class="time">Saída</td>
                 <td class="signature">Assinatura</td>
@@ -198,16 +198,30 @@
                         <td> - </td>
                     </tr>
                 @else
-                    <tr>
-                        <td>{{$day->format('d/m')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    @if($employee->activityTime && $employee->activityTime->description === $day->englishDayOfWeek)
+                        <tr>
+                            <td>{{$day->format('d/m')}}</td>
+                            <td> - </td>
+                            <td> - </td>
+                            <td> HORA-ATIVIDADE</td>
+                            <td> - </td>
+                            <td> - </td>
+                            <td> HORA ATIVIDADE</td>
+                            <td> - </td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td>{{$day->format('d/m')}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    @endif
+                    
                 @endif
             @endif
 

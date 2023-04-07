@@ -45,8 +45,8 @@
       <i class="fa-solid fa-print"></i>
       </span> Ficha Funcional
     </a>
-    <a href="{{route('activity_start', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-900 text-white font-bold shadow hover:bg-teal-700" target="_blank"><span class="icon">
-      <i class="fa-solid fa-print"></i></span> Início de Atividade
+    <a href="{{route('listActivityTime', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-blue-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
+      <i class="fa-solid fa-print"></i></span> Hora Atividade
     </a>
     <a href="{{route('closure_bond', ['id'=>$employment_bond->id])}}" class="m-1 p-4 button bg-red-900 text-white font-bold shadow hover:bg-teal-700"><span class="icon">
       <i class="fa-solid fa-calendar-xmark"></i></span> Encerramento de atividade

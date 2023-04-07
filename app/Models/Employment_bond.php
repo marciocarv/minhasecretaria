@@ -28,6 +28,10 @@ class Employment_bond extends Model
         return $this->belongsTo(Employee::class);
     }
 
+    public function activityTime(){
+        return $this->hasOne(ActivityTime::class);
+    }
+
     public function active_employees(){
         return DB::table('employment_bonds')
         ->join('employees', 'employees.id', 'employment_bonds.employee_id')

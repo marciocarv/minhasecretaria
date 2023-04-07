@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityTimeController;
 use App\Http\Controllers\BoxController;
 use App\Http\Controllers\declarationController;
 use App\Http\Controllers\EmployeeController;
@@ -94,3 +95,10 @@ Route::prefix('listas')->group(function(){
 Route::prefix('ponto')->group(function(){
     Route::post('/gerar', [PointBookController::class, 'makePointBook'])->name('makePointBook');
 });
+
+Route::prefix('hora-atividade')->group(function(){
+    Route::get('/definir/{id}', [ActivityTimeController::class, 'define'])->name('defineActivityTime');
+    Route::post('/definir', [ActivityTimeController::class, 'store'])->name('storeActivityTime');
+    Route::get('/listar/{id}', [ActivityTimeController::class, 'list'])->name('listActivityTime');
+});
+

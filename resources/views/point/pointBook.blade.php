@@ -16,7 +16,7 @@
 
 <section class="section main-section">
   <div class="">
-    <form method="POST" action="{{route('makePointBook')}}" class="w-1/2">
+    <form method="POST" action="{{route('makePointBook')}}" target="_blank" class="w-1/2">
       @csrf
       <div class="field">
         <label class="label">Mês</label>
