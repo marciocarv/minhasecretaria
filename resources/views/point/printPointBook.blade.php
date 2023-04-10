@@ -101,6 +101,23 @@
             background-color: rgb(138, 133, 133);
         }
 
+        .capa{
+            width: 100%;
+            border: 5px double;
+            text-align: center;
+        }
+
+        .escola, .month-capa{
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .title-capa, .bond-capa{
+            font-size: 40px;
+            font-weight: bold;
+            margin: 10px 0 10px 0;
+        } 
+
     </style>
     <title>Impressão de Livro de ponto</title>
 </head>
@@ -223,14 +240,7 @@
                     @endif
                     
                 @endif
-            @endif
-
-
-
-
-
-
-               
+            @endif              
             @endforeach
             <tr>
                 <td colspan="4" class="obs">Obs:</td>
@@ -250,6 +260,56 @@
             </tr>
         </table>
     @endforeach
-    
+    <div class="capa">
+        <p class="escola">
+            ESCOLA MUNICIPAL MESTRE PACÍFICO SIQUEIRA CAMPOS
+        </p>
+        <p class="title-capa">
+            LIVRO DE PONTO
+        </p>
+        <p class="image">
+            <img src="{{asset('/img/capa-ponto.png')}}" alt="">
+        </p>
+        <p class="bond-capa">
+            PROFESSORES
+        </p>
+        <p class="month-capa">
+            ABRIL / 2023
+        </p>
+    </div>
+    <div class="capa">
+        <p class="escola">
+            ESCOLA MUNICIPAL MESTRE PACÍFICO SIQUEIRA CAMPOS
+        </p>
+        <p class="title-capa">
+            LIVRO DE PONTO
+        </p>
+        <p class="image">
+            <img src="{{asset('/img/capa-ponto.png')}}" alt="">
+        </p>
+        <p class="bond-capa">
+            ADMINISTRATIVO
+        </p>
+        <p class="month-capa">
+            ABRIL / 2023
+        </p>
+    </div>
+    <div class="capa">
+        <p class="escola">
+            ESCOLA MUNICIPAL MESTRE PACÍFICO SIQUEIRA CAMPOS
+        </p>
+        <p class="title-capa">
+            LIVRO DE PONTO
+        </p>
+        <p class="image">
+            <img src="{{asset('/img/capa-ponto.png')}}" alt="">
+        </p>
+        <p class="bond-capa">
+            PRESTADORES DE SERVIÇO COMUNITÁRIO
+        </p>
+        <p class="month-capa">
+            ABRIL / 2023
+        </p>
+    </div>
 </body>
 </html>
