@@ -113,6 +113,14 @@
               ASG
               @elseif($employee->post === 'MENOR APRENDIZ')
               MA
+              @elseif($employee->post === 'PRESTADOR DE SERVICO COMUNITARIO')
+              PSC
+              @elseif($employee->post === 'ESTAGIARIO')
+              ES
+              @elseif($employee->post === 'ASSISTENTE GERAL')
+              AG
+              @elseif($employee->post === 'ASSISTENTE DE SALA')
+              AS
               @endif
             </td>
             <td data-label="Nome">{{$employee->role}} </td>

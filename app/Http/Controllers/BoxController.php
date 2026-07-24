@@ -130,6 +130,30 @@ class BoxController extends Controller
     public function search(Request $request){
 
         $title = "Resultado da pesquisa";
+        $name = $request->input('name');
+
+        // Eager load the relationships and apply our new scope
+        $search_employee = Bond_employee::with(['employee', 'box'])
+            ->searchByName($name)
+            ->get();
+
+        $search_student = Bond_student::with(['student', 'box'])
+            ->searchByName($name)
+            ->get();
+
+        // Merge the two Eloquent Collections
+        $search = $search_employee->merge($search_student);
+
+        return view('inactive.result_search', [
+            'search' => $search, 
+            'title' => $title, 
+            'name' => $name
+        ]);
+    }
+
+    /*public function search(Request $request){
+
+        $title = "Resultado da pesquisa";
 
         $bond_employee = new Bond_employee;
 
@@ -143,7 +167,7 @@ class BoxController extends Controller
 
         return view('inactive.result_search', ['search'=>$search, 'title'=>$title, 'name'=>$request->name]);
 
-    }
+    }*/
 
     public function getOrderEmployee($id_box){
         $box = Box::findOrfail($id_box);

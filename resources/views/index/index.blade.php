@@ -156,7 +156,7 @@
   </div>
 
 
-  <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-3">
+  <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2">
     <div class="card">
       <div class="card-content">
         <div class="flex items-center justify-between">

@@ -61,6 +61,18 @@
             </div>
         </div>
         <div class="field">
+          <label class="label">Servidor</label>
+          <div class="control">
+            <div class="select">
+              <select name="employee[]" id="field2" multiple multiselect-search="true" multiselect-select-all="true" multiselect-max-items="3" onchange="console.log(this.selectedOptions)">
+                @foreach($employees as $employee)
+                  <option value="{{$employee->id}}">{{$employee->employee->name}}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field">
           <label class="label">Opções</label>
           <div class="field-body">
               <div class="field">
@@ -183,6 +195,7 @@
 @endsection
 
 @section('script')
+<script src="{{asset('js/multiselect-dropdown.js')}}" ></script>
 <script src="{{asset('js/vanilla-masker.min.js')}}" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript">
 

@@ -58,6 +58,8 @@
               <option value="EFETIVO"@if($action == 'update' && $employment_bond->bond == 'EFETIVO') selected @endif>EFETIVO</option>
               <option value="CONTRATO"@if($action == 'update' && $employment_bond->bond == 'CONTRATO') selected @endif>CONTRATO</option>
               <option value="MENOR"@if($action == 'update' && $employment_bond->bond == 'MENOR') selected @endif>MENOR APRENDIZ</option>
+              <option value="ESTAGIO"@if($action == 'update' && $employment_bond->bond == 'ESTAGIO') selected @endif>ESTAGIO</option>
+              <option value="PRESTADOR"@if($action == 'update' && $employment_bond->bond == 'PRESTADOR') selected @endif>PRESTADOR DE SERVIÇO COMUNITÁRIO</option>
             </select>
           </div>
         </div>

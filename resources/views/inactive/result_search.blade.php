@@ -74,6 +74,100 @@
         </thead>
         <tbody>
           @foreach($search as $result)
+          @php
+              // Eloquent Magic: Dynamically grab the person (Student or Employee) and the Box
+              $person = $result->student ?? $result->employee;
+              $box = $result->box;
+          @endphp
+          <tr class="uppercase">
+            <td class="checkbox-cell">
+              <label class="checkbox">
+                <input name="id_box" value="{{$result->id}}" type="checkbox" >
+                <span class="check"></span>
+              </label>
+            </td>
+            <td data-label="Caixa" class="font-bold">{{$box->description}}</td>
+            <td data-label="Ordem">{{$result->order}}</td>
+            <td data-label="Nome">{{$person->name}}</td>
+            {{-- Because date_birth is in your Model's $dates array, we can use Carbon's format() directly! --}}
+            <td data-label="Data de Nascimento">{{$person->date_birth->format('d/m/Y')}}</td>
+            <td data-label="Mãe">{{$person->mother}}</td>
+            <td data-label="Período">{{$result->entry_year}} - {{$result->exit_year}} </td>
+            <td data-label="Situação">
+              <small class="font-bold {{$result->status == 'ARQUIVADO' ? 'text-gray-500' : 'text-blue-500'}}" title="{{$result->status}}">{{$result->status}}</small>
+            </td>
+            <td class="actions-cell">
+              <div class="buttons right nowrap">
+                <a title="Editar" 
+                  href="{{route($box->type == 'Servidor' ? 'setUpdateBoxEmployee' : 'setUpdateStudent', ['id'=>$result->id])}}" 
+                  class="button small green" 
+                  type="button">
+                  <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
+                </a>
+                <a title="Excluir" 
+                  href="{{route($box->type == 'Servidor' ? 'deleteEmployee' : 'deleteStudent', ['id'=>$result->id])}}" 
+                  class="button small red" 
+                  type="button">
+                  <span class="icon"><i class="fa-solid fa-trash"></i></span>
+                </a>
+                <a title="Transferir" 
+                  href="{{route($box->type == 'Servidor' ? 'setTransferEmployee' : 'setTransferStudent', ['id'=>$result->id])}}" 
+                  class="{{$result->status == 'ARQUIVADO' ? 'button small blue' : 'button small bg-gray-400 pointer-events-none'}}" 
+                  type="button">
+                  <span class="icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
+                </a>
+                @if(substr_compare($result->status, "RESGATADO", 0, 8) == 0)
+                <a title="Arquivar"
+                  href="{{route($box->type == 'Servidor' ? 'rescueEmployee' : 'recordStudent', ['id'=>$result->id])}}" 
+                  class="button small text-white bg-teal-900" 
+                  type="button">
+                  <span class="icon"><i class="fa-solid fa-circle-down"></i></span>
+                </a>
+                @else
+                <a title="Resgatar"
+                  href="{{route($box->type == 'Servidor' ? 'rescueEmployee' : 'rescueStudent', ['id'=>$result->id])}}" 
+                  class="{{$result->status == 'ARQUIVADO' ? 'button small text-white bg-black' : 'button small bg-gray-400 '}}" 
+                  type="button">
+                  <span class="icon"><i class="fa-solid fa-reply"></i></span>
+                </a>
+                @endif
+              </div>
+            </td>
+          </tr>
+          @endforeach
+          
+          @if($search->isEmpty())
+          <tr>
+            <td data-label="Sem caixas" colspan="9" class="text-center">
+              Nenhum resultado para sua pesquisa
+            </td>
+          </tr>
+          @endif
+        </tbody>
+      </table>
+    </div>
+    {{---<div class="card-content">
+      <table>
+        <thead>
+        <tr>
+          <th class="checkbox-cell">
+            <label class="checkbox">
+              <input type="checkbox">
+              <span class="check"></span>
+            </label>
+          </th>
+          <th>Caixa</th>
+          <th>Ordem</th>
+          <th>Nome</th>
+          <th>Data de Nascimento</th>
+          <th>Mãe</th>
+          <th>Período</th>
+          <th>Situação</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          @foreach($search as $result)
           <tr class="uppercase">
             <td class="checkbox-cell">
               <label class="checkbox">
@@ -84,7 +178,7 @@
             <td data-label="Ordem" class="font-bold">{{$result->description}}</td>
             <td data-label="Ordem">{{$result->order}}</td>
             <td data-label="Nome">{{$result->name}}</td>
-            <td data-label="Nome">{{date('m/d/Y', strtotime($result->date_birth))}}</td>
+            <td data-label="Nome">{{date('d/m/Y', strtotime($result->date_birth))}}</td>
             <td data-label="Nome">{{$result->mother}}</td>
             <td data-label="Nome">{{$result->entry_year}} - {{$result->exit_year}} </td>
             <td data-label="Situação">
@@ -138,7 +232,7 @@
           @endif
         </tbody>
       </table>
-    </div>
+    </div>--}}
   </div>
 
 </section>

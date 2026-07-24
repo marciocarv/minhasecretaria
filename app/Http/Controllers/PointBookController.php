@@ -25,7 +25,7 @@ class PointBookController extends Controller
         // Get the current month
         // Set the locale to Portuguese
         Carbon::setLocale('pt_BR');
-
+       
         // Get the current month
         $currentMonth = Carbon::createFromFormat('Y-m', $request->month);
         // Create a Carbon instance for the first day of the month

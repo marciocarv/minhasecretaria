@@ -11,7 +11,11 @@ class listController extends Controller
     public function listOptions(){
         $title = 'Opções de listas para impressão';
 
-        return view('list.listOptions', ['title'=>$title]);
+        $employment_bond = new Employment_bond;
+
+        $employees = $employment_bond->active_employees;
+
+        return view('list.listOptions', ['title'=>$title, 'employees'=>$employees]);
     }
 
     public function generateList(Request $request){

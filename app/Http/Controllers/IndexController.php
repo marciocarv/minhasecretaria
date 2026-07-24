@@ -14,7 +14,6 @@ class IndexController extends Controller
 
         $current_month = Carbon::now()->month;
         $employee = new Employee;
-
         $employees = $employee->birthdays_month($current_month);
 
         return view('index.index', ['title'=>$title, 'employment_bonds'=>$employees]);

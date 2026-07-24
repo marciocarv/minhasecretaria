@@ -146,7 +146,7 @@
     if(status == '-'){
       return 0;
     }
-    let url = "http://localhost/minhasecretaria/public/api/getEmployeeForType/"+status;
+    let url = "http://secretario/minhasecretaria/public/api/getEmployeeForType/"+status;
     fetch(url)
     .then((response)=>{
       return response.json();

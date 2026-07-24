@@ -110,6 +110,7 @@
         .escola, .month-capa{
             font-size: 32px;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
         .title-capa, .bond-capa{
@@ -167,7 +168,7 @@
             </tr>
             @foreach($monthPeriod as $day)
 
-            @if($employee->role === "VIGIA DIURNO" || $employee->role === "VIGIA DIURNO")
+            @if($employee->role === "VIGIA DIURNO" || $employee->role === "VIGIA NOTURNO" || $employee->employee->name === "LEANDRO CRUZ NUNES" || $employee->employee->name === "RAIMUNDO FERREIRA GOMES")
                 <tr>
                     <td>{{$day->format('d/m')}}</td>
                     <td></td>
@@ -220,10 +221,10 @@
                             <td>{{$day->format('d/m')}}</td>
                             <td> - </td>
                             <td> - </td>
-                            <td> HORA-ATIVIDADE</td>
+                            <td> HORA ATIVIDADE PORT. 680/2015 - 20/04/2015</td>
                             <td> - </td>
                             <td> - </td>
-                            <td> HORA ATIVIDADE</td>
+                            <td> HORA ATIVIDADE PORT. 680/2015 - 20/04/2015</td>
                             <td> - </td>
                         </tr>
                     @else
@@ -268,13 +269,13 @@
             LIVRO DE PONTO
         </p>
         <p class="image">
-            <img src="{{asset('/img/capa-ponto.png')}}" alt="">
+            <img src="{{asset('/img/capa_prof.png')}}" alt="" width="680">
         </p>
         <p class="bond-capa">
             PROFESSORES
         </p>
         <p class="month-capa">
-            ABRIL / 2023
+            {{$currentMonth->isoFormat('MMMM')}} / {{$currentMonth->format('Y')}}
         </p>
     </div>
     <div class="capa">
@@ -285,13 +286,13 @@
             LIVRO DE PONTO
         </p>
         <p class="image">
-            <img src="{{asset('/img/capa-ponto.png')}}" alt="">
+            <img src="{{asset('/img/capa_adm.png')}}" alt="" width="773">
         </p>
         <p class="bond-capa">
             ADMINISTRATIVO
         </p>
         <p class="month-capa">
-            ABRIL / 2023
+            {{$currentMonth->isoFormat('MMMM')}} / {{$currentMonth->format('Y')}}
         </p>
     </div>
     <div class="capa">
@@ -302,13 +303,13 @@
             LIVRO DE PONTO
         </p>
         <p class="image">
-            <img src="{{asset('/img/capa-ponto.png')}}" alt="">
+            <img src="{{asset('/img/vigias.jpg')}}" alt="" width="500">
         </p>
         <p class="bond-capa">
-            PRESTADORES DE SERVIÇO COMUNITÁRIO
+            VIGIAS NOTURNOS
         </p>
         <p class="month-capa">
-            ABRIL / 2023
+            {{$currentMonth->isoFormat('MMMM')}} / {{$currentMonth->format('Y')}}
         </p>
     </div>
 </body>
