@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Employment_bond;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -24,10 +25,94 @@ class EmployeeController extends Controller
     public function setStore(){
         $title = "Cadastrar Servidor - Dados Pessoais";
 
-        return view('employee.formEmployee1', ['title'=>$title, 'action'=>'store', 'route'=>'storeEmployee']);
+        return view('employee.formEmployee', ['title'=>$title, 'action'=>'store', 'route'=>'storeEmployee']);
     }
 
-    public function storeEmployee(Request $request){
+    public function storeEmployee(Request $request)
+    {
+        // 1. Validação de Dados Obrigatórios
+        // O Laravel vai barrar a requisição se esses campos não vierem preenchidos
+        $request->validate([
+            'name' => 'required',
+            'date_birth' => 'required|date',
+            'mother' => 'required',
+            'registration' => 'required|numeric',
+            'activity_start' => 'required|date',
+            'lotation' => 'required|date',
+            'post' => 'required',
+            'role' => 'required',
+            'workload' => 'required|numeric'
+        ]);
+
+        // 2. Iniciar a Transação com o Banco de Dados
+        try {
+            DB::beginTransaction();
+
+            // 3. Salvar os Dados Pessoais (Employee)
+            $employee = new Employee;
+            
+            $employee->name = $request->name;
+            $employee->date_birth = $request->date_birth;
+            $employee->mother = $request->mother;
+            $employee->father = $request->father;
+            $employee->naturalness = $request->naturalness;
+            $employee->marital_status = $request->marital_status;
+            $employee->sex = $request->sex;
+            $employee->color = $request->color;
+            $employee->phone = $request->phone;
+            
+            $employee->cep = $request->cep;
+            $employee->address = $request->address;
+            $employee->cpf = $request->cpf;
+            $employee->rg = $request->rg;
+            $employee->rg_expedition = $request->rg_expedition;
+            $employee->certificate_type = $request->certificate_type;
+            $employee->certificate_term = $request->certificate_term;
+            $employee->certificate_book = $request->certificate_book;
+            $employee->certificate_sheet = $request->certificate_sheet;
+            
+            $employee->bank_name = $request->bank_name;
+            $employee->bank_agency = $request->bank_agency;
+            $employee->bank_number = $request->bank_number;
+            $employee->schooling = $request->schooling;
+            $employee->course_status = $request->course_status;
+            $employee->course_name = $request->course_name;
+            $employee->name_college = $request->name_college;
+            $employee->conclusion = $request->conclusion;
+            
+            $employee->admission = $request->admission;
+            $employee->id_censo = $request->id_censo;
+
+            $employee->save();
+
+            // 4. Salvar os Dados Profissionais (Employment_bond) usando o ID do Employee
+            $employment_bond = new Employment_bond;
+            
+            $employment_bond->employee_id = $employee->id;
+            $employment_bond->registration = $request->registration;
+            $employment_bond->activity_start = $request->activity_start;
+            $employment_bond->post = $request->post;
+            $employment_bond->role = $request->role;
+            $employment_bond->workload = $request->workload;
+            $employment_bond->bond = $request->bond;
+            $employment_bond->lotation = $request->lotation;
+            $employment_bond->status = 'ATIVO';
+
+            $employment_bond->save();
+
+            // 5. Se tudo deu certo, confirmar a gravação no banco
+            DB::commit();
+
+            return redirect()->route('employee')->with('success', 'Servidor cadastrado com sucesso!');
+
+        } catch (\Exception $e) {
+            // Se qualquer erro ocorrer (ex: falha de banco de dados), desfaz tudo (rollback)
+            DB::rollBack();
+            return redirect()->route('employee')->with('error', 'Não foi possível cadastrar o servidor. Erro: ' . $e->getMessage());
+        }
+    }
+
+    /*public function storeEmployee(Request $request){
 
         if($request->form == 'form1'){
             
@@ -136,7 +221,7 @@ class EmployeeController extends Controller
            
         }
 
-    }
+    }*/
 
     public function storeBox(Request $request){
         $request->validate([
