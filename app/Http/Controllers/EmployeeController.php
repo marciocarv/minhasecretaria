@@ -413,10 +413,16 @@ class EmployeeController extends Controller
     public function inactive_employee(){
         $title = 'Servidores Inativos';
 
-        //$employees = Employment_bond::with('employee')->where('status', 'INATIVO')->orderBy('')->get();
-        $employment_bond = new Employment_bond;
-
-        $employees = $employment_bond->inactive_employees();
+        // 1. Find unique Employees who have at least one INATIVO bond
+        // 2. Eager load ONLY those INATIVO bonds so we can show them in the modal
+        $employees = Employee::whereHas('employment_bonds', function ($query) {
+            $query->where('status', 'INATIVO');
+        })
+        ->with(['employment_bonds' => function ($query) {
+            $query->where('status', 'INATIVO'); 
+        }])
+        ->orderBy('name')
+        ->get();
 
         return view('employee.inactiveEmployee', ['title'=>$title, 'employees'=>$employees]);
     }

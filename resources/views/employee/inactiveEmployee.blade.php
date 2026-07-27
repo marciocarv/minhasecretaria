@@ -58,71 +58,32 @@
       <table class="text-xs">
         <thead>
         <tr>
-          <th class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </th>
           <th>Nº</th>
           <th>Nome</th>
           <th>Data de Nascimento</th>
           <th>CPF</th>
-          <th>Matrícula</th>
-          <th>Cargo</th>
-          <th>Função</th>
-          <th></th>
+          <th>Histórico</th>
         </tr>
         </thead>
         <tbody>
           @foreach($employees as $employee)
           <tr class="uppercase">
-            <td class="checkbox-cell">
-              <label class="checkbox">
-                <input name="id_box" value="{{$employee->id}}" type="checkbox" >
-                <span class="check"></span>
-              </label>
-            </td>
             <td data-label="Ordem">{{$loop->index + 1}}</td>
             <td data-label="Nome">{{$employee->name}}</td>
-            <td data-label="Nome">{{date('d/m/Y', strtotime($employee->date_birth))}}</td>
-            <td data-label="Nome">{{$employee->cpf}}</td>
-            <td data-label="Nome">{{$employee->registration === '0' ? ' ' : $employee->registration}} </td>
-            <td data-label="Nome">{{$employee->post}} </td>
-            <td data-label="Nome">{{$employee->role}} </td>
+            <td data-label="Data de Nascimento">{{$employee->date_birth->format('d/m/Y')}}</td>
+            <td data-label="CPF">{{$employee->cpf}}</td>
             <td class="actions-cell">
-              <div class="buttons right nowrap">
-                <a title="Editar" 
-                  href="{{route('setUpdateEmployee', ['id'=>$employee->id])}}"
-                  class="button small green" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
-                </a>
-                <a title="Excluir" 
-                  href="{{route('deleteEmployee', ['id'=>$employee->id])}}" 
-                  class="button small red" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-trash"></i></span>
-                </a>
-                <a title="Mais Opções" 
-                  href="{{route('manageEmployee', ['id'=>$employee->id])}}" 
-                  class="button small blue" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-wrench"></i></span>
-                </a>
-                <a title="Reativar" 
-                  href="{{route('setReactivate', ['id'=>$employee->id])}}" 
-                  class="button small green" 
-                  type="button">
-                  <span class="icon"><i class="fa-solid fa-rotate-left"></i></span>
-                </a>
-              </div>
+              <button type="button" onclick="openModal('modal-{{$employee->id}}')" class="button small blue">
+                <span class="icon"><i class="fa-solid fa-folder-open"></i></span> 
+                Ver Vínculos ({{$employee->employment_bonds->count()}})
+              </button>
             </td>
           </tr>
           @endforeach
+
           @if($employees->isEmpty())
           <tr>
-            <td data-label="Sem caixas" colspan="7" class="text-center">
+            <td data-label="Sem caixas" colspan="5" class="text-center">
               Sem registros
             </td>
           </tr>
@@ -132,20 +93,79 @@
     </div>
   </div>
 
+  @foreach($employees as $employee)
+  <div id="modal-{{$employee->id}}" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 max-h-screen overflow-y-auto">
+      
+      <div class="flex justify-between items-center bg-gray-200 p-4 rounded-t-lg">
+        <h2 class="text-lg font-bold text-gray-800">Vínculos Inativos: {{$employee->name}}</h2>
+        <button type="button" onclick="closeModal('modal-{{$employee->id}}')" class="text-red-600 font-bold text-xl hover:text-red-800">&times;</button>
+      </div>
+
+      <div class="p-4">
+        <table class="text-xs w-full">
+          <thead>
+            <tr class="bg-gray-100">
+              <th>Matrícula</th>
+              <th>Cargo</th>
+              <th>Função</th>
+              <th>Carga Horária</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($employee->employment_bonds as $bond)
+            <tr class="uppercase">
+              <td data-label="Matrícula">{{$bond->registration === '0' ? 'N/A' : $bond->registration}}</td>
+              <td data-label="Cargo">{{$bond->post}}</td>
+              <td data-label="Função">{{$bond->role}}</td>
+              <td data-label="Carga Horária">{{$bond->workload}}h</td>
+              <td class="actions-cell">
+                <div class="buttons right nowrap">
+                  <a title="Editar" href="{{route('setUpdateEmployee', ['id'=>$bond->id])}}" class="button small green" type="button">
+                    <span class="icon"><i class="fa-solid fa-pen-to-square"></i></span>
+                  </a>
+                  <a title="Mais Opções" href="{{route('manageEmployee', ['id'=>$bond->id])}}" class="button small blue" type="button">
+                    <span class="icon"><i class="fa-solid fa-wrench"></i></span>
+                  </a>
+                  <a title="Reativar" href="{{route('setReactivate', ['id'=>$bond->id])}}" class="button small green" type="button">
+                    <span class="icon"><i class="fa-solid fa-rotate-left"></i></span>
+                  </a>
+                  <a title="Excluir" href="{{route('deleteEmployee', ['id'=>$bond->id])}}" class="button small red" type="button">
+                    <span class="icon"><i class="fa-solid fa-trash"></i></span>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="p-4 border-t flex justify-end">
+        <button type="button" onclick="closeModal('modal-{{$employee->id}}')" class="button bg-gray-500 text-white font-bold shadow hover:bg-gray-600">Fechar</button>
+      </div>
+    </div>
+  </div>
+  @endforeach
+
 </section>
-  
-          
 @endsection
 
 @section('script')
-
 <script>
   function hide(){
     let notification = document.querySelector('#notification');
-
-    notification.classList.add('hidden');
+    if(notification) notification.classList.add('hidden');
   }
 
-</script>
+  // Funções para gerenciar os Modais
+  function openModal(modalId) {
+    document.getElementById(modalId).classList.remove('hidden');
+  }
 
+  function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+  }
+</script>
 @endsection
