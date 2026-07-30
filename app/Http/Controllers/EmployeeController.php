@@ -97,6 +97,8 @@ class EmployeeController extends Controller
             $employment_bond->bond = $request->bond;
             $employment_bond->lotation = $request->lotation;
             $employment_bond->status = 'ATIVO';
+            $employment_bond->work_shift = $request->work_shift;
+            $employment_bond->scale_start_date = $request->scale_start_date;
 
             $employment_bond->save();
 
@@ -427,30 +429,45 @@ class EmployeeController extends Controller
         return view('employee.inactiveEmployee', ['title'=>$title, 'employees'=>$employees]);
     }
 
-    public function setUpdateEmployee($id){
+    public function setUpdateEmployee($id)
+    {
         $employment_bond = Employment_bond::findOrFail($id);
         $employee = $employment_bond->employee;
 
-        $title = "Editar Servidor - Dados Pessoais";
+        $title = "Editar Servidor - " . $employee->name;
 
-        return view('employee.formEmployee1', ['title'=>$title, 
-                    'action'=>'update', 
-                    'route'=>'updateEmployee', 
-                    'employment_bond'=>$employment_bond, 
-                    'employee'=>$employee]);
+        // Certifique-se de que o nome da view ('employee.formEmployee') 
+        // corresponde ao nome do arquivo Blade único que criamos.
+        return view('employee.formEmployee', [
+            'title' => $title, 
+            'action' => 'update', 
+            'route' => 'updateEmployee', // Confirme se este é o nome da sua rota web.php
+            'employment_bond' => $employment_bond, 
+            'employee' => $employee
+        ]);
     }
 
-    public function update(Request $request){
-        $employment_bond = Employment_bond::findOrFail($request->employment_bond_id);
-        $employee = $employment_bond->employee;
+    public function update(Request $request)
+    {
+        // 1. Validação de Dados Obrigatórios
+        $request->validate([
+            'name' => 'required',
+            'date_birth' => 'required|date',
+            'mother' => 'required',
+            'registration' => 'required|numeric',
+            'activity_start' => 'required|date',
+            'lotation' => 'required|date',
+            'post' => 'required',
+            'role' => 'required',
+            'workload' => 'required|numeric'
+        ]);
 
-        if($request->form == 'form1'){
-            
-            $request->validate([
-                'name'=>'required',
-                'date_birth'=>'required',
-                'mother'=>'required'
-            ]);
+        try {
+            // Iniciar a Transação com o Banco de Dados
+            DB::beginTransaction();
+
+            // 2. Buscar e Atualizar os Dados Pessoais (Employee)
+            $employee = Employee::findOrFail($request->employee_id);
 
             $employee->name = $request->name;
             $employee->date_birth = $request->date_birth;
@@ -461,22 +478,7 @@ class EmployeeController extends Controller
             $employee->sex = $request->sex;
             $employee->color = $request->color;
             $employee->phone = $request->phone;
-
-            if($employee->save()){
-                $title = 'Editar Servidor - Endereço e Documentos';
-                return view('employee.formEmployee2',
-                             ['id_employee'=>$employee->id, 
-                            'title'=>$title, 
-                            'route'=>'updateEmployee', 
-                            'action'=>'update', 
-                            'employee'=>$employee,
-                            'employment_bond'=>$employment_bond])
-                ->with('success', 'Dados editados com sucesso!');
-            }else{
-                return redirect()->route('employee')->with('error', 'Não foi possível Editar o servidor');
-            }
-
-        }elseif($request->form == 'form2'){
+            
             $employee->cep = $request->cep;
             $employee->address = $request->address;
             $employee->cpf = $request->cpf;
@@ -486,21 +488,7 @@ class EmployeeController extends Controller
             $employee->certificate_term = $request->certificate_term;
             $employee->certificate_book = $request->certificate_book;
             $employee->certificate_sheet = $request->certificate_sheet;
-
-            if($employee->save()){
-                $title = 'Editar Servidor - Dados Bancários e Formação';
-                return view('employee.formEmployee3', ['id_employee'=>$employee->id, 
-                                                        'title'=>$title, 
-                                                        'route'=>'updateEmployee', 
-                                                        'action'=>'update',
-                                                        'employee'=>$employee,
-                                                        'employment_bond'=>$employment_bond])
-                ->with('success', 'Dados Editados com sucesso!');
-            }else{
-                return redirect()->route('employee')->with('error', 'Não foi possível editar o servidor');
-            }            
-
-        }elseif($request->form == 'form3'){
+            
             $employee->bank_name = $request->bank_name;
             $employee->bank_agency = $request->bank_agency;
             $employee->bank_number = $request->bank_number;
@@ -509,34 +497,15 @@ class EmployeeController extends Controller
             $employee->course_name = $request->course_name;
             $employee->name_college = $request->name_college;
             $employee->conclusion = $request->conclusion;
-
-            if($employee->save()){
-                $title = 'Editar Servidor - Dados profissionais';
-                return view('employee.formEmployee4', ['id_employee'=>$employee->id, 
-                                                        'title'=>$title, 
-                                                        'route'=>'updateEmployee', 
-                                                        'action'=>'update',
-                                                        'employee'=>$employee,
-                                                        'employment_bond'=>$employment_bond])
-                ->with('success', 'Dados editados com sucesso!');
-            }else{
-                return redirect()->route('employee')->with('error', 'Não foi possível editar o servidor');
-            }
-
-        }elseif($request->form == 'form4'){
-           
+            
             $employee->admission = $request->admission;
             $employee->id_censo = $request->id_censo;
+
             $employee->save();
 
-            $request->validate([
-                'registration'=>'numeric|required',
-                'activity_start'=>'required',
-                'post'=>'required',
-                'role'=>'required',
-                'workload'=>'required'
-            ]);
-
+            // 3. Buscar e Atualizar os Dados Profissionais (Employment_bond)
+            $employment_bond = Employment_bond::findOrFail($request->employment_bond_id);
+            
             $employment_bond->registration = $request->registration;
             $employment_bond->activity_start = $request->activity_start;
             $employment_bond->post = $request->post;
@@ -544,12 +513,21 @@ class EmployeeController extends Controller
             $employment_bond->workload = $request->workload;
             $employment_bond->bond = $request->bond;
             $employment_bond->lotation = $request->lotation;
+            $employment_bond->work_shift = $request->work_shift;
+            $employment_bond->scale_start_date = $request->scale_start_date;
+            // Nota: Não alteramos o status aqui para não interferir caso ele esteja INATIVO
 
-            if($employment_bond->save()){
-                return redirect()->route('employee')->with('success', 'Servidor editado com sucesso!');
-            }else{
-                return redirect()->route('employee')->with('error', 'Não foi possível editar o cadastro!');
-            }
+            $employment_bond->save();
+
+            // 4. Confirmar a gravação no banco
+            DB::commit();
+
+            return redirect()->route('employee')->with('success', 'Servidor editado com sucesso!');
+
+        } catch (\Exception $e) {
+            // 5. Se der erro, desfaz tudo
+            DB::rollBack();
+            return redirect()->route('employee')->with('error', 'Não foi possível editar o cadastro. Erro: ' . $e->getMessage());
         }
     }
 

@@ -10,7 +10,10 @@ class ActivityTime extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description'
+        'description', // Day of week like 'Monday'
+        'type',        // 'activity_time' or 'fixed_off'
+        'shift',       // 'matutino', 'vespertino'
+        'employment_bond_id'
     ];
 
     public function employment_bond(){

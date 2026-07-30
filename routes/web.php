@@ -11,14 +11,13 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
 use App\Http\Controllers\Employment_bondController;
 use App\Http\Controllers\PointBookController;
+use App\Http\Controllers\MedicalLeaveController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
 Route::get('/inativo', [IndexController::class, 'inactive'])->name('inactive');
 
 Route::get('/servidor', [EmployeeController::class, 'employee'])->name('employee');
-
-Route::get('/ponto', [PointBookController::class, 'index'])->name('pointBook');
 
 Route::get('/teste', [TesteController::class, 'teste'])->name('teste');
 
@@ -93,12 +92,18 @@ Route::prefix('listas')->group(function(){
 });
 
 Route::prefix('ponto')->group(function(){
-    Route::post('/gerar', [PointBookController::class, 'makePointBook'])->name('makePointBook');
+    Route::get('/point-book/generate', [PointBookController::class, 'index'])->name('pointbook.index');
+    Route::post('/point-book/print', [PointBookController::class, 'print'])->name('pointbook.print');
 });
 
 Route::prefix('hora-atividade')->group(function(){
-    Route::get('/definir/{id}', [ActivityTimeController::class, 'define'])->name('defineActivityTime');
-    Route::post('/definir', [ActivityTimeController::class, 'store'])->name('storeActivityTime');
     Route::get('/listar/{id}', [ActivityTimeController::class, 'list'])->name('listActivityTime');
+    Route::get('/activity-time/delete/{id}', [ActivityTimeController::class, 'destroy'])->name('deleteActivityTime');
+    Route::post('/store', [ActivityTimeController::class, 'store'])->name('storeActivityTime');
 });
 
+Route::prefix('licenca-medica')->group(function(){
+    Route::get('/employment-bonds/{id}/medical-leaves', [MedicalLeaveController::class, 'index'])->name('medical.leaves.index');
+    Route::post('/employment-bonds/{id}/medical-leaves', [MedicalLeaveController::class, 'store'])->name('medical.leaves.store');
+    Route::delete('/medical-leaves/{id}', [MedicalLeaveController::class, 'destroy'])->name('medical.leaves.destroy');
+});

@@ -102,7 +102,7 @@
         <button type="button" onclick="closeModal('modal-{{$employee->id}}')" class="text-red-600 font-bold text-xl hover:text-red-800">&times;</button>
       </div>
 
-      <div class="p-4">
+<div class="p-4">
         <table class="text-xs w-full">
           <thead>
             <tr class="bg-gray-100">
@@ -110,7 +110,7 @@
               <th>Cargo</th>
               <th>Função</th>
               <th>Carga Horária</th>
-              <th>Ações</th>
+              <th>Ano de Saída</th> <th>Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -120,6 +120,11 @@
               <td data-label="Cargo">{{$bond->post}}</td>
               <td data-label="Função">{{$bond->role}}</td>
               <td data-label="Carga Horária">{{$bond->workload}}h</td>
+              
+              <td data-label="Ano de Saída" class="font-bold text-red-600">
+                {{ $bond->activity_end ? $bond->activity_end->format('Y') : 'N/A' }}
+              </td>
+
               <td class="actions-cell">
                 <div class="buttons right nowrap">
                   <a title="Editar" href="{{route('setUpdateEmployee', ['id'=>$bond->id])}}" class="button small green" type="button">

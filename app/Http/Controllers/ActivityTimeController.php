@@ -8,42 +8,53 @@ use Illuminate\Http\Request;
 
 class ActivityTimeController extends Controller
 {
-    public function define($id){
-        $employment_bond = Employment_bond::findOrFail($id);
+    // Método único que carrega a página com a Lista e o Formulário
+    public function list($id){
+        // Carrega o vínculo já com os horários e dados do funcionário para evitar N+1 queries
+        $employment_bond = Employment_bond::with(['activityTimes', 'employee'])->findOrFail($id);
 
-            $title = "Definir Hora-atividade";
-            $route = "storeActivityTime";
+        $title = "Gerenciar Hora-Atividade e Folgas";
+        $route = "storeActivityTime";
 
-            return view('activityTime.define', ['title'=>$title, 'employment_bond'=>$employment_bond, 'route'=>$route]);
+        return view('activityTime.list', [
+            'title' => $title, 
+            'employment_bond' => $employment_bond,
+            'route' => $route
+        ]);
     }
 
+    // Método para salvar um NOVO registro (Agora é 1:N, então apenas adicionamos)
     public function store(Request $request){
+        $request->validate([
+            'description' => 'required',
+            'type' => 'required',
+            'shift' => 'required',
+            'employment_bond_id' => 'required'
+        ]);
+
         $activityTime = new ActivityTime;
-        $employment_bond = Employment_bond::findOrFail($request->employment_bond_id);
-
-        if($employment_bond->activityTime){
-            $activityTime = $employment_bond->activityTime;
-        }
-
-        $activityTime->description = $request->description;
+        $activityTime->description = $request->description; // Ex: 'Monday'
+        $activityTime->type = $request->type;             // Ex: 'activity_time' ou 'fixed_off'
+        $activityTime->shift = $request->shift;           // Ex: 'matutino' ou 'vespertino'
         $activityTime->employment_bond_id = $request->employment_bond_id;
 
         if(!$activityTime->save()){
-            return redirect()->route('manageEmployee', ['id'=>$employment_bond->id])->with('error', 'Não foi possível definir a Hora-atividade!');
+            return redirect()->route('listActivityTime', ['id'=>$request->employment_bond_id])
+                ->with('error', 'Não foi possível salvar o registro!');
         }
 
-        return redirect()->route('listActivityTime', ['id'=>$employment_bond->id])->with('success', 'Hora-atividade definida com sucesso!');
+        return redirect()->route('listActivityTime', ['id'=>$request->employment_bond_id])
+            ->with('success', 'Registro salvo com sucesso!');
     }
 
-    public function list($id){
-        $employment_bond = Employment_bond::findOrFail($id);
+    // NOVO: Método para excluir um registro caso o usuário erre
+    public function destroy($id){
+        $activityTime = ActivityTime::findOrFail($id);
+        $bond_id = $activityTime->employment_bond_id;
+        
+        $activityTime->delete();
 
-        if(!$employment_bond->activityTime){
-            return redirect()->route('defineActivityTime', ['id'=>$employment_bond->id]);
-        }
-
-        $title = "Hora-atividade";
-
-        return view('activityTime.list', ['title'=>$title, 'employment_bond'=>$employment_bond]);
+        return redirect()->route('listActivityTime', ['id'=>$bond_id])
+            ->with('success', 'Registro removido com sucesso!');
     }
 }

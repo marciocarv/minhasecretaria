@@ -75,7 +75,7 @@
         </a>
       </li>
       <li class="--set-active-profile-html">
-        <a href="{{route('pointBook')}}">
+        <a href="{{route('pointbook.index')}}">
           <span class="icon"><i class="fa-solid fa-address-book"></i></span>
           <span class="menu-item-label">Livro de Ponto</span>
         </a>

@@ -1,9 +1,5 @@
 @extends('layouts.site')
 
-@section('css')
-  
-@endsection
-
 @section('content')
 
 <section class="is-hero-bar">
@@ -15,151 +11,133 @@
 </section>
 
 <section class="section main-section">
-  <div class="">
-    <form method="POST" action="{{route('makePointBook')}}" target="_blank" class="w-1/2">
+  <div class="bg-white p-6 rounded shadow max-w-3xl mx-auto">
+    
+    <form method="POST" action="{{ route('pointbook.print') }}" target="_blank">
       @csrf
-      <div class="field">
-        <label class="label">Mês</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left">
-              <input 
-                class="input w-60" 
-                type="month" 
-                name="month" 
-                placeholder="Mês"
-                >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Feriados / Recessos:</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left" id="divHoliday">
-            </div>
-            <button type="button" class="button bg-teal-900 text-white font-bold shadow hover:bg-teal-700" id="addHoliday">
-              <span class="icon"><i class="fa-solid fa-square-plus"></i></span> Adicionar
-            </button>
-            <button type="button" class="button bg-orange-500 text-white font-bold shadow hover:bg-orange-700" id="removeHoliday">
-              <span class="icon"><i class="fa-solid fa-square-xmark"></i></span> Remover
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Sábados Letivos:</label>
-        <div class="field-body">
-          <div class="field">
-            <div class="control icons-left" id="divSaturday">
-            </div>
-            <button type="button" class="button bg-teal-900 text-white font-bold shadow hover:bg-teal-700" id="addSaturday">
-              <span class="icon"><i class="fa-solid fa-square-plus"></i></span> Adicionar
-            </button>
-            <button type="button" class="button bg-orange-500 text-white font-bold shadow hover:bg-orange-700" id="removeSaturday">
-              <span class="icon"><i class="fa-solid fa-square-xmark"></i></span> Remover
-            </button>
-          </div>
-        </div>
-      </div>
       
-      <div class="field">
-        <label class="label">Servidor</label>
-        <div class="control">
-          <div class="select">
-            <select name="employee[]" id="field2" multiple multiselect-search="true" multiselect-select-all="true" multiselect-max-items="3" onchange="console.log(this.selectedOptions)">
-              @foreach($employees as $employee)
-                <option value="{{$employee->id}}">{{$employee->name}}</option>
-              @endforeach
-            </select>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          
+        <div class="field">
+          <label class="label font-bold text-gray-700">Mês de Referência</label>
+          <div class="control">
+            <input 
+              class="input w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" 
+              type="month" 
+              name="month" 
+              required
+            >
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label font-bold text-gray-700">Servidores</label>
+          <div class="control">
+            <div class="select w-full">
+              <select name="employment_bonds[]" id="field2" multiple multiselect-search="true" multiselect-select-all="true" required class="w-full">
+                @foreach($employment_bonds as $bond)
+                  <option value="{{ $bond->id }}">
+                    {{ $bond->employee->name }} - {{ $bond->post }} ({{ $bond->workload }}h)
+                  </option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Você pode selecionar um, vários ou todos os servidores de uma vez.</p>
+        </div>
+      </div>
+
+      <hr class="my-6">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        
+        <div class="field">
+          <label class="label font-bold text-gray-700">Feriados / Recessos:</label>
+          <div class="control" id="divHoliday">
+              </div>
+          <div class="mt-2 flex space-x-2">
+            <button type="button" class="button bg-teal-900 text-white font-bold px-3 py-1 rounded shadow hover:bg-teal-700" id="addHoliday">
+              <span class="icon"><i class="fa-solid fa-square-plus"></i></span> Adicionar
+            </button>
+            <button type="button" class="button bg-orange-500 text-white font-bold px-3 py-1 rounded shadow hover:bg-orange-700" id="removeHoliday">
+              <span class="icon"><i class="fa-solid fa-square-xmark"></i></span> Remover
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label font-bold text-gray-700">Sábados Letivos (Com aula):</label>
+          <div class="control" id="divSaturday">
+              </div>
+          <div class="mt-2 flex space-x-2">
+            <button type="button" class="button bg-teal-900 text-white font-bold px-3 py-1 rounded shadow hover:bg-teal-700" id="addSaturday">
+              <span class="icon"><i class="fa-solid fa-square-plus"></i></span> Adicionar
+            </button>
+            <button type="button" class="button bg-orange-500 text-white font-bold px-3 py-1 rounded shadow hover:bg-orange-700" id="removeSaturday">
+              <span class="icon"><i class="fa-solid fa-square-xmark"></i></span> Remover
+            </button>
           </div>
         </div>
       </div>
 
-      <div class="field grouped">
+      <div class="field mt-8 flex justify-end">
         <div class="control">
-          <button type="submit" class="button green">
-            Gerar
-            <span class="icon left"><i class="fa-solid fa-angles-right"></i></span>
+          <button type="submit" class="button green bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-2 rounded shadow text-lg">
+            Gerar Folhas de Ponto
+            <span class="icon right"><i class="fa-solid fa-print"></i></span>
           </button>
-        </div>
-        <div class="control">
         </div>
       </div>
 
     </form>
   </div>
 </section>
-  
-          
+
 @endsection
 
 @section('script')
-<script src="{{asset('js/multiselect-dropdown.js')}}" ></script>
+<script src="{{asset('js/multiselect-dropdown.js')}}"></script>
+
 <script>
-  var contH = 1;
-  var contS = 1;
-  function uppercase(ev){
-    const input = ev.target;
-	  input.value = input.value.toUpperCase();
-  }
+  let contH = 1;
+  let contS = 1;
 
-  function less_space(ev){
-    const input = ev.target;
-	  input.value = input.value.replace(/( )+/g, ' ');
-    input.value = input.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
-  }
-
-  document.querySelector('#addHoliday').addEventListener('click', ()=>{
-    var newInput = document.querySelector('#divHoliday')
-    var inputHoliday = document.createElement('input');
-    inputHoliday.classList.add('holiday');
-    inputHoliday.classList.add('input');
-    inputHoliday.classList.add('my-2');
+  // Lógica de Feriados
+  document.querySelector('#addHoliday').addEventListener('click', () => {
+    let newInput = document.querySelector('#divHoliday');
+    let inputHoliday = document.createElement('input');
+    inputHoliday.className = 'holiday input w-full border rounded p-2 mb-2 focus:ring-2 focus:ring-blue-500';
     inputHoliday.setAttribute('type', 'date');
     inputHoliday.setAttribute('name', 'holidays[]');
-    inputHoliday.setAttribute('id', 'holy'+contH);
+    inputHoliday.setAttribute('id', 'holy' + contH);
     contH++;
     newInput.appendChild(inputHoliday);
   });
 
-  document.querySelector('#removeHoliday').addEventListener('click', ()=>{
-    contH--;
-    var inputHoliday = document.querySelector('#holy'+contH);
-    inputHoliday.remove();
+  document.querySelector('#removeHoliday').addEventListener('click', () => {
+    if(contH > 1) {
+      contH--;
+      document.querySelector('#holy' + contH).remove();
+    }
   });
 
-  document.querySelector('#addSaturday').addEventListener('click', ()=>{
-    var newInput = document.querySelector('#divSaturday')
-    var inputSaturday = document.createElement('input');
-    inputSaturday.classList.add('saturday');
-    inputSaturday.classList.add('input');
-    inputSaturday.classList.add('my-2');
+  // Lógica de Sábados Letivos
+  document.querySelector('#addSaturday').addEventListener('click', () => {
+    let newInput = document.querySelector('#divSaturday');
+    let inputSaturday = document.createElement('input');
+    inputSaturday.className = 'saturday input w-full border rounded p-2 mb-2 focus:ring-2 focus:ring-blue-500';
     inputSaturday.setAttribute('type', 'date');
     inputSaturday.setAttribute('name', 'saturdays[]');
-    inputSaturday.setAttribute('id', 'satu'+contS);
+    inputSaturday.setAttribute('id', 'satu' + contS);
     contS++;
     newInput.appendChild(inputSaturday);
   });
 
-  document.querySelector('#removeSaturday').addEventListener('click', ()=>{
-    contS--;
-    var inputHoliday = document.querySelector('#satu'+contS);
-    inputHoliday.remove();
+  document.querySelector('#removeSaturday').addEventListener('click', () => {
+    if(contS > 1) {
+      contS--;
+      document.querySelector('#satu' + contS).remove();
+    }
   });
-
-  document.querySelector('#name').addEventListener('keyup', (ev) => {
-    uppercase(ev);
-  });
-
-  document.querySelector('#name').addEventListener('blur', (ev) => {
-    less_space(ev);
-  });
-
-
 </script>
-
 @endsection

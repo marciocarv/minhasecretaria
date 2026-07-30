@@ -11,25 +11,36 @@ class Employment_bond extends Model
     use HasFactory;
 
     protected $fillable = [
+        'employee_id',
         'registration',
         'post',
         'role',
         'workload',
-        'status'
+        'work_shift',       // <-- NOVO
+        'scale_start_date', // <-- NOVO
+        'bond',
+        'status',
+        'lotation'
     ];
 
     protected $dates = [
         'activity_start',
         'lotation',
-        'activity_end'
+        'activity_end',
+        'scale_start_date' // <-- NOVO (para o Laravel tratar como Carbon e facilitar os cálculos do livro de ponto)
     ];
 
     public function employee(){
         return $this->belongsTo(Employee::class);
     }
 
-    public function activityTime(){
-        return $this->hasOne(ActivityTime::class);
+    public function activityTimes(){
+        return $this->hasMany(ActivityTime::class);
+    }
+
+    public function medicalLeaves()
+    {
+        return $this->hasMany(MedicalLeave::class);
     }
 
     public function active_employees(){
