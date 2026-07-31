@@ -1,514 +1,122 @@
 @extends('layouts.site')
 
 @section('content')
-<section class="is-title-bar">
+<section class="is-title-bar mb-6">
   <div class="flex flex-col items-center justify-between space-y-6 md:flex-row md:space-y-0">
-    <ul>
-      <li>Início</li>
-      <li>Minha Secretaria</li>
-    </ul>
+    <div class="flex items-center space-x-2 text-gray-500 font-semibold text-sm">
+      <span class="hover:text-blue-600 cursor-pointer"><i class="fa-solid fa-house mr-1"></i> Início</span>
+      <span><i class="fa-solid fa-chevron-right text-xs mx-1"></i></span>
+      <span class="text-gray-800">Minha Secretaria</span>
+    </div>
   </div>
 </section>
 
 <section class="section main-section">
 
-<div class="flex flex-wrap">
-  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
-    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-      <a href="{{route('inactive')}}" class="">
-      <div class="flex-auto p-4">
-        <div class="flex flex-wrap">
-          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-            <span class="font-bold uppercase text-sm text-white">
-            Arquivo Inativo
-            </span>
-          </div>
-          <div class="relative w-auto pl-4 flex-initial">
-            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
-              <i class="fa-solid fa-box-archive"></i>
-            </div>
-          </div>
-        </div>
-        <p class="text-sm text-white mt-4 uppercase">
-          <span class="text-blue-500 mr-2">
-          </span>
-          <span class="whitespace-no-wrap">
-            
-          </span>
-        </p>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+    <a href="{{route('inactive')}}" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+      <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <i class="fa-solid fa-box-archive text-xl"></i>
       </div>
+      <span class="text-sm font-bold uppercase tracking-wide text-center">Arquivo Inativo</span>
     </a>
-    </div>
-  </div>
 
-  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
-    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-      <a href="{{route('employee')}}" class="">
-      <div class="flex-auto p-4">
-        <div class="flex flex-wrap">
-          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-            <span class="font-bold uppercase text-sm text-white">
-            Servidores
-            </span>
-          </div>
-          <div class="relative w-auto pl-4 flex-initial">
-            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
-              <i class="fa-solid fa-users"></i>
-            </div>
-          </div>
-        </div>
-        <p class="text-sm text-white mt-4 uppercase">
-          <span class="text-blue-500 mr-2">
-          </span>
-          <span class="whitespace-no-wrap">
-            
-          </span>
-        </p>
+    <a href="{{route('employee')}}" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+      <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <i class="fa-solid fa-users text-xl"></i>
       </div>
+      <span class="text-sm font-bold uppercase tracking-wide text-center">Servidores</span>
     </a>
-    </div>
-  </div>
 
-  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
-    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-      <a href="#" class="">
-      <div class="flex-auto p-4">
-        <div class="flex flex-wrap">
-          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-            <span class="font-bold uppercase text-sm text-white">
-            Livro de ponto
-            </span>
-          </div>
-          <div class="relative w-auto pl-4 flex-initial">
-            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
-              <i class="fa-solid fa-address-book"></i>
-            </div>
-          </div>
-        </div>
-        <p class="text-sm text-white mt-4 uppercase">
-          <span class="text-blue-500 mr-2">
-          </span>
-          <span class="whitespace-no-wrap">
-            
-          </span>
-        </p>
+    <a href="#" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+      <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <i class="fa-solid fa-address-book text-xl"></i>
       </div>
+      <span class="text-sm font-bold uppercase tracking-wide text-center">Livro de Ponto</span>
     </a>
-    </div>
-  </div>
 
-  <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
-    <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-      <a href="#" class="">
-      <div class="flex-auto p-4">
-        <div class="flex flex-wrap">
-          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-            <span class="font-bold uppercase text-sm text-white">
-            Ofícios
-            </span>
-          </div>
-          <div class="relative w-auto pl-4 flex-initial">
-            <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
-              <i class="fa-solid fa-file-lines"></i>
-            </div>
-          </div>
-        </div>
-        <p class="text-sm text-white mt-4 uppercase">
-          <span class="text-blue-500 mr-2">
-          </span>
-          <span class="whitespace-no-wrap">
-            
-          </span>
-        </p>
+    <a href="#" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+      <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <i class="fa-solid fa-file-lines text-xl"></i>
       </div>
+      <span class="text-sm font-bold uppercase tracking-wide text-center">Ofícios</span>
     </a>
-    </div>
+
+    <a href="#" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+      <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <i class="fa-solid fa-graduation-cap text-xl"></i>
+      </div>
+      <span class="text-sm font-bold uppercase tracking-wide text-center">Alunos</span>
+    </a>
   </div>
 
-  
-    <div class="w-full lg:w-6/12 xl:w-2/12 m-2">
-      <div class="relative flex flex-col min-w-0 break-words rounded mb-6 xl:mb-0 shadow-lg bg-teal-900 hover:bg-teal-700">
-        <a href="#" class="">
-        <div class="flex-auto p-4">
-          <div class="flex flex-wrap">
-            <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-              <span class="font-bold uppercase text-sm text-white">
-              Alunos
-              </span>
-            </div>
-            <div class="relative w-auto pl-4 flex-initial">
-              <div class="text-teal-900 p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-white">
-                <i class="fa-solid fa-graduation-cap"></i>
-              </div>
-            </div>
-          </div>
-          <p class="text-sm text-white mt-4 uppercase">
-            <span class="text-blue-500 mr-2">
-            </span>
-            <span class="whitespace-no-wrap">
-              
-            </span>
-          </p>
-        </div>
-        </a>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col h-full">
+      <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50 rounded-t-xl">
+        <h3 class="font-bold text-gray-700">Aniversariantes do Mês</h3>
+        <i class="fa-solid fa-cake-candles text-green-500 text-xl"></i>
       </div>
-    </div>
-  </div>
-
-
-  <div class="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2">
-    <div class="card">
-      <div class="card-content">
-        <div class="flex items-center justify-between">
-          <div class="widget-label">
-            <h3>
-              Aniversariantes do mês
-            </h3>
-            <h4>
-              <ul>
-                @foreach($employment_bonds as $employee)
-                <li><strong>{{$employee->name}} - {{$employee->date_birth->format('d/m')}}</strong></li>
-                @endforeach
-              </ul>
-            </h4>
-          </div>
-          <span class="text-green-500 icon widget-icon"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="flex items-center justify-between">
-          <div class="widget-label">
-            <h3>
-              
-            </h3>
-            <h1>
-              
-            </h1>
-          </div>
-          <span class="text-blue-500 icon widget-icon"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
-        </div>
+      <div class="p-6 flex-grow overflow-y-auto max-h-64">
+        <ul class="divide-y divide-gray-100">
+          @foreach($employment_bonds as $employee)
+            <li class="py-3 flex justify-between items-center">
+              <span class="font-medium text-gray-700 text-sm"><i class="fa-solid fa-user text-gray-300 mr-2"></i> {{$employee->name}}</span>
+              <span class="text-xs font-bold text-green-700 bg-green-100 px-2 py-1 rounded-full">{{$employee->date_birth->format('d/m')}}</span>
+            </li>
+          @endforeach
+          
+          @if(isset($employment_bonds) && $employment_bonds->isEmpty())
+            <li class="py-4 text-center text-gray-400 text-sm">
+              <i class="fa-solid fa-calendar-xmark text-2xl mb-2 block"></i>
+              Nenhum aniversariante neste mês.
+            </li>
+          @endif
+        </ul>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-content">
-        <div class="flex items-center justify-between">
-          <div class="widget-label">
-            <h3>
-              
-            </h3>
-            <h1>
-              
-            </h1>
-          </div>
-          <span class="text-red-500 icon widget-icon"><i class="mdi mdi-finance mdi-48px"></i></span>
-        </div>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-center items-center text-center">
+      <div class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mb-4">
+        <i class="fa-solid fa-clipboard-user text-blue-500 text-2xl"></i>
       </div>
+      <h3 class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">Servidores Ativos</h3>
+      <h1 class="text-4xl font-bold text-gray-800">{{ $activeEmployeesCount }}</h1>
+      <p class="text-xs text-gray-400 mt-2">No sistema atual</p>
     </div>
-  </div>
 
-  <div class="card has-table">
-    <header class="card-header">
-      <p class="card-header-title">
-        <span class="icon"><i class="mdi mdi-account-multiple"></i></span>
-        Clients
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col justify-center items-center text-center">
+      <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mb-4">
+        <i class="fa-solid fa-notes-medical text-red-500 text-2xl"></i>
+      </div>
+      <h3 class="text-gray-500 text-sm font-semibold uppercase tracking-wider mb-1">Licenças no Mês</h3>
+      <h1 class="text-4xl font-bold text-gray-800">{{ $monthlyLeavesCount }}</h1>
+      <p class="text-xs text-gray-400 mt-2">Afastamentos neste mês</p>
+    </div>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <header class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+      <p class="font-bold text-gray-700 flex items-center">
+        <span class="icon text-teal-700 mr-2"><i class="fa-solid fa-bell"></i></span>
+        Avisos ou Registros Recentes
       </p>
-      <a href="#" class="card-header-icon">
-        <span class="icon"><i class="mdi mdi-reload"></i></span>
+      <a href="#" class="text-gray-400 hover:text-teal-600 transition-colors" title="Atualizar">
+        <i class="mdi mdi-reload text-xl"></i>
       </a>
     </header>
-    <div class="card-content">
-      <table>
-        <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Company</th>
-          <th>City</th>
-          <th>Progress</th>
-          <th>Created</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/rebecca-bauch.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Rebecca Bauch</td>
-          <td data-label="Company">Daugherty-Daniel</td>
-          <td data-label="City">South Cory</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="79">79</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Oct 25, 2021">Oct 25, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/felicita-yundt.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Felicita Yundt</td>
-          <td data-label="Company">Johns-Weissnat</td>
-          <td data-label="City">East Ariel</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="67">67</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Jan 8, 2021">Jan 8, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/mr-larry-satterfield-v.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Mr. Larry Satterfield V</td>
-          <td data-label="Company">Hyatt Ltd</td>
-          <td data-label="City">Windlerburgh</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="16">16</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Dec 18, 2021">Dec 18, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/mr-broderick-kub.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Mr. Broderick Kub</td>
-          <td data-label="Company">Kshlerin, Bauch and Ernser</td>
-          <td data-label="City">New Kirstenport</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="71">71</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Sep 13, 2021">Sep 13, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/barry-weber.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Barry Weber</td>
-          <td data-label="Company">Schulist, Mosciski and Heidenreich</td>
-          <td data-label="City">East Violettestad</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="80">80</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Jul 24, 2021">Jul 24, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/bert-kautzer-md.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Bert Kautzer MD</td>
-          <td data-label="Company">Gerhold and Sons</td>
-          <td data-label="City">Mayeport</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="62">62</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Mar 30, 2021">Mar 30, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/lonzo-steuber.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Lonzo Steuber</td>
-          <td data-label="Company">Skiles Ltd</td>
-          <td data-label="City">Marilouville</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="17">17</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Feb 12, 2021">Feb 12, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/jonathon-hahn.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Jonathon Hahn</td>
-          <td data-label="Company">Flatley Ltd</td>
-          <td data-label="City">Billiemouth</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="74">74</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Dec 30, 2021">Dec 30, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/ryley-wuckert.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Ryley Wuckert</td>
-          <td data-label="Company">Heller-Little</td>
-          <td data-label="City">Emeraldtown</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="54">54</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Jun 28, 2021">Jun 28, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="image-cell">
-            <div class="image">
-              <img src="https://avatars.dicebear.com/v2/initials/sienna-hayes.svg" class="rounded-full">
-            </div>
-          </td>
-          <td data-label="Name">Sienna Hayes</td>
-          <td data-label="Company">Conn, Jerde and Douglas</td>
-          <td data-label="City">Jonathanfort</td>
-          <td data-label="Progress" class="progress-cell">
-            <progress max="100" value="55">55</progress>
-          </td>
-          <td data-label="Created">
-            <small class="text-gray-500" title="Mar 7, 2021">Mar 7, 2021</small>
-          </td>
-          <td class="actions-cell">
-            <div class="buttons right nowrap">
-              <button class="button small green --jb-modal"  data-target="sample-modal-2" type="button">
-                <span class="icon"><i class="mdi mdi-eye"></i></span>
-              </button>
-              <button class="button small red --jb-modal" data-target="sample-modal" type="button">
-                <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-              </button>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <div class="table-pagination">
-        <div class="flex items-center justify-between">
-          <div class="buttons">
-            <button type="button" class="button active">1</button>
-            <button type="button" class="button">2</button>
-            <button type="button" class="button">3</button>
-          </div>
-          <small>Page 1 of 3</small>
-        </div>
+    
+    <div class="p-8 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-400 mb-4">
+        <i class="fa-solid fa-table-list text-2xl"></i>
       </div>
+      <h3 class="text-lg font-bold text-gray-700 mb-1">Área Pronta para Uso</h3>
+      <p class="text-gray-500 text-sm max-w-md mx-auto">
+        Esta tabela foi limpa e preparada. Você pode usá-la no futuro para listar as últimas alterações do sistema, servidores recém-cadastrados ou recados importantes da Secretaria.
+      </p>
     </div>
   </div>
+
 </section>
-          
 @endsection
 
 @section('script')
