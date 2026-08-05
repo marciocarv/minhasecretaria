@@ -85,11 +85,11 @@
                       <span class="text-xs text-center font-semibold text-gray-600 group-hover:text-blue-900">Hora Ativ. / Folga</span>
                   </a>
 
-                  <a href="{{route('medical.leaves.index', ['id'=>$employment_bond->id])}}" class="flex flex-col items-center justify-center p-3 rounded-lg border border-gray-100 bg-gray-50 hover:bg-purple-50 hover:border-purple-300 transition-all group">
+                  <a href="{{route('leaves.index', ['id'=>$employment_bond->id])}}" class="flex flex-col items-center justify-center p-3 rounded-lg border border-gray-100 bg-gray-50 hover:bg-purple-50 hover:border-purple-300 transition-all group">
                       <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-lg mb-2 group-hover:scale-110 transition-transform">
                           <i class="fa-solid fa-notes-medical"></i>
                       </div>
-                      <span class="text-xs text-center font-semibold text-gray-600 group-hover:text-purple-700">Licença Médica</span>
+                      <span class="text-xs text-center font-semibold text-gray-600 group-hover:text-purple-700">Afastamento</span>
                   </a>
 
                   <a href="{{route('setChangeRole', ['id'=>$employment_bond->id])}}" class="flex flex-col items-center justify-center p-3 rounded-lg border border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-gray-400 transition-all group">

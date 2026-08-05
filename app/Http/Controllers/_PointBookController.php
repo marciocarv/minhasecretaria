@@ -35,24 +35,25 @@ class PointBookController extends Controller
             'employment_bonds' => 'required|array'
         ]);
 
-        $date = Carbon::createFromFormat('Y-m', $request->month);
-        $year = $date->year;
-        $month = $date->month;
-        $daysInMonth = $date->daysInMonth;
+        // Removidas as barras invertidas \Carbon\Carbon para evitar o erro T_NS_SEPARATOR
+        $date = Carbon::createFromFormat('Y-m',$request->month);
+        $year =$date->year;
+        $month =$date->month;
+        $daysInMonth =$date->daysInMonth;
         
         $monthName = mb_strtoupper($date->locale('pt_BR')->translatedFormat('F/Y'));
 
-        $holidays = $request->holidays ?? [];
-        $saturdays = $request->saturdays ?? [];
+        $holidays =$request->holidays ?? [];
+        $saturdays =$request->saturdays ?? [];
 
+        // Removida a barra invertida \App\Models\Employment_bond
         $bonds = Employment_bond::with(['employee', 'leaves', 'activityTimes'])
             ->whereIn('id', $request->employment_bonds)
             ->get();
 
         $pointSheets = [];
 
-        foreach ($bonds as $bond) {
-            $daysData = [];
+        foreach ($bonds as $bond) {$daysData = [];
 
             // Identifica se é vigia / escala 12x36
             $isVigia = in_array($bond->work_shift, ['12x36_diurno', '12x36_noturno']) || 
@@ -70,22 +71,42 @@ class PointBookController extends Controller
             $workShift = strtolower($bond->work_shift ?? '');
 
             for ($day = 1; $day <= $daysInMonth; $day++) {
-                // CORREÇÃO 1: Adicionado ->startOfDay() para zerar as horas e evitar falhas na comparação de datas
-                $currentDate = Carbon::createFromDate($year, $month, $day)->startOfDay();
-                $dateFormatted = $currentDate->format('Y-m-d');
-                $dayOfWeek = $currentDate->dayOfWeek; // 0 = Dom, 6 = Sáb
-                $currentEnglishDay = strtolower($currentDate->format('l')); // Dia da semana em inglês
+                $currentDate = Carbon::createFromDate($year, $month,$day);
+                $dateFormatted =$currentDate->format('Y-m-d');
+                $dayOfWeek =$currentDate->dayOfWeek; // 0 = Dom, 6 = Sáb
+                $currentEnglishDay = strtolower($currentDate->format('l')); // Dia da semana em inglês (ex: friday)
 
                 $t1Status = 'NORMAL';$t1Obs = '';
                 $t2Status = 'NORMAL';$t2Obs = '';
 
-                // AVALIAÇÃO DE REGRAS BASES (Vigias e Servidores Normais)
-                
-                // 1. Vigias (Escala 12x36)
-                if ($isVigia) {
-                    if ($bond->scale_start_date) {
-                        $scaleStart = Carbon::parse($bond->scale_start_date)->startOfDay();
-                        $diffInDays = $scaleStart->diffInDays($currentDate, false);
+                // 1. Licença Médica
+                /*$isLeave =$bond->leaves->filter(function ($leave) use ($currentDate) {
+                    return $currentDate->between($leave->start_date,$leave->end_date);
+                })->isNotEmpty();
+
+                if ($isLeave) {
+                    $t1Status = 'BLOCKED';$t1Obs = 'LICENÇA MÉDICA';
+                    $t2Status = 'BLOCKED';$t2Obs = 'LICENÇA MÉDICA';
+                }*/
+
+                // 1. Busca se existe algum afastamento no dia atual
+                $activeLeave = $bond->leaves->first(function ($leave) use ($currentDate) {
+                    return $currentDate->between($leave->start_date, $leave->end_date);
+                });
+
+                if ($activeLeave) {
+                    // Pega o nome do tipo em português e converte para MAIÚSCULO (ex: "FÉRIAS", "LICENÇA MÉDICA", "RECESSO", "FOLGA TRE")
+                    $obsText = mb_strtoupper($activeLeave->type_name);
+
+                    $t1Status = 'BLOCKED'; 
+                    $t1Obs    = $obsText;
+
+                    $t2Status = 'BLOCKED'; 
+                    $t2Obs    = $obsText;
+                }
+                // 2. Vigias (Escala 12x36)
+                elseif ($isVigia) {
+                    if ($bond->scale_start_date) {$scaleStart = Carbon::parse($bond->scale_start_date)->startOfDay();$diffInDays = $scaleStart->diffInDays($currentDate->startOfDay(), false);
 
                         if ($diffInDays % 2 !== 0) {
                             $t1Status = 'BLOCKED';$t1Obs = 'FOLGA (ESCALA 12x36)';
@@ -93,7 +114,7 @@ class PointBookController extends Controller
                         }
                     }
                 }
-                // 2. Demais Servidores
+                // 3. Demais Servidores
                 else {
                     // A. Bloqueia turno que não trabalha (apenas tracejado)
                     if (str_contains($workShift, 'matutino') || $workShift === 'manha' || $workShift === 'm') {
@@ -104,37 +125,40 @@ class PointBookController extends Controller
 
                     // B. Registros em activityTimes (recorrente por dia da semana no description e turno no shift)
                     if ($bond->activityTimes) {
-                        foreach ($bond->activityTimes as $activity) {
+                        foreach ($bond->activityTimes as$activity) {
                             $activityDay = strtolower(trim($activity->description ?? ''));
 
                             // Valida se a descrição bate com o dia da semana em inglês atual
-                            if ($activityDay === $currentEnglishDay) {
+                            if ($activityDay ===$currentEnglishDay) {
+                                
                                 // Tradução inteligente dos nomes em inglês para Português
                                 $rawType = strtolower(trim($activity->type ?? ''));
-                                if ($rawType === 'fixed off' || $rawType === 'fixed_off') { $obsText = 'FOLGA'; } 
-                                elseif ($rawType === 'activity time' || $rawType === 'activity_time') { $obsText = 'HORA ATIVIDADE'; } 
-                                else { $obsText = mb_strtoupper($activity->type ?? 'FOLGA'); }
+                                if ($rawType === 'fixed off' || $rawType === 'fixed_off') {$obsText = 'FOLGA';
+                                } elseif ($rawType === 'activity time' || $rawType === 'activity_time') {$obsText = 'HORA ATIVIDADE';
+                                } else {
+                                    $obsText = mb_strtoupper($activity->type ?? 'FOLGA');
+                                }
 
                                 $targetShift = strtolower(trim($activity->shift ?? $activity->turn ?? 'both'));
 
-                                if (str_contains($targetShift, '1') || str_contains($targetShift, 'manhã') || str_contains($targetShift, 'manha') || str_contains($targetShift, 'matutino') || $targetShift === 'm') {
-                                    $t1Status = 'BLOCKED'; 
-                                    $t1Obs = $obsText;
-                                } elseif (str_contains($targetShift, '2') || str_contains($targetShift, 'tarde') || str_contains($targetShift, 'vespertino') || $targetShift === 'v') {
-                                    $t2Status = 'BLOCKED'; 
-                                    $t2Obs = $obsText;
-                                } else {
-                                    $t1Status = 'BLOCKED'; 
-                                    $t1Obs = $obsText;
-                                    $t2Status = 'BLOCKED'; 
-                                    $t2Obs = $obsText;
-                                }
+                               if (str_contains($targetShift, '1') || str_contains($targetShift, 'manhã') || str_contains($targetShift, 'manha') || str_contains($targetShift, 'matutino') || $targetShift === 'm') {
+                                $t1Status = 'BLOCKED'; 
+                                $t1Obs = $obsText;
+                            } elseif (str_contains($targetShift, '2') || str_contains($targetShift, 'tarde') || str_contains($targetShift, 'vespertino') || $targetShift === 'v') {
+                                $t2Status = 'BLOCKED'; 
+                                $t2Obs = $obsText;
+                            } else {
+                                $t1Status = 'BLOCKED'; 
+                                $t1Obs = $obsText;
+                                $t2Status = 'BLOCKED'; 
+                                $t2Obs = $obsText;
+                            }
                             }
                         }
                     }
 
                     // C. Feriados, Domingos e Sábados
-                    if (in_array($dateFormatted, $holidays)) {
+                    if (in_array($dateFormatted,$holidays)) {
                         $t1Status = 'BLOCKED';$t1Obs = 'FERIADO / RECESSO';
                         $t2Status = 'BLOCKED';$t2Obs = 'FERIADO / RECESSO';
                     }
@@ -143,8 +167,8 @@ class PointBookController extends Controller
                         $t2Status = 'BLOCKED';$t2Obs = 'DOMINGO';
                     }
                     elseif ($dayOfWeek === 6) {
-                        if (in_array($dateFormatted, $saturdays)) {
-                            // Sábado letivo aberto (respeitando o turno de trabalho básico)
+                        if (in_array($dateFormatted,$saturdays)) {
+                            // Sábado letivo aberto (respeitando o turno)
                             if (str_contains($workShift, 'matutino')) { $t2Status = 'BLOCKED';$t2Obs = '---'; }
                             if (str_contains($workShift, 'vespertino')) { $t1Status = 'BLOCKED';$t1Obs = '---'; }
                         } else {
@@ -152,26 +176,6 @@ class PointBookController extends Controller
                             $t2Status = 'BLOCKED';$t2Obs = 'SÁBADO';
                         }
                     }
-                }
-
-                // =====================================================================
-                // CORREÇÃO 2: AFASTAMENTOS COM PRIORIDADE MÁXIMA (Sobrescreve tudo!)
-                // Movido para o final para garantir que esmague Feriados, Sábados Letivos, etc.
-                // =====================================================================
-                $activeLeave = $bond->leaves->first(function ($leave) use ($currentDate) {
-                    $start = Carbon::parse($leave->start_date)->startOfDay();
-                    $end = Carbon::parse($leave->end_date)->endOfDay();
-                    return $currentDate->between($start, $end);
-                });
-
-                if ($activeLeave) {
-                    // Pega o nome do tipo em português e converte para MAIÚSCULO
-                    $obsText = mb_strtoupper($activeLeave->type_name ?? $activeLeave->type ?? 'AFASTAMENTO');
-
-                    $t1Status = 'BLOCKED'; 
-                    $t1Obs    = $obsText;
-                    $t2Status = 'BLOCKED'; 
-                    $t2Obs    = $obsText;
                 }
 
                 $daysData[] = [

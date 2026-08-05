@@ -70,13 +70,24 @@ class Employment_bondController extends Controller
         $employment_bond->workload = $request->workload;
         $employment_bond->bond = $former_employment_bond->bond;
         $employment_bond->lotation = $request->lotation;
+        
+        // Novos campos de Turno e Escala
+        $employment_bond->work_shift = $request->work_shift;
+        
+        // Se o turno for 12x36, salva a data de início da escala; caso contrário, define como null
+        if (str_contains($request->work_shift, '12x36')) {
+            $employment_bond->scale_start_date = $request->scale_start_date;
+        } else {
+            $employment_bond->scale_start_date = null;
+        }
+
         $employment_bond->status = 'ATIVO';
 
         $former_employment_bond->status = 'INATIVO';
         $former_employment_bond->activity_end = Carbon::create($request->lotation)->subDays(1);
 
         if($employment_bond->save() && $former_employment_bond->save()){
-            return redirect()->route('employee')->with('sucecess', 'Função Alterada com sucesso');
+            return redirect()->route('employee')->with('success', 'Função Alterada com sucesso');
         }else{
             return redirect()->route('employee')->with('error', 'Não foi possível alterar a função');
         }
@@ -103,13 +114,21 @@ class Employment_bondController extends Controller
         $employment_bond->workload = $request->workload;
         $employment_bond->bond = $request->bond;
         $employment_bond->lotation = $request->lotation;
+        $employment_bond->work_shift = $request->work_shift;
+        
+        // Salva a data de início da escala apenas se o turno for 12x36, senão define como null
+        if ($request->work_shift && str_contains($request->work_shift, '12x36')) {
+            $employment_bond->scale_start_date = $request->scale_start_date;
+        } else {
+            $employment_bond->scale_start_date = null;
+        }
+
         $employment_bond->status = 'ATIVO';
 
         if($employment_bond->save()){
-            return redirect()->route('employee')->with('sucecess', 'Servidor Reativado com sucesso');
+            return redirect()->route('employee')->with('success', 'Servidor Reativado com sucesso');
         }else{
             return redirect()->route('employee')->with('error', 'Não foi possível reativar a função');
         }
-
     }
 }

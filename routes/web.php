@@ -11,7 +11,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TesteController;
 use App\Http\Controllers\Employment_bondController;
 use App\Http\Controllers\PointBookController;
-use App\Http\Controllers\MedicalLeaveController;
+use App\Http\Controllers\LeaveController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -102,8 +102,8 @@ Route::prefix('hora-atividade')->group(function(){
     Route::post('/store', [ActivityTimeController::class, 'store'])->name('storeActivityTime');
 });
 
-Route::prefix('licenca-medica')->group(function(){
-    Route::get('/employment-bonds/{id}/medical-leaves', [MedicalLeaveController::class, 'index'])->name('medical.leaves.index');
-    Route::post('/employment-bonds/{id}/medical-leaves', [MedicalLeaveController::class, 'store'])->name('medical.leaves.store');
-    Route::delete('/medical-leaves/{id}', [MedicalLeaveController::class, 'destroy'])->name('medical.leaves.destroy');
+Route::prefix('afastamentos')->group(function(){
+    Route::get('/employment-bonds/{id}/leaves', [LeaveController::class, 'index'])->name('leaves.index');
+    Route::post('/employment-bonds/{id}/leaves', [LeaveController::class, 'store'])->name('leaves.store');
+    Route::delete('/leaves/{id}', [LeaveController::class, 'destroy'])->name('leaves.destroy');
 });

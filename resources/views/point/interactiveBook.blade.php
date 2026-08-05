@@ -67,6 +67,18 @@
             
             /* Força as bordas na tabela durante a impressão */
             .point-table th, .point-table td, .obs-cell { border: 1px solid #000 !important; }
+
+            /* Força o navegador a imprimir todas as cores de fundo exatamente como estão na tela */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            /* Opcional: Garante que o texto dentro dos fundos coloridos continue legível (ex: preto) */
+            .text-black {
+                color: #000 !important;
+            }
         }
     </style>
 </head>
@@ -161,9 +173,9 @@
 
                             <td class="no-print">
                                 <div class="action-btns">
-                                    <button class="btn-action" style="color: #2563eb;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 1, 'BLOCKED', 'H.ATIV')">H.A</button>
+                                    <button class="btn-action" style="color: #2563eb;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 1, 'BLOCKED', 'HORA ATIVIDADE')">H.A</button>
                                     <button class="btn-action" style="color: #d97706;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 1, 'BLOCKED', 'FOLGA')">Folga</button>
-                                    <button class="btn-action" style="color: #dc2626;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 1, 'BLOCKED', 'BLOQ')">Bloq</button>
+                                    <button class="btn-action" style="color: #dc2626;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 1, 'BLOCKED', '---')">Bloq</button>
                                     <button class="btn-action" style="color: #16a34a;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 1, 'NORMAL', '')">Liberar</button>
                                 </div>
                             </td>
@@ -182,7 +194,7 @@
 
                             <td class="no-print">
                                 <div class="action-btns">
-                                    <button class="btn-action" style="color: #2563eb;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 2, 'BLOCKED', 'H.ATIV')">H.A</button>
+                                    <button class="btn-action" style="color: #2563eb;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 2, 'BLOCKED', 'HORA ATIVIDADE')">H.A</button>
                                     <button class="btn-action" style="color: #d97706;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 2, 'BLOCKED', 'FOLGA')">Folga</button>
                                     <button class="btn-action" style="color: #dc2626;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 2, 'BLOCKED', '---')">Bloq</button>
                                     <button class="btn-action" style="color: #16a34a;" onclick="setTurnState('{{ $index }}', '{{ $dIndex }}', 2, 'NORMAL', '')">Liberar</button>

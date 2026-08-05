@@ -6,7 +6,7 @@ use App\Models\Employee;
 use App\Models\Employment_bond;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\MedicalLeave;
+use App\Models\Leave;
 
 class IndexController extends Controller
 {
@@ -29,19 +29,20 @@ class IndexController extends Controller
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
 
-        $monthlyLeavesCount = MedicalLeave::where(function($query) use ($currentMonth, $currentYear) {
-            $query->whereMonth('start_date', $currentMonth)
-                  ->whereYear('start_date', $currentYear);
-        })->orWhere(function($query) use ($currentMonth, $currentYear) {
-            $query->whereMonth('end_date', $currentMonth)
-                  ->whereYear('end_date', $currentYear);
-        })->count();
+        // Contando apenas as licenças médicas do mês atual
+        $monthlyMedicalLeavesCount = Leave::where('type', 'medical')
+            ->where(function($query) use ($currentMonth, $currentYear) {
+                $query->whereMonth('start_date', $currentMonth)->whereYear('start_date', $currentYear)
+                    ->orWhere(function($q) use ($currentMonth, $currentYear) {
+                        $q->whereMonth('end_date', $currentMonth)->whereYear('end_date', $currentYear);
+                    });
+            })->count();
 
         return view('index.index', [
                     'title'=>$title, 
                     'employment_bonds'=>$employees,
                     'activeEmployeesCount' => $activeEmployeesCount,
-                    'monthlyLeavesCount' => $monthlyLeavesCount,]);
+                    'monthlyLeavesCount' => $monthlyMedicalLeavesCount,]);
     }
 
     public function inactive(){

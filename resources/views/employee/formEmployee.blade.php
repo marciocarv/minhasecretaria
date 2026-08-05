@@ -431,7 +431,7 @@
                   <option value="SECRETARIO GERAL" @if($action == 'update' && $employment_bond->role == 'SECRETARIO GERAL') selected @endif>SECRETARIO GERAL</option>
                   <option value="COORDENADOR ADMINISTRATIVO FINANCEIRO" @if($action == 'update' && $employment_bond->role == 'COORDENADOR ADMINISTRATIVO FINANCEIRO') selected @endif>CAF</option>
                   <option value="PROFESSOR - ANOS FINAIS" @if($action == 'update' && $employment_bond->role == 'PROFESSOR - ANOS FINAIS') selected @endif>PROFESSOR - ANOS FINAIS</option>
-                  <option value="PROFESSOR - ANOS INICIAIS" @if($action == 'update' && $employment_bond->role == 'PROFESSOR - ANOS INICIAS') selected @endif>PROFESSOR - ANOS INICIAIS</option>
+                  <option value="PROFESSOR - ANOS INICIAIS" @if($action == 'update' && $employment_bond->role == 'PROFESSOR - ANOS INICIAIS') selected @endif>PROFESSOR - ANOS INICIAIS</option>
                   <option value="PROFESSOR - SALA DE RECURSO" @if($action == 'update' && $employment_bond->role == 'PROFESSOR - SALA DE RECURSO') selected @endif>PROFESSOR - SALA DE RECURSO</option>
                   <option value="SUPERVISOR PEDAGOGICO" @if($action == 'update' && $employment_bond->role == 'SUPERVISOR PEDAGOGICO') selected @endif>SUPERVISOR PEDAGOGICO</option>
                   <option value="ORIENTADOR PEDAGOGICO" @if($action == 'update' && $employment_bond->role == 'ORIENTADOR PEDAGOGICO') selected @endif>ORIENTADOR PEDAGOGICO</option>

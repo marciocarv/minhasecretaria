@@ -106,13 +106,13 @@
             <td class="px-6 py-4 text-center">
               <div class="flex items-center justify-center space-x-2">
                 <a title="Editar" 
-                  href="{{route('setUpdateEmployee', ['id'=>$employee->id])}}"
+                  href="{{route('setUpdateEmployee', ['id'=>$employee->id])}}" 
                   class="w-8 h-8 flex items-center justify-center rounded bg-green-100 text-green-700 hover:bg-green-600 hover:text-white transition-colors" 
                   type="button">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </a>
                 <a title="Excluir" 
-                  href="{{route('deleteEmployee', ['id'=>$employee->id])}}" 
+                  href="{{route('deleteEmployee', ['id'=>$employee->id])}}" onsubmit="return confirm('Deseja realmente excluir este registro?');"
                   class="w-8 h-8 flex items-center justify-center rounded bg-red-100 text-red-700 hover:bg-red-600 hover:text-white transition-colors" 
                   type="button">
                   <i class="fa-solid fa-trash"></i>

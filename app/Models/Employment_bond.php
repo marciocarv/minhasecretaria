@@ -38,9 +38,9 @@ class Employment_bond extends Model
         return $this->hasMany(ActivityTime::class);
     }
 
-    public function medicalLeaves()
+    public function leaves()
     {
-        return $this->hasMany(MedicalLeave::class);
+        return $this->hasMany(Leave::class);
     }
 
     public function active_employees(){
