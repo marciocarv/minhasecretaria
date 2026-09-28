@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Employment_bond;
+use App\Models\HelpTicket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Leave;
@@ -30,18 +31,23 @@ class IndexController extends Controller
         $currentYear = Carbon::now()->year;
 
         // Contando apenas as licenças médicas do mês atual
+        $startOfMonth = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $endOfMonth = Carbon::now()->endOfMonth()->format('Y-m-d');
+
         $monthlyMedicalLeavesCount = Leave::where('type', 'medical')
-            ->where(function($query) use ($currentMonth, $currentYear) {
-                $query->whereMonth('start_date', $currentMonth)->whereYear('start_date', $currentYear)
-                    ->orWhere(function($q) use ($currentMonth, $currentYear) {
-                        $q->whereMonth('end_date', $currentMonth)->whereYear('end_date', $currentYear);
-                    });
-            })->count();
+            ->where('start_date', '<=', $endOfMonth)
+            ->where('end_date', '>=', $startOfMonth)
+            ->count();
+        
+        $openTickets = HelpTicket::where('status', '!=', 'Finalizado')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('index.index', [
                     'title'=>$title, 
                     'employment_bonds'=>$employees,
                     'activeEmployeesCount' => $activeEmployeesCount,
+                    'openTickets'          => $openTickets,
                     'monthlyLeavesCount' => $monthlyMedicalLeavesCount,]);
     }
 

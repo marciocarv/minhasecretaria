@@ -65,16 +65,16 @@
             <span class="menu-item-label">Livro de Ponto</span>
           </a>
         </li>
-        <li class="{{ request()->routeIs('oficios.*') ? 'active' : '' }}">
-          <a href="#">
-            <span class="icon"><i class="fa-solid fa-file-lines"></i></span>
-            <span class="menu-item-label">Ofícios</span>
-          </a>
-        </li>
         <li class="{{ request()->routeIs('alunos.*') ? 'active' : '' }}">
-          <a href="#">
+          <a href="{{route('sige.show')}}">
             <span class="icon"><i class="fa-solid fa-graduation-cap"></i></span>
             <span class="menu-item-label">Alunos</span>
+          </a>
+        </li>
+        <li class="{{ request()->routeIs('help.*') ? 'active' : '' }}">
+          <a href="{{ route('help.index')}}">
+            <span class="icon"><i class="fa-solid fa-headset"></i></span>
+            <span class="menu-item-label">Help</span>
           </a>
         </li>
       </ul>

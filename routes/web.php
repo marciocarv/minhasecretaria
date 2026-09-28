@@ -12,6 +12,8 @@ use App\Http\Controllers\TesteController;
 use App\Http\Controllers\Employment_bondController;
 use App\Http\Controllers\PointBookController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\SigeSyncController;
+use App\Http\Controllers\HelpController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 
@@ -107,3 +109,16 @@ Route::prefix('afastamentos')->group(function(){
     Route::post('/employment-bonds/{id}/leaves', [LeaveController::class, 'store'])->name('leaves.store');
     Route::delete('/leaves/{id}', [LeaveController::class, 'destroy'])->name('leaves.destroy');
 });
+
+Route::prefix('sige')->group(function(){
+    Route::get('/', [SigeSyncController::class, 'show'])->name('sige.show');
+    Route::post('/sync', [SigeSyncController::class, 'sync'])->name('sige.sync');
+});
+
+Route::get('/help', [HelpController::class, 'index'])->name('help.index');
+Route::post('/help', [HelpController::class, 'store'])->name('help.store');
+Route::post('/help/{id}/status', [HelpController::class, 'updateStatus'])->name('help.updateStatus');
+
+Route::get('/help/{id}/edit', [HelpController::class, 'edit'])->name('help.edit');
+Route::post('/help/{id}/update', [HelpController::class, 'update'])->name('help.update');
+Route::post('/help/{id}/delete', [HelpController::class, 'destroy'])->name('help.destroy');

@@ -28,18 +28,18 @@
       <span class="text-sm font-bold uppercase tracking-wide text-center">Servidores</span>
     </a>
 
-    <a href="#" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+    <a href="{{route('pointbook.index')}}" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
       <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
         <i class="fa-solid fa-address-book text-xl"></i>
       </div>
       <span class="text-sm font-bold uppercase tracking-wide text-center">Livro de Ponto</span>
     </a>
 
-    <a href="#" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
+    <a href="{{ route('help.index')}}" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
       <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-        <i class="fa-solid fa-file-lines text-xl"></i>
+        <i class="fa-solid fa-headset"></i></span>
       </div>
-      <span class="text-sm font-bold uppercase tracking-wide text-center">Ofícios</span>
+      <span class="text-sm font-bold uppercase tracking-wide text-center">Help</span>
     </a>
 
     <a href="#" class="flex flex-col items-center justify-center p-6 rounded-xl bg-teal-800 text-white shadow-md hover:bg-teal-700 hover:shadow-lg transition-all group">
@@ -94,28 +94,65 @@
       <p class="text-xs text-gray-400 mt-2">Afastamentos neste mês</p>
     </div>
 
-  <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-    <header class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-      <p class="font-bold text-gray-700 flex items-center">
-        <span class="icon text-teal-700 mr-2"><i class="fa-solid fa-bell"></i></span>
-        Avisos ou Registros Recentes
-      </p>
-      <a href="#" class="text-gray-400 hover:text-teal-600 transition-colors" title="Atualizar">
-        <i class="mdi mdi-reload text-xl"></i>
-      </a>
-    </header>
-    
-    <div class="p-8 text-center">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-400 mb-4">
-        <i class="fa-solid fa-table-list text-2xl"></i>
+    <!-- Novo Card de Chamados em Aberto (Ocupa a largura total da grid) -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden md:col-span-3">
+      <header class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+        <p class="font-bold text-gray-700 flex items-center">
+          <span class="icon text-teal-700 mr-2"><i class="fa-solid fa-headset"></i></span>
+          Chamados em Aberto
+        </p>
+        <a href="{{ route('help.index') }}" class="text-teal-600 hover:text-teal-800 text-sm font-semibold flex items-center transition-colors">
+          Ir para Chamados <i class="fa-solid fa-arrow-right ml-1"></i>
+        </a>
+      </header>
+      
+      <div class="p-0">
+        @if($openTickets->isEmpty())
+          <div class="p-8 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-50 text-green-500 mb-4">
+              <i class="fa-solid fa-check-double text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-700 mb-1">Tudo tranquilo!</h3>
+            <p class="text-gray-500 text-sm max-w-md mx-auto">
+              Não há chamados pendentes no momento.
+            </p>
+          </div>
+        @else
+          <div class="overflow-x-auto max-h-80">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-white border-b border-gray-100 text-xs uppercase tracking-wider text-gray-500">
+                  <th class="p-4 font-semibold">Assunto</th>
+                  <th class="p-4 font-semibold">Relato</th>
+                  <th class="p-4 font-semibold">Responsável</th>
+                  <th class="p-4 font-semibold">Data da Solicitação</th>
+                  <th class="p-4 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 text-sm">
+                @foreach($openTickets as $ticket)
+                  <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="p-4 font-bold text-gray-800">{{ $ticket->subject }}</td>
+                    <td class="p-4 text-gray-600 truncate max-w-xs" title="{{ $ticket->report }}">{{ $ticket->report }}</td>
+                    <td class="p-4 text-gray-600"><i class="fa-regular fa-user text-gray-400 mr-1"></i> {{ $ticket->responsible }}</td>
+                    <td class="p-4 text-gray-600">{{ $ticket->created_at->format('d/m/Y - H:i') }}</td>
+                    <td class="p-4">
+                      @if($ticket->status == 'Solicitado')
+                        <span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded shadow-sm border border-yellow-200">Solicitado</span>
+                      @elseif($ticket->status == 'Atendido')
+                        <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded shadow-sm border border-blue-200">Atendido</span>
+                      @endif
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        @endif
       </div>
-      <h3 class="text-lg font-bold text-gray-700 mb-1">Área Pronta para Uso</h3>
-      <p class="text-gray-500 text-sm max-w-md mx-auto">
-        Esta tabela foi limpa e preparada. Você pode usá-la no futuro para listar as últimas alterações do sistema, servidores recém-cadastrados ou recados importantes da Secretaria.
-      </p>
     </div>
-  </div>
 
+  </div>
 </section>
 @endsection
 
